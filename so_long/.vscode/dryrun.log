@@ -1,0 +1,14 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/mnt/nfs/homes/loumouli/Desktop/git repo/so_long'
+gcc -Wall -Wextra -Werror -I . -O3 -c srcs/main.c -o srcs/main.o
+printf "%s\e[0;32m Converting C files to object files\n\e[0m" "-"
+gcc -Wall -Wextra -Werror -I . -O3 -c srcs/hook.c -o srcs/hook.o
+printf "%s\e[0;32m Converting C files to object files\n\e[0m" "-"
+gcc -Wall -Wextra -Werror -I . -O3 -c srcs/graphic.c -o srcs/graphic.o
+printf "%s\e[0;32m Converting C files to object files\n\e[0m" "-"
+gcc -Wall -Wextra -Werror -I . -O3 -c srcs/setup_map.c -o srcs/setup_map.o
+printf "%s\e[0;32m Converting C files to object files\n\e[0m" "-"
+gcc -Wall -Werror -Wextra -g ./srcs/main.c ./srcs/hook.c ./srcs/graphic.c ./srcs/setup_map.c ./lib/mlx_linux/libmlx.a ./lib/libft/libft.a ./lib/ft_printf/libftprintf.a -lX11 -lXext
+printf "%s\e[0;32m Compiling object file into executable\n\e[0m" "-"
+make: Leaving directory '/mnt/nfs/homes/loumouli/Desktop/git repo/so_long'
+ 
