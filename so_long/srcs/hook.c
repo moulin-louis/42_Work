@@ -6,42 +6,48 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:52:08 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/14 11:01:59 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/18 13:19:03 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-void	modify_position(t_data *data, int key)
+int	find_player(t_data *data, int *i, int *j)
 {
+	*i = 0;
+	while (data->map[*i])
+	{
+		*j = 0;
+		while (data->map[*i][*j])
+		{
+			if (data->map[*i][*j] == 'P')
+				return (1);
+			(*j)++;
+		}
+		(*j) = 0;
+		(*i)++;
+	}
+	(void)*j;
+	(void)*i;
+	return (0);
+}
+
+void	modify_pos(t_data *data, int key)
+{
+	int	j;
+	int	i;
+
+	j = 0;
+	i = 0;
+	find_player(data, &i, &j);
 	if (key == 'w')
-		if (data->character.pos_y - 10 > 0)
-		{
-			data->character.pos_y -= 10;
-			update_frame(data);
-			data->counter++;
-		}
+		move_up(data, i, j);
 	if (key == 's')
-		if (data->character.pos_y + 10 < (data->background.height_back - data->character.height_char))
-		{
-			data->character.pos_y += 10;
-			update_frame(data);
-			data->counter++;
-		}
+		move_down(data, i, j);
 	if (key == 'a')
-		if (data->character.pos_x - 10 > 0)
-		{
-			data->character.pos_x -= 10;
-			update_frame(data);
-			data->counter++;
-		}
+		move_left(data, i, j);
 	if (key == 'd')
-		if (data->character.pos_x + 10 < (data->background.width_back - data->character.width_char))
-		{
-			data->character.pos_x += 10;
-			update_frame(data);
-			data->counter++;
-		}
+		move_right(data, i, j);
 }
 
 int	key_event(int key, t_data *data)
@@ -49,7 +55,7 @@ int	key_event(int key, t_data *data)
 	if (key == XK_Escape)
 		return (close_window(data), 1);
 	if (key == 'w' || key == 's' || key == 'a' || key == 'd')
-		return (modify_position(data, key), ft_printf(" : %d\n", data->counter), 0);
+		return (modify_pos(data, key), 0);
 	return (0);
 }
 

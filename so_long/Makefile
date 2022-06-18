@@ -1,4 +1,4 @@
-SRCS	= ./srcs/main.c ./srcs/hook.c ./srcs/graphic.c ./srcs/setup_map.c
+SRCS	= ./srcs/main.c ./srcs/hook.c ./srcs/graphic.c ./srcs/fill_and_check_map.c ./srcs/destroy_and_clean.c ./srcs/init.c ./srcs/modify_position.c
 
 OBJS	= ${SRCS:.c=.o}
 

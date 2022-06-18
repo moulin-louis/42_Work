@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jun 15 14:15:50 2022
+# Make data base, printed on Sat Jun 18 12:54:15 2022
 
 # Variables
 
@@ -41,13 +41,13 @@ SHELL = /bin/sh
 # makefile (from 'Makefile', line 11)
 RM = rm -f
 # environment
+VTE_VERSION = 6003
+# environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
-_ = /usr/share/code/code
+JOURNAL_STREAM = 9:7079613
 # makefile (from 'Makefile', line 5)
 CFLAGS = -Wall -Werror -Wextra -g
-# environment
-JOURNAL_STREAM = 9:1947092
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -55,7 +55,7 @@ MAKEFILE_LIST :=  Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
+IM_CONFIG_PHASE = 1
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
@@ -63,21 +63,23 @@ MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
 # environment
 XDG_DATA_DIRS = /usr/share/gnome:/usr/share/ubuntu:/mnt/nfs/homes/loumouli/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/101853/bus
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/101853/bus,guid=cf62e7c40bbfc0d64ebd367562adaea8
 # environment
 VSCODE_VERBOSE_LOGGING = true
+# environment
+_ = /usr/bin/code
 # makefile (from 'Makefile', line 3)
 OBJS = ${SRCS:.c=.o}
 # environment
-MANAGERPID = 513041
+MANAGERPID = 1189571
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/101853/vscode-ipc-b92a85b7-cef2-454c-8b6a-6d77d02658ef.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/101853/vscode-ipc-a1d9c0c3-df60-4993-83fa-aac97b1392c2.sock
 # environment
-VSCODE_CWD = /mnt/nfs/homes/loumouli
+VSCODE_CWD = /mnt/nfs/homes/loumouli/Desktop/git repo/so_long
 # environment
-XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session4
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session11
 # environment
-KRB5CCNAME = FILE:/tmp/krb5cc_101853_rYl7nz
+KRB5CCNAME = FILE:/tmp/krb5cc_101853_93giOi
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
@@ -87,7 +89,7 @@ GPG_AGENT_INFO = /run/user/101853/gnupg/S.gpg-agent:0:1
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-SESSION_MANAGER = local/e2r3p3.clusters.42paris.fr:@/tmp/.ICE-unix/513495,unix/e2r3p3.clusters.42paris.fr:/tmp/.ICE-unix/513495
+SESSION_MANAGER = local/e3r2p20.clusters.42paris.fr:@/tmp/.ICE-unix/1190002,unix/e3r2p20.clusters.42paris.fr:/tmp/.ICE-unix/1190002
 # environment
 XDG_RUNTIME_DIR = /run/user/101853
 # environment
@@ -97,19 +99,19 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 6b7be84cf3834acb967ee9cd5800f6d8
+INVOCATION_ID = 77552d1d1d5b4e0d98be7b104baddd67
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
 XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/loumouli
 # environment
-LS_COLORS = 
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
 # environment
 XDG_SESSION_DESKTOP = ubuntu
 # environment
 SSH_AUTH_SOCK = /run/user/101853/keyring/ssh
-# environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 515315
 # automatic
 %F = $(notdir $%)
 # environment
@@ -121,7 +123,7 @@ PWD = /mnt/nfs/homes/loumouli/Desktop/git repo/so_long
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 513459
+SSH_AGENT_PID = 1189890
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -130,6 +132,8 @@ GTK_MODULES = gail:atk-bridge
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /mnt/nfs/homes/loumouli
+# environment
+VSCODE_CLI = 1
 # environment
 VSCODE_CODE_CACHE_PATH = /mnt/nfs/homes/loumouli/.config/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
@@ -146,6 +150,8 @@ GNOME_DESKTOP_SESSION_ID = this-is-deprecated
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
 MAKELEVEL := 0
+# environment
+COLORTERM = truecolor
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -153,13 +159,11 @@ MAKECMDGOALS := all
 # environment
 QT_IM_MODULE = ibus
 # makefile (from 'Makefile', line 1)
-SRCS = ./srcs/main.c ./srcs/hook.c ./srcs/graphic.c ./srcs/setup_map.c
+SRCS = ./srcs/main.c ./srcs/hook.c ./srcs/graphic.c ./srcs/fill_and_check_map.c ./srcs/destroy_and_clean.c ./srcs/init.c ./srcs/modify_position.c
 # environment
-SHLVL = 0
+SHLVL = 1
 # makefile (from 'Makefile', line 7)
 CC = gcc
-# environment
-IM_CONFIG_PHASE = 1
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -177,7 +181,7 @@ LESS = -R
 # default
 MAKE_COMMAND := make
 # environment
-OLDPWD = /mnt/nfs/homes/loumouli
+OLDPWD = /mnt/nfs/homes/loumouli/Desktop/git repo/so_long
 # default
 .VARIABLES := 
 # automatic
@@ -211,17 +215,19 @@ PAGER = less
 # environment
 LC_ALL = C
 # environment
-GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+DBUS_STARTER_BUS_TYPE = session
+# environment
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/9282abb6_7184_417d_a89c_d994696a86ac
 # automatic
 ^F = $(notdir $^)
+# environment
+GNOME_TERMINAL_SERVICE = :1.96
 # default
 SUFFIXES := 
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
-# environment
-GJS_DEBUG_OUTPUT = stderr
 # makefile (from 'Makefile', line 9)
 NAME = a.out
 # default
@@ -229,11 +235,15 @@ NAME = a.out
 # environment
 LANG = C
 # environment
+TERM = xterm-256color
+# environment
 DOCKER_HOST = unix:///run/user/101853/docker.sock
 # environment
-VSCODE_PID = 515315
+VSCODE_PID = 1191101
+# environment
+DBUS_STARTER_ADDRESS = unix:path=/run/user/101853/bus,guid=cf62e7c40bbfc0d64ebd367562adaea8
 # variable set hash-table stats:
-# Load=111/1024=11%, Rehash=0, Collisions=17/145=12%
+# Load=116/1024=11%, Rehash=0, Collisions=20/150=13%
 
 # Pattern-specific Variable Values
 
@@ -241,16 +251,15 @@ VSCODE_PID = 515315
 
 # Directories
 
-# . (device 60, inode 5710921): 9 files, no impossibilities.
-# srcs (device 60, inode 35366609): 3 files, no impossibilities so far.
+# . (device 56, inode 5710921): 10 files, no impossibilities.
+# srcs (device 56, inode 35366609): 4 files, no impossibilities so far.
 
-# 12 files, no impossibilities in 2 directories.
+# 14 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
 %.o: %.c
 #  recipe to execute (from 'Makefile', line 14):
- 
 	@$(CC) -Wall -Wextra -Werror -I . -O3 -c $< -o $@
 	@printf "%s\e[0;32m Converting C files to object files\n\e[0m" "-"
 
@@ -268,6 +277,7 @@ all: a.out
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/4=0%
 
+ 
 .PHONY: all clean fclean re
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -276,18 +286,24 @@ all: a.out
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-15 14:15:40.140711309
+#  Last modified 2022-06-18 11:10:03.482951656
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 srcs/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-15 14:13:50.916728647
+#  Last modified 2022-06-18 11:14:03.070865122
 #  File has been updated.
 #  Successfully updated.
 
-a.out: srcs/main.o srcs/hook.o srcs/graphic.o srcs/setup_map.o
+# Not a target:
+srcs/init.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+a.out: srcs/main.o srcs/hook.o srcs/graphic.o srcs/fill_and_check_map.o srcs/destroy_and_clean.o srcs/init.o srcs/modify_position.o
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
@@ -314,6 +330,12 @@ fclean: clean
 #  File has not been updated.
 
 # Not a target:
+srcs/modify_position.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
 srcs/graphic.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -335,7 +357,13 @@ clean:
 		@printf "%s \e[0;31mDelete all object files\n\e[0m" "-"
 
 # Not a target:
-srcs/setup_map.o:
+srcs/destroy_and_clean.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+srcs/fill_and_check_map.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -343,7 +371,7 @@ srcs/setup_map.o:
 srcs/main.o: srcs/main.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'srcs/main'
-#  File does not exist.
+#  Last modified 2022-06-18 11:10:10.062949305
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -375,19 +403,19 @@ srcs/hook.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=14/1024=1%, Rehash=0, Collisions=0/40=0%
+# Load=17/1024=2%, Rehash=0, Collisions=0/46=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 28 / storage = 227 B / avg = 8 B
-# current buf: size = 8162 B / used = 227 B / count = 28 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 33 / storage = 305 B / avg = 9 B
+# current buf: size = 8162 B / used = 305 B / count = 33 / avg = 9 B
 
-# strcache performance: lookups = 51 / hit rate = 45%
+# strcache performance: lookups = 56 / hit rate = 41%
 # hash-table stats:
-# Load=28/8192=0%, Rehash=0, Collisions=2/51=4%
-# Finished Make data base on Wed Jun 15 14:15:50 2022
+# Load=33/8192=0%, Rehash=0, Collisions=2/56=4%
+# Finished Make data base on Sat Jun 18 12:54:15 2022
 
  
