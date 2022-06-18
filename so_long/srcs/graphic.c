@@ -35,7 +35,6 @@ void	ft_push_img(t_data *data, int x, int y, int img_type)
 
 void	push_map(t_data *data)
 {
-	ft_printf("Je push toute la map\n");
 	int	x;
 	int	y;
 	int	i;

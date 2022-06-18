@@ -31,12 +31,14 @@ void	find_nbr_coll(t_data *data)
 	}
 }
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_data	data;
 
+	if (ac != 2)
+		return (ft_printf("Gib the right ammount of arg\n"), 0);
 	nullify_void_ptr(&data);
-	if (setup_map(&data) == -1)
+	if (setup_map(&data, av[1]) == -1)
 		return (ft_putstr_fd("Error\n", 1), 1);
 	if (setup_init(&data) == -1)
 		return (-3);

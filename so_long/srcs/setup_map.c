@@ -26,7 +26,7 @@ int	fill_map(t_data *data)
 {
 	int		fd;
 	char	*buff;
-	int x;
+	int		x;
 
 	fd = open(PATH_MAP, O_RDONLY);
 	if (fd == -1)
@@ -36,7 +36,7 @@ int	fill_map(t_data *data)
 		return (-5);
 	x = read(fd, buff, 100000);
 	buff[x - 1] = '\0';
-	data->map  = ft_split(buff, '\n');
+	data->map = ft_split(buff, '\n');
 	if (data->map == NULL)
 		return (-5);
 	return (free (buff), close (fd), get_nbr_line(data->map));
@@ -47,8 +47,6 @@ int	check_map(int nbr_line, char **map)
 	int	x;
 	int	j;
 
-	if (nbr_line == -5)
-		return (-5);
 	x = 1;
 	j = 0;
 	while (map[0][j])
@@ -94,9 +92,11 @@ int	check_square(char **map)
 
 int	setup_map(t_data *data)
 {
-	int nbr_line;
+	int	nbr_line;
 
 	nbr_line = fill_map(data);
+	if (nbr_line == -5)
+		return (-1);
 	if (check_square(data->map) == -5)
 		return (destroy_double_array(data), -1);
 	if (check_map(nbr_line, data->map) == -5)

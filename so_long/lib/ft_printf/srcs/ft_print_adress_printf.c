@@ -12,16 +12,6 @@
 
 #include "../inc/ft_printf.h"
 
-int	ft_strlen(char *str)
-{
-	int	x;
-
-	x = 0;
-	while (str[x])
-		x++;
-	return (x);
-}
-
 int	ft_nbr_equal_zero(void)
 {
 	ft_putstr_printf("(nil)");

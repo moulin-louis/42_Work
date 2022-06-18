@@ -12,19 +12,21 @@
 
 #include "../inc/so_long.h"
 
-int	fill_map(t_data *data)
+int	fill_map(t_data *data, char *path)
 {
 	int		fd;
 	char	*buff;
 	int		x;
 
-	fd = open(PATH_MAP, O_RDONLY);
+	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return (-5);
 	buff = malloc(sizeof(char) * 100000);
 	if (!buff)
 		return (-5);
 	x = read(fd, buff, 100000);
+	if (x == -1)
+		return (-5);
 	buff[x - 1] = '\0';
 	data->map = ft_split(buff, '\n');
 	if (data->map == NULL)
@@ -93,11 +95,13 @@ int	check_square(char **map)
 	return (1);
 }
 
-int	setup_map(t_data *data)
+int	setup_map(t_data *data, char *path)
 {
 	int	nbr_line;
 
-	nbr_line = fill_map(data);
+	nbr_line = fill_map(data, path);
+	if (nbr_line == -5)
+		return (-1);
 	if (check_square(data->map) == -5)
 		return (destroy_double_array(data), -1);
 	if (check_map(nbr_line, data->map) == -5)

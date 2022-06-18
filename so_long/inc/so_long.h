@@ -22,7 +22,6 @@
 # include <stdio.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# define PATH_MAP "./map/basic.ber"
 # define PATH_PLAYER "./asset/player.xpm"
 # define PATH_BACK "./asset/back.xpm"
 # define PATH_WALL "./asset/wall.xpm"
@@ -56,7 +55,7 @@ void	push_map(t_data *data);
 
 void	setup_hook(t_data *data);
 
-int		setup_map(t_data *data);
+int		setup_map(t_data *data, char *path);
 
 int		setup_init(t_data *data);
 void	nullify_void_ptr(t_data *data);
