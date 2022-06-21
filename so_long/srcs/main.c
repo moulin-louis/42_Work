@@ -6,11 +6,34 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:48:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/21 12:30:44 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:02:25 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
+
+void	nullify_void_ptr(t_data *data)
+{
+	data->window = NULL;
+	data->background = NULL;
+	data->wall = NULL;
+	data->player.img_0 = NULL;
+	data->player.img_1 = NULL;
+	data->player.img_2 = NULL;
+	data->player.img_3 = NULL;
+	data->player.img_4 = NULL;
+	data->player.img_5 = NULL;
+	data->player.img_6 = NULL;
+	data->player.img_7 = NULL;
+	data->coll = NULL;
+	data->exit = NULL;
+	data->counter = 0;
+	data->height_windows = 0;
+	data->width_windows = 0;
+	data->nbr_coll = 0;
+	data->pos_x = 0;
+	data->pos_y = 0;
+}
 
 void	find_nbr_coll(t_data *data)
 {

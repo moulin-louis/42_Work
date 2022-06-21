@@ -6,31 +6,41 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:50:26 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/18 13:33:13 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/21 16:06:40 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-int	render(t_data *data)
+void	display_char(t_data *data, int x, int y)
 {
-	(void)data;
-	return (0);
+	mlx_put_image_to_window(data->init, data->window, data->player.img_0, x, y);
+	mlx_put_image_to_window(data->init, data->window, data->player.img_1, x, y);
+	mlx_put_image_to_window(data->init, data->window, data->player.img_2, x, y);
+	mlx_put_image_to_window(data->init, data->window, data->player.img_3, x, y);
+	mlx_put_image_to_window(data->init, data->window, data->player.img_4, x, y);
+	mlx_put_image_to_window(data->init, data->window, data->player.img_5, x, y);
+	mlx_put_image_to_window(data->init, data->window, data->player.img_6, x, y);
+	mlx_put_image_to_window(data->init, data->window, data->player.img_7, x, y);
+	mlx_put_image_to_window(data->init, data->window, data->player.img_0, x, y);
+	data->pos_x = x;
+	data->pos_y = y;
 }
 
 void	ft_push_img(t_data *data, int x, int y, int img_type)
 {
 	if (img_type == '1')
 		mlx_put_image_to_window(data->init, data->window, data->wall, x, y);
-	if (img_type == 'C')
-		mlx_put_image_to_window(data->init, data->window, data->coll, x, y);
-	if (img_type == 'E')
-		mlx_put_image_to_window(data->init, data->window, data->exit, x, y);
-	if (img_type == 'P')
-		mlx_put_image_to_window(data->init, data->window, data->player, x, y);
-	if (img_type == '0')
+	else if (img_type == '0')
 		mlx_put_image_to_window(data->init, data->window,
 			data->background, x, y);
+	else if (img_type == 'C')
+		mlx_put_image_to_window(data->init, data->window, data->coll, x, y);
+	else if (img_type == 'E')
+		mlx_put_image_to_window(data->init, data->window, data->exit, x, y);
+	else if (img_type == 'P')
+		display_char(data, x, y);
+
 }
 
 void	push_map(t_data *data)
@@ -64,4 +74,11 @@ int	close_window(t_data *data)
 	mlx_destroy_window(data->init, data->window);
 	data->window = NULL;
 	return (1);
+}
+
+int	render(t_data *data)
+{
+	if (data->window != NULL)
+		display_char(data, data->pos_x, data->pos_y);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:50:39 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/21 12:40:42 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:10:27 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	setup_map(t_data *data, char *path)
 		return (destroy_double_array(data), -1);
 	if (check_map(nbr_line, data->map) == -5)
 		return (destroy_double_array(data), -1);
-	data->width = ft_strlen(data->map[0]) * 32;
-	data->height = nbr_line * 32;
+	data->width_windows = ft_strlen(data->map[0]) * 32;
+	data->height_windows = nbr_line * 32;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:36:28 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/21 12:38:54 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/21 15:17:06 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,29 @@
 # include <stdio.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-# define PATH_PLAYER "./asset/player.xpm"
 # define PATH_BACK "./asset/back.xpm"
 # define PATH_WALL "./asset/wall.xpm"
 # define PATH_COLL "./asset/coll.xpm"
 # define PATH_EXIT "./asset/exit.xpm"
+
+typedef struct s_char
+{
+	void	*img_0;
+	void	*img_1;
+	void	*img_2;
+	void	*img_3;
+	void	*img_4;
+	void	*img_5;
+	void	*img_6;
+	void	*img_7;
+}	t_char;
 
 typedef struct s_data
 {
 	void	*init;
 	void	*window;
 	void	*background;
-	void	*player;
+	t_char	player;
 	void	*wall;
 	void	*coll;
 	void	*exit;
@@ -42,10 +53,10 @@ typedef struct s_data
 
 	int		counter;
 	int		nbr_coll;
+	int		height_windows;
+	int		width_windows;
 	int		pos_x;
 	int		pos_y;
-	int		height;
-	int		width;
 }	t_data;
 
 int		render(t_data *data);
@@ -58,7 +69,6 @@ void	setup_hook(t_data *data);
 int		setup_map(t_data *data, char *path);
 
 int		setup_init(t_data *data);
-void	nullify_void_ptr(t_data *data);
 
 void	destroy_double_array(t_data *data);
 int		destroy_anything(t_data *data);
