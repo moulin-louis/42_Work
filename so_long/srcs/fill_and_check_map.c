@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setup_map.c                                        :+:      :+:    :+:   */
+/*   fill_and_check_map.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:50:39 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/18 09:09:53 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/21 12:40:42 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	fill_map(t_data *data, char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		return (-5);
+		return (ft_putstr_fd("Error\nReading a invalid file\n", 1), -5);
 	buff = malloc(sizeof(char) * 100000);
 	if (!buff)
 		return (-5);
 	x = read(fd, buff, 100000);
 	if (x == -1)
-		return (-5);
+		return (ft_putstr_fd("Error\nReading a invalid file\n", 1), -5);
 	buff[x - 1] = '\0';
 	data->map = ft_split(buff, '\n');
 	if (data->map == NULL)
@@ -66,11 +66,13 @@ int	check_map(int nbr_line, char **map)
 		return (-5);
 	x = 1;
 	if (ft_check_first_last_line(map, nbr_line) == -5)
-		return (-5);
-	while (x < nbr_line - 2)
+		return (ft_putstr_fd("Error\nNo wall at top ot bottom of the map\n",
+				1), -5);
+	while (x < nbr_line)
 	{
 		if (map[x][0] != '1' || map[x][ft_strlen(map[x]) - 1] != '1')
-			return (-5);
+			return (ft_printf(
+					"Error\nNot a wall at the start or the end of a line\n"), -5);
 		x++;
 	}
 	return (1);
@@ -89,7 +91,7 @@ int	check_square(char **map)
 			continue ;
 		}
 		if (ft_strlen(map[x]) != ft_strlen(map[x + 1]))
-			return (-5);
+			return (ft_putstr_fd("Error\nNot a rectangle\n", 1), -5);
 		x++;
 	}
 	return (1);
@@ -107,9 +109,6 @@ int	setup_map(t_data *data, char *path)
 	if (check_map(nbr_line, data->map) == -5)
 		return (destroy_double_array(data), -1);
 	data->width = ft_strlen(data->map[0]) * 32;
-	nbr_line = 0;
-	while (data->map[nbr_line])
-		nbr_line++;
 	data->height = nbr_line * 32;
 	return (1);
 }

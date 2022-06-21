@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:48:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/18 13:28:01 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/21 12:30:44 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	main(int ac, char **av)
 		return (ft_printf("Gib the right ammount of arg\n"), 0);
 	nullify_void_ptr(&data);
 	if (setup_map(&data, av[1]) == -1)
-		return (ft_putstr_fd("Error\n", 1), 1);
-	if (setup_init(&data) == -1)
+		return (-1);
+	if (setup_init(&data) == 0)
 		return (-3);
 	find_nbr_coll(&data);
 	push_map(&data);

@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:38:41 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/18 13:29:19 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/21 12:33:25 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,10 @@ int	destroy_anything(t_data *data)
 		mlx_destroy_window(data->init, data->window);
 		data->window = NULL;
 	}
-	return (mlx_destroy_display(data->init), free(data->init), 1);
+	if (data->init != NULL)
+	{
+		mlx_destroy_display(data->init);
+		free(data->init);
+	}
+	return (1);
 }
