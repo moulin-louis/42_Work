@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:36:28 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/26 14:37:01 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/27 12:32:57 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,20 @@ typedef struct s_char
 	void	*img_7;
 }	t_char;
 
+typedef struct s_nbr
+{
+	void	*zero;
+	void	*one;
+	void	*two;
+	void	*three;
+	void	*four;
+	void	*five;
+	void	*six;
+	void	*seven;
+	void	*eight;
+	void	*nine;
+}	t_nbr;
+
 typedef struct s_data
 {
 	void	*init;
@@ -50,6 +64,7 @@ typedef struct s_data
 	void	*exit;
 	void	*enemies;
 	t_char	player;
+	t_nbr	nbr;
 
 	char	**map;
 
@@ -70,6 +85,8 @@ void	push_map(t_data *data);
 void	setup_hook(t_data *data);
 
 int		setup_map(t_data *data, char *path);
+
+void	display_score(t_data *data);
 
 int		setup_init(t_data *data);
 

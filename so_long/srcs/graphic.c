@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:50:26 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/26 14:39:28 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/27 12:45:07 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	push_map(t_data *data)
 	int	j;
 
 	x = 0;
-	y = 32;
+	y = 28;
 	i = 0;
 	j = 0;
 	while (data->map[i])
@@ -104,7 +104,7 @@ int	render(t_data *data)
 	data->ctr_anim++;
 	if (data->window != NULL)
 	{
-		//display_score(data);
+		display_score(data);
 		if (data->ctr_anim % 1500 == 0)
 			animate_player(data);
 	}

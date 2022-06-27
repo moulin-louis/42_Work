@@ -6,11 +6,25 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:48:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/26 14:27:03 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/27 12:16:07 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
+
+void	nullify_nbr_ptr(t_data *data)
+{
+	data->nbr.zero = NULL;
+	data->nbr.one = NULL;
+	data->nbr.two = NULL;
+	data->nbr.three = NULL;
+	data->nbr.four = NULL;
+	data->nbr.five = NULL;
+	data->nbr.six = NULL;
+	data->nbr.seven = NULL;
+	data->nbr.eight = NULL;
+	data->nbr.nine = NULL;
+}
 
 void	nullify_void_ptr(t_data *data)
 {
@@ -35,6 +49,7 @@ void	nullify_void_ptr(t_data *data)
 	data->pos_x = 0;
 	data->pos_y = 0;
 	data->ctr_anim = 0;
+	nullify_nbr_ptr(data);
 }
 
 int	find_nbr_coll(t_data *data)

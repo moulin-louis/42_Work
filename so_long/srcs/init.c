@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:24:56 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/26 14:13:27 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/27 12:21:59 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,28 @@
 void	*fct(void *init, char *path, int *x, int *y)
 {
 	return (mlx_xpm_file_to_image(init, path, x, y));
+}
+
+int	load_nbr(t_data *data)
+{
+	int	n;
+
+	data->nbr.zero = fct(data->init, "./asset/nbr/zero.xpm", &n, &n);
+	data->nbr.one = fct(data->init, "./asset/nbr/one.xpm", &n, &n);
+	data->nbr.two = fct(data->init, "./asset/nbr/two.xpm", &n, &n);
+	data->nbr.three = fct(data->init, "./asset/nbr/three.xpm", &n, &n);
+	data->nbr.four = fct(data->init, "./asset/nbr/four.xpm", &n, &n);
+	data->nbr.five = fct(data->init, "./asset/nbr/five.xpm", &n, &n);
+	data->nbr.six = fct(data->init, "./asset/nbr/six.xpm", &n, &n);
+	data->nbr.seven = fct(data->init, "./asset/nbr/seven.xpm", &n, &n);
+	data->nbr.eight = fct(data->init, "./asset/nbr/eight.xpm", &n, &n);
+	data->nbr.nine = fct(data->init, "./asset/nbr/nine.xpm", &n, &n);
+	if (data->nbr.zero == NULL || data->nbr.one == NULL || data->nbr.two == NULL
+		|| data->nbr.three == NULL || data->nbr.four == NULL ||
+		data->nbr.five == NULL || data->nbr.six == NULL || data->nbr.seven == NULL
+		|| data->nbr.eight == NULL || data->nbr.nine == NULL)
+		return (0);
+	return (1);
 }
 
 int	ft_load_img(t_data *data)
@@ -40,7 +62,7 @@ int	ft_load_img(t_data *data)
 		|| data->player.img_5 == NULL || data->player.img_6 == NULL
 		|| data->player.img_7 == NULL)
 		return (ft_printf("Error\nFailed to load a image\n"), 0);
-	if (data->coll == NULL || data->exit == NULL)
+	if (data->coll == NULL || data->exit == NULL || load_nbr(data) == 0)
 		return (ft_printf("Error\nFailed to load a image\n"), 0);
 	return (1);
 }
