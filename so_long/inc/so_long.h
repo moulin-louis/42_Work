@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:36:28 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/21 15:17:06 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/26 14:37:01 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define PATH_WALL "./asset/wall.xpm"
 # define PATH_COLL "./asset/coll.xpm"
 # define PATH_EXIT "./asset/exit.xpm"
+# define PATH_ENEMIES "./asset/enemies.xpm"
 
 typedef struct s_char
 {
@@ -44,14 +45,16 @@ typedef struct s_data
 	void	*init;
 	void	*window;
 	void	*background;
-	t_char	player;
 	void	*wall;
 	void	*coll;
 	void	*exit;
+	void	*enemies;
+	t_char	player;
 
 	char	**map;
 
 	int		counter;
+	int		ctr_anim;
 	int		nbr_coll;
 	int		height_windows;
 	int		width_windows;
@@ -61,7 +64,7 @@ typedef struct s_data
 
 int		render(t_data *data);
 int		update_frame(t_data *data);
-int		close_window(t_data *data);
+int		close_window(t_data *data, int win);
 void	push_map(t_data *data);
 
 void	setup_hook(t_data *data);

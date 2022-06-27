@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:52:08 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/18 13:19:03 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/26 14:39:19 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,28 @@ void	modify_pos(t_data *data, int key)
 {
 	int	j;
 	int	i;
+	int	temp;
 
 	j = 0;
 	i = 0;
+	temp = data->counter;
 	find_player(data, &i, &j);
 	if (key == 'w')
 		move_up(data, i, j);
-	if (key == 's')
+	else if (key == 's')
 		move_down(data, i, j);
-	if (key == 'a')
+	else if (key == 'a')
 		move_left(data, i, j);
-	if (key == 'd')
+	else if (key == 'd')
 		move_right(data, i, j);
+	if (temp != data->counter)
+		ft_printf("SCORE : %d\n", data->counter);
 }
 
 int	key_event(int key, t_data *data)
 {
 	if (key == XK_Escape)
-		return (close_window(data), 1);
+		return (close_window(data, -1), 1);
 	if (key == 'w' || key == 's' || key == 'a' || key == 'd')
 		return (modify_pos(data, key), 0);
 	return (0);

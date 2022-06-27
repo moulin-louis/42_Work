@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:24:56 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/21 15:24:25 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/26 14:13:27 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int	ft_load_img(t_data *data)
 
 	data->background = fct(data->init, PATH_BACK, &n, &n);
 	data->wall = fct(data->init, PATH_WALL, &n, &n);
+	data->coll = fct(data->init, PATH_COLL, &n, &n);
+	data->exit = fct(data->init, PATH_EXIT, &n, &n);
+	data->enemies = fct(data->init, PATH_ENEMIES, &n, &n);
 	data->player.img_0 = fct(data->init, "./asset/char/char_0.xpm", &n, &n);
 	data->player.img_1 = fct(data->init, "./asset/char/char_1.xpm", &n, &n);
 	data->player.img_2 = fct(data->init, "./asset/char/char_2.xpm", &n, &n);
@@ -31,8 +34,6 @@ int	ft_load_img(t_data *data)
 	data->player.img_5 = fct(data->init, "./asset/char/char_5.xpm", &n, &n);
 	data->player.img_6 = fct(data->init, "./asset/char/char_6.xpm", &n, &n);
 	data->player.img_7 = fct(data->init, "./asset/char/char_7.xpm", &n, &n);
-	data->coll = fct(data->init, PATH_COLL, &n, &n);
-	data->exit = fct(data->init, PATH_EXIT, &n, &n);
 	if (data->background == NULL || data->wall == NULL || data->player.img_0
 		== NULL || data->player.img_1 == NULL || data->player.img_2 == NULL
 		|| data->player.img_3 == NULL || data->player.img_4 == NULL

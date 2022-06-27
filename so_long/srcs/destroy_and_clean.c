@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:38:41 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/21 15:28:43 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/26 13:52:16 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	destroy_anything(t_data *data)
 		mlx_destroy_image(data->init, data->coll);
 	if (data->exit != NULL)
 		mlx_destroy_image(data->init, data->exit);
+	if (data->enemies != NULL)
+		mlx_destroy_image(data->init, data->enemies);
 	if (data->map != NULL)
 		destroy_double_array(data);
 	free_char(data);

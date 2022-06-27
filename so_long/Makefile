@@ -6,16 +6,15 @@ CFLAGS	= -Wall -Werror -Wextra -g
 
 CC		= gcc
 
-NAME = a.out
+NAME = so_long
 
 RM		= rm -f
 
 %.o: %.c
 	@$(CC) -Wall -Wextra -Werror -I . -O3 -c $< -o $@
-	@printf "%s\e[0;32m Converting C files to object files\n\e[0m" "-"
 
 ${NAME}:	${OBJS}
-		@${CC} ${CFLAGS} ${SRCS} ./lib/mlx_linux/libmlx.a ./lib/libft/libft.a ./lib/ft_printf/libftprintf.a -lX11 -lXext
+		@${CC} ${CFLAGS} ${SRCS} ./lib/mlx_linux/libmlx.a ./lib/libft/libft.a ./lib/ft_printf/libftprintf.a -lX11 -lXext -o so_long
 		@printf "%s\e[0;32m Compiling object file into executable\n\e[0m" "-"
 
 all:	${NAME}
