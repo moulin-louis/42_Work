@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../../inc/so_long_bonus.h"
 
 int	fxt(void *init, void *window, void *img, int x)
 {

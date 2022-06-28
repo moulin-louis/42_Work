@@ -19,13 +19,13 @@ RM		= rm -f
 
 ${NAME}:	${OBJS}
 		@ar -rc ${NAME} ${OBJS}
-		@printf "%s \e[0;32m libft : Compiling object file into executable\n\e[0m" "-"
+		@printf "%s\e[0;32m libft : Compiling object file into executable\n\e[0m" "-"
 
 all:	${NAME}
 
 clean:
 		@${RM} *.o
-		@printf "%s \e[0;31m libft : Delete all object files\n\e[0m" "-"
+		@printf "%s\e[0;31m libft : Delete all object files\n\e[0m" "-"
 
 fclean:	clean
 		@${RM} ${NAME}
@@ -35,6 +35,6 @@ re: fclean all
 
 bonus: ${OBJS_B}
 	@ar -rc ${NAME} ${OBJS_B}
-	@printf "%s \e[0;32m libft : Compiling bonus object file\n\e[0m" "-"
+	@printf "%s\e[0;32m libft : Compiling bonus object file\n\e[0m" "-"
 
 .PHONY: all clean fclean re ${NAME} .c.o bonus

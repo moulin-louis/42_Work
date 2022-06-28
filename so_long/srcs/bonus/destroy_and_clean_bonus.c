@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../../inc/so_long_bonus.h"
 
 void	destroy_double_array(t_data *data)
 {

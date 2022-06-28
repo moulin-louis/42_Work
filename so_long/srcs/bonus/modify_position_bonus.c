@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../../inc/so_long_bonus.h"
 
 void	move_up(t_data *data, int i, int j)
 {

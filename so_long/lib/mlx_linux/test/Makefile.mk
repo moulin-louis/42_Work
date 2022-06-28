@@ -1,3 +1,4 @@
+MAKEFLAGS += --silent
 
 INC=%%%%
 
@@ -28,18 +29,9 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
-
-show:
-	@printf "UNAME		: $(UNAME)\n"
-	@printf "NAME  		: $(NAME)\n"
-	@printf "CC		: $(CC)\n"
-	@printf "CFLAGS		: $(CFLAGS)\n"
-	@printf "LFLAGS		: $(LFLAGS)\n"
-	@printf "SRC		:\n	$(SRC)\n"
-	@printf "OBJ		:\n	$(OBJ)\n"
+	@$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
 
 clean:
-	rm -f $(NAME) $(OBJ) *~ core *.core
+	@rm -f $(NAME) $(OBJ) *~ core *.core
 
 re: clean all

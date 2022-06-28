@@ -15,13 +15,13 @@ RM			= rm -rf
 
 ${NAME}:${OBJS}
 		@ar -rcs ${NAME} ${OBJS}
-		@printf "%s \e[0;32m ft_printf : Compiling object file into executable\n\e[0m" "-"
+		@printf "%s\e[0;32m ft_printf : Compiling object file into executable\n\e[0m" "-"
 
 all:    ${NAME}
 
 clean:
 		@${RM} ${OBJS}
-		@printf "%s \e[0;31m ft_printf : Delete all object files\n\e[0m" "-"
+		@printf "%s\e[0;31m ft_printf : Delete all object files\n\e[0m" "-"
 
 fclean:    clean
 		@${RM} ${NAME}

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../../inc/so_long_bonus.h"
 
 void	*fct(void *init, char *path, int *x, int *y)
 {
