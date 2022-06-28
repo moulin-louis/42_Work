@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:52:08 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/26 14:39:19 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/28 10:50:57 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	modify_pos(t_data *data, int key)
 		move_left(data, i, j);
 	else if (key == 'd')
 		move_right(data, i, j);
-	if (temp != data->counter)
+	if (temp != data->counter && data->window != NULL)
 		ft_printf("SCORE : %d\n", data->counter);
 }
 
