@@ -7,11 +7,12 @@ SRCS	= 	./srcs/main.c \
 			./srcs/destroy_and_clean.c \
 			./srcs/init.c \
 			./srcs/modify_position.c \
-			./srcs/display_score.c
+
+SRCS_B = ./srcs/display_score.c
 
 OBJS	= ${SRCS:.c=.o}
 
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -g
 
 CC		= gcc
 
@@ -30,30 +31,30 @@ all:	${NAME}
 
 ${NAME}:	${OBJS} ${LIBFT} ${MLX} ${LIBFTPRINTF}
 		@${CC} ${CFLAGS} ${SRCS} ${LIBFT} ${MLX} ${LIBFTPRINTF} -lX11 -lXext -o so_long
-		@printf "%s\e[0;32m Compiling object file into executable\n\e[0m" "-"
+		@printf "%s\e[0;32m so_long : Compiling object file into executable\n\e[0m" "-"
 
 ${LIBFT}:
-		@make -C lib/libft
+		@make -C lib/libft --no-print-directory
 
 ${LIBFTPRINTF}:
-		@make -C lib/ft_printf
+		@make -C lib/ft_printf --no-print-directory
 
 ${MLX}:
-		@make -C lib/mlx_linux
+		@make -C lib/mlx_linux --no-print-directory
 
 clean:
 		@${RM} ${OBJS}
-		@printf "%s \e[0;31mDelete all object files\n\e[0m" "-"
-		@make clean -C lib/libft
-		@make clean -C lib/ft_printf
+		@printf "%s \e[0;31m so_long : Delete all object files\n\e[0m" "-"
+		@make clean -C lib/libft --no-print-directory
+		@make clean -C lib/ft_printf --no-print-directory
 
 fclean:	clean
 		@${RM} ${NAME}
 		@${RM} ${LIBFT}
 		@${RM} ${LIBFTPRINTF}
 		@${RM} ${MLX}
-		@make clean -C lib/mlx_linux
-		@printf "%s\e[0;31m Delete executable\n\e[0m" "-"
+		@make clean -C lib/mlx_linux --no-print-directory
+		@printf "%s\e[0;31m so_long : Delete executable\n\e[0m" "-"
 
 re: fclean ${NAME}
 

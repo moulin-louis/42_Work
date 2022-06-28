@@ -15,22 +15,26 @@ CC		= gcc
 RM		= rm -f
 
 .c.o:
-		${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I .
+		@${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I .
 
 ${NAME}:	${OBJS}
-		ar -rc ${NAME} ${OBJS}
+		@ar -rc ${NAME} ${OBJS}
+		@printf "%s \e[0;32m libft : Compiling object file into executable\n\e[0m" "-"
 
 all:	${NAME}
 
 clean:
-		${RM} *.o
+		@${RM} *.o
+		@printf "%s \e[0;31m libft : Delete all object files\n\e[0m" "-"
 
 fclean:	clean
-		${RM} ${NAME}
+		@${RM} ${NAME}
+		@printf "%s\e[0;31m libft : Delete executable\n\e[0m" "-"
 
 re: fclean all
 
 bonus: ${OBJS_B}
-	ar -rc ${NAME} ${OBJS_B}
+	@ar -rc ${NAME} ${OBJS_B}
+	@printf "%s \e[0;32m libft : Compiling bonus object file\n\e[0m" "-"
 
 .PHONY: all clean fclean re ${NAME} .c.o bonus

@@ -6,19 +6,40 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:48:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/28 11:23:53 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/06/27 12:16:07 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
+void	nullify_nbr_ptr(t_data *data)
+{
+	data->nbr.zero = NULL;
+	data->nbr.one = NULL;
+	data->nbr.two = NULL;
+	data->nbr.three = NULL;
+	data->nbr.four = NULL;
+	data->nbr.five = NULL;
+	data->nbr.six = NULL;
+	data->nbr.seven = NULL;
+	data->nbr.eight = NULL;
+	data->nbr.nine = NULL;
+}
+
 void	nullify_void_ptr(t_data *data)
 {
 	data->window = NULL;
-	data->init = NULL;
 	data->background = NULL;
 	data->wall = NULL;
-	data->player = NULL;
+	data->enemies = NULL;
+	data->player.img_0 = NULL;
+	data->player.img_1 = NULL;
+	data->player.img_2 = NULL;
+	data->player.img_3 = NULL;
+	data->player.img_4 = NULL;
+	data->player.img_5 = NULL;
+	data->player.img_6 = NULL;
+	data->player.img_7 = NULL;
 	data->coll = NULL;
 	data->exit = NULL;
 	data->counter = 0;
@@ -27,6 +48,8 @@ void	nullify_void_ptr(t_data *data)
 	data->nbr_coll = 0;
 	data->pos_x = 0;
 	data->pos_y = 0;
+	data->ctr_anim = 0;
+	nullify_nbr_ptr(data);
 }
 
 int	find_nbr_coll(t_data *data)
