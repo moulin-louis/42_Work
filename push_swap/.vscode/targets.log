@@ -1,0 +1,359 @@
+make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'srcs/main.o', needed by 'push_swap'.  Stop.
+
+# GNU Make 4.3
+# Built for Windows32
+# Copyright (C) 1988-2020 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Thu Jun 30 19:15:14 2022
+
+# Variables
+
+# environment
+SYSTEMDRIVE = C:
+# environment
+LC_ALL = C
+# environment
+USERPROFILE = C:\Users\Bienvenue
+# environment
+LOCALAPPDATA = C:\Users\Bienvenue\AppData\Local
+# environment
+VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-04f4d114-79a8-44c7-987b-871440565624-sock
+# environment
+VSCODE_CWD = C:\Users\Bienvenue\42_Work\push_swap
+# environment
+CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
+# environment
+SYSTEMROOT = C:\WINDOWS
+# environment
+PROCESSOR_LEVEL = 6
+# environment
+PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+# default
+MAKE_COMMAND := C:/ProgramData/chocolatey/lib/make/tools/install/bin/make.exe
+# automatic
+@D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
+# environment
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_20264_VCUFHZKOQSJJXWDQ
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# default
+.VARIABLES := 
+# automatic
+%D = $(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
+# automatic
+^D = $(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
+# environment
+VSCODE_LOG_STACK = false
+# automatic
+%F = $(notdir $%)
+# environment
+VSCODE_CODE_CACHE_PATH = C:\Users\Bienvenue\AppData\Roaming\Code\CachedData\30d9c6cd9483b2cc586687151bcbcd635f373630
+# makefile (from 'Makefile', line 13)
+LIBFT = ./lib/libft/libft.a
+# environment
+LANG = C
+# default
+.LOADED := 
+# environment
+TMP = C:\Users\BIENVE~1\AppData\Local\Temp
+# default
+.INCLUDE_DIRS = .
+# environment
+PROCESSOR_ARCHITEW6432 = AMD64
+# makefile
+MAKEFLAGS = pqrR
+# environment
+ONEDRIVE = C:\Users\Bienvenue\OneDrive
+# environment
+POWERSHELL_DISTRIBUTION_CHANNEL = MSI:Windows 10 Home
+# makefile
+CURDIR := c:/Users/Bienvenue/42_Work/push_swap
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# makefile (from 'Makefile', line 3)
+SRCS = ./srcs/main.c
+# automatic
+*D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
+# environment
+PROGRAMFILES = C:\Program Files (x86)
+# environment
+MFLAGS = -pqrR
+# default
+.S 
+HELLFLAGS := -c
+# environment
+COMMONPROGRAMW6432 = C:\Program Files\Common Files
+# automatic
++D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST := Makefile
+# automatic
+@F = $(notdir $@)
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+VSCODE_PID = 20264
+# automatic
+?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
+# automatic
+*F = $(notdir $*)
+# automatic
+<D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
+# environment
+VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{},"_languagePackSupport":true}
+# default
+MAKE_HOST := Windows32
+# makefile (from 'Makefile', line 5)
+OBJS = ${SRCS:.c=.o}
+# environment
+PROGRAMDATA = C:\ProgramData
+# default
+SHELL := sh.exe
+# environment
+HOMEPATH = \Users\Bienvenue
+# default
+MAKECMDGOALS := all
+# environment
+DRIVERDATA = C:\Windows\System32\Drivers\DriverData
+# environment
+COMSPEC = C:\WINDOWS\system32\cmd.exe
+# environment
+WINDIR = C:\WINDOWS
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# environment
+PATH = C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PowerShell\7\;C:\Program Files\dotnet\;C:\MinGW\bin;C:\Program Files\CMake\bin;C:\ProgramData\chocolatey\bin;C:\Users\Bienvenue\.cargo\bin;C:\Users\Bienvenue\AppData\Local\Programs\Python\Python39\Scripts\;C:\Users\Bienvenue\AppData\Local\Programs\Python\Python39\;C:\Users\Bienvenue\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2021.2.2\bin;;C:\MinGW\bin;;C:\Users\Bienvenue\AppData\Local\Programs\Microsoft VS Code\bin
+# environment
+ZES_ENABLE_SYSMAN = 1
+# environment
+COMPUTERNAME = LAPTOP-JP3CTMON
+# default
+MAKEFILES := 
+# makefile (from 'Makefile', line 15)
+LIBFTPRINTF = ./lib/ft_printf/libftprintf.a
+# automatic
+^F = $(notdir $^)
+# environment
+PROMPT = $P$G
+# environment
+CHOCOLATEYLASTPATHUPDATE = 133010788650370631
+# environment
+LOGONSERVER = \\LAPTOP-JP3CTMON
+# environment
+VSCODE_LOG_NATIVE = false
+# environment
+USERNAME = Bienvenue
+# environment
+COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
+# automatic
+?F = $(notdir $?)
+# environment
+PROGRAMW6432 = C:\Program Files
+# makefile (from 'Makefile', line 1)
+NAME = push_swap
+# environment
+PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW
+# automatic
++F = $(notdir $+)
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+USERDOMAIN = LAPTOP-JP3CTMON
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+OS = Windows_NT
+# makefile
+.DEFAULT_GOAL := all
+# makefile (from 'Makefile', line 11)
+RM = rm -f
+# default
+MAKE_VERSION := 4.3
+# environment
+PROGRAMFILES(X86) = C:\Program Files (x86)
+# environment
+USERDOMAIN_ROAMINGPROFILE = LAPTOP-JP3CTMON
+# environment
+NUMBER_OF_PROCESSORS = 8
+# environment
+PUBLIC = C:\Users\Public
+# environment
+ASL.LOG = Destination=file
+# environment
+APPDATA = C:\Users\Bienvenue\AppData\Roaming
+# makefile (from 'Makefile', line 7)
+CFLAGS = -Wall -Werror -Wextra -g
+# environment
+HOMEDRIVE = C:
+# environment
+PROCESSOR_ARCHITECTURE = x86
+# environment
+PYCHARM COMMUNITY EDITION = C:\Program Files\JetBrains\PyCharm Community Edition 2021.2.2\bin;
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+TEMP = C:\Users\BIENVE~1\AppData\Local\Temp
+# environment
+VSCODE_IPC_HOOK = \\.\pipe\01d7c72f12d771795b17b6855360f8fe-1.68.1-main-sock
+# default
+.RECIPEPREFIX := 
+# automatic
+<F = $(notdir $<)
+# default
+SUFFIXES := 
+# environment
+ALLUSERSPROFILE = C:\ProgramData
+# environment
+SESSIONNAME = Console
+# environment
+VSCODE_CLI = 1
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync load
+# environment
+PROCESSOR_REVISION = 8c01
+# makefile (from 'Makefile', line 9)
+CC = gcc
+# environment
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
+# variable set hash-table stats:
+# Load=108/1024=11%, Rehash=0, Collisions=14/144=10%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (key c:/Users/Bienvenue/42_Work/push_swap, mtime 1656609199): 7 files, no impossibilities.
+
+# 7 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+.c.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 20):
+		@$(CC) -Wall -Wextra -Werror -I . -O3 -c $< -o $@
+
+lib/libft/libft.a:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 27):
+		@make -C lib/libft --no-print-directory
+
+# Not a target:
+srcs/main.o:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-06-30 19:13:11
+#  File has been updated.
+#  Successfully updated.
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 33):
+		@${RM} ${OBJS}
+		@printf "%s\e[0;31m push_swap : Delete all object files\n\e[0m" "-"
+		@make clean -C lib/libft --no-print-directory
+		@make clean -C lib/ft_printf --no-print-directory
+		
+
+re: fclean push_swap
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+all: push_swap
+#  Phony target (prerequisite of .PHONY).
+#  Command line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+fclean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 40):
+		@${RM} ${OBJS}
+		@printf "%s\e[0;31m push_swap : Delete all object files\n\e[0m" "-"
+		@${RM} ${NAME}
+		@printf "%s\e[0;31m push_swap : Delete executable\n\e[0m" "-"
+		@make fclean -C lib/libft --no-print-directory
+		@make fclean -C lib/ft_printf --no-print-directory
+		
+
+lib/ft_printf/libftprintf.a:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 30):
+		@make -C lib/ft_printf --no-print-directory
+
+push_swap: srcs/main.o lib/libft/libft.a lib/ft_printf/libftprintf.a
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 23):
+		@${CC} ${CFLAGS} ${OBJS} ${LIBFT} ${LIBFTPRINTF} -o push_swap
+		@printf "%s\e[0;32m push_swap : Compiling object file into executable\n\e[0m" "-"
+
+.PHONY: all clean fclean re
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# files hash-table stats:
+# Load=13/1024=1%, Rehash=0, Collisions=0/37=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 19 / storage = 154 B / avg = 8 B
+# current buf: size = 8174 B / used = 154 B / count = 19 / avg = 8 B
+
+# strcache performance: lookups = 42 / hit rate = 54%
+# hash-table stats:
+# Load=19/8192=0%, Rehash=0, Collisions=0/42=0%
+# Finished Make data base on Thu Jun 30 19:15:14 2022
+
+ 
