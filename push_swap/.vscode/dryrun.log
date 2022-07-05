@@ -1,9 +1,7 @@
-make.exe --dry-run --always-make --keep-going --print-directory
-make: Entering directory 'c:/Users/Bienvenue/42_Work/push_swap'
-gcc -Wall -Wextra -Werror -I . -O3 -c srcs/main.c -o srcs/main.o
-make -C lib/libft --no-print-directory
-make -C lib/ft_printf --no-print-directory
-gcc -Wall -Werror -Wextra -g ./srcs/main.o ./lib/libft/libft.a ./lib/ft_printf/libftprintf.a -o push_swap
-printf "%s\e[0;32m push_swap : Compiling object file into executable\n\e[0m" "-"
-make: Leaving directory 'c:/Users/Bienvenue/42_Work/push_swap'
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/llr/42_Work/push_swap'
+ 
+make: Nothing to be done for 'all'.
+ 
+make: Leaving directory '/home/llr/42_Work/push_swap'
  

@@ -1,212 +1,224 @@
-make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'srcs/main.o', needed by 'push_swap'.  Stop.
-
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 4.3
-# Built for Windows32
+ 
+# Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jun 30 19:15:14 2022
+# Make data base, printed on Mon Jul  4 22:23:55 2022
 
 # Variables
 
 # environment
-SYSTEMDRIVE = C:
+GDK_BACKEND = x11
 # environment
 LC_ALL = C
 # environment
-USERPROFILE = C:\Users\Bienvenue
+GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-LOCALAPPDATA = C:\Users\Bienvenue\AppData\Local
+SSH_AGENT_LAUNCHER = gnome-keyring
 # environment
-VSCODE_IPC_HOOK_EXTHOST = \\.\pipe\vscode-ipc-04f4d114-79a8-44c7-987b-871440565624-sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-f98d2b3a-3189-4809-b66b-2062c04229d2.sock
 # environment
-VSCODE_CWD = C:\Users\Bienvenue\42_Work\push_swap
+LC_NAME = fr_FR.UTF-8
 # environment
-CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
+LC_NUMERIC = fr_FR.UTF-8
 # environment
-SYSTEMROOT = C:\WINDOWS
+VSCODE_CWD = /home/llr/42_Work/push_swap
 # environment
-PROCESSOR_LEVEL = 6
-# environment
-PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+LC_ADDRESS = fr_FR.UTF-8
 # default
-MAKE_COMMAND := C:/ProgramData/chocolatey/lib/make/tools/install/bin/make.exe
-# automatic
-@D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
+MAKE_COMMAND := make
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_20264_VCUFHZKOQSJJXWDQ
+QT_ACCESSIBILITY = 1
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
 .VARIABLES := 
+# environment
+PWD = /home/llr/42_Work/push_swap
 # automatic
-%D = $(patsubst %/,%,$(patsubst %\,%,$(dir $%)))
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+LSCOLORS = Gxfxcxdxbxegedabagacad
+# environment
+XDG_DATA_DIRS = /usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+# environment
+OLDPWD = /home/llr
 # automatic
-^D = $(patsubst %/,%,$(patsubst %\,%,$(dir $^)))
+^D = $(patsubst %/,%,$(dir $^))
 # environment
 VSCODE_LOG_STACK = false
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\Bienvenue\AppData\Roaming\Code\CachedData\30d9c6cd9483b2cc586687151bcbcd635f373630
-# makefile (from 'Makefile', line 13)
-LIBFT = ./lib/libft/libft.a
+VSCODE_CODE_CACHE_PATH = /home/llr/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
 # environment
 LANG = C
+# environment
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.U3AYO1
 # default
 .LOADED := 
-# environment
-TMP = C:\Users\BIENVE~1\AppData\Local\Temp
 # default
-.INCLUDE_DIRS = .
+.INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-PROCESSOR_ARCHITEW6432 = AMD64
+GNOME_TERMINAL_SERVICE = :1.130
 # makefile
 MAKEFLAGS = pqrR
-# environment
-ONEDRIVE = C:\Users\Bienvenue\OneDrive
-# environment
-POWERSHELL_DISTRIBUTION_CHANNEL = MSI:Windows 10 Home
 # makefile
-CURDIR := c:/Users/Bienvenue/42_Work/push_swap
+CURDIR := /home/llr/42_Work/push_swap
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # makefile (from 'Makefile', line 3)
-SRCS = ./srcs/main.c
+SRCS = srcs/main.c srcs/utility.c srcs/utility2.c srcs/init.c
 # automatic
-*D = $(patsubst %/,%,$(patsubst %\,%,$(dir $*)))
-# environment
-PROGRAMFILES = C:\Program Files (x86)
+*D = $(patsubst %/,%,$(dir $*))
 # environment
 MFLAGS = -pqrR
-# default
-.S 
-HELLFLAGS := -c
 # environment
-COMMONPROGRAMW6432 = C:\Program Files\Common Files
+SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# default
+.SHELLFLAGS := -c
+# environment
+WAYLAND_DISPLAY = wayland-0
 # automatic
-+D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
++D = $(patsubst %/,%,$(dir $+))
+# environment
+XDG_SESSION_DESKTOP = ubuntu
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
+ZSH = /home/llr/.oh-my-zsh
+# environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 20264
+VSCODE_PID = 6178
+# environment
+XDG_SESSION_TYPE = wayland
 # automatic
-?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+SESSION_MANAGER = local/llr:@/tmp/.ICE-unix/1742,unix/llr:/tmp/.ICE-unix/1742
 # automatic
 *F = $(notdir $*)
-# automatic
-<D = $(patsubst %/,%,$(patsubst %\,%,$(dir $<)))
 # environment
-VSCODE_NLS_CONFIG = {"locale":"fr","availableLanguages":{},"_languagePackSupport":true}
+CHROME_DESKTOP = code-url-handler.desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # default
-MAKE_HOST := Windows32
-# makefile (from 'Makefile', line 5)
+MAKE_HOST := x86_64-pc-linux-gnu
+# makefile (from 'Makefile', line 8)
 OBJS = ${SRCS:.c=.o}
 # environment
-PROGRAMDATA = C:\ProgramData
-# default
-SHELL := sh.exe
-# environment
-HOMEPATH = \Users\Bienvenue
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# makefile
+SHELL = /bin/sh
 # default
 MAKECMDGOALS := all
 # environment
-DRIVERDATA = C:\Windows\System32\Drivers\DriverData
+XMODIFIERS = @im=ibus
 # environment
-COMSPEC = C:\WINDOWS\system32\cmd.exe
+SHLVL = 1
 # environment
-WINDIR = C:\WINDOWS
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/7be90c45_474f_47c6_b1b0_74ed543b6d1f
 # environment
 MAKELEVEL := 0
 # default
 MAKE = $(MAKE_COMMAND)
 # environment
-PATH = C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PowerShell\7\;C:\Program Files\dotnet\;C:\MinGW\bin;C:\Program Files\CMake\bin;C:\ProgramData\chocolatey\bin;C:\Users\Bienvenue\.cargo\bin;C:\Users\Bienvenue\AppData\Local\Programs\Python\Python39\Scripts\;C:\Users\Bienvenue\AppData\Local\Programs\Python\Python39\;C:\Users\Bienvenue\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm Community Edition 2021.2.2\bin;;C:\MinGW\bin;;C:\Users\Bienvenue\AppData\Local\Programs\Microsoft VS Code\bin
-# environment
-ZES_ENABLE_SYSMAN = 1
-# environment
-COMPUTERNAME = LAPTOP-JP3CTMON
+PATH = /home/llr/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
 # default
 MAKEFILES := 
-# makefile (from 'Makefile', line 15)
-LIBFTPRINTF = ./lib/ft_printf/libftprintf.a
+# environment
+LANGUAGE = en_US:
+# environment
+LC_MONETARY = fr_FR.UTF-8
 # automatic
 ^F = $(notdir $^)
 # environment
-PROMPT = $P$G
-# environment
-CHOCOLATEYLASTPATHUPDATE = 133010788650370631
-# environment
-LOGONSERVER = \\LAPTOP-JP3CTMON
+LC_TIME = fr_FR.UTF-8
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
-USERNAME = Bienvenue
+USERNAME = llr
 # environment
-COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
+GNOME_SETUP_DISPLAY = :1
+# environment
+LC_TELEPHONE = fr_FR.UTF-8
 # automatic
 ?F = $(notdir $?)
-# environment
-PROGRAMW6432 = C:\Program Files
 # makefile (from 'Makefile', line 1)
 NAME = push_swap
 # environment
-PATHEXT = .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW
+XDG_CURRENT_DESKTOP = Unity
+# environment
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
 # automatic
 +F = $(notdir $+)
 # environment
-ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+LESS = -R
 # environment
-USERDOMAIN = LAPTOP-JP3CTMON
+DESKTOP_SESSION = ubuntu
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
-OS = Windows_NT
+LOGNAME = llr
 # makefile
 .DEFAULT_GOAL := all
-# makefile (from 'Makefile', line 11)
+# environment
+SYSTEMD_EXEC_PID = 1759
+# makefile (from 'Makefile', line 14)
 RM = rm -f
+# environment
+DISPLAY = :0
+# environment
+USER = llr
+# environment
+GTK_MODULES = gail:atk-bridge
 # default
 MAKE_VERSION := 4.3
 # environment
-PROGRAMFILES(X86) = C:\Program Files (x86)
+LC_MEASUREMENT = fr_FR.UTF-8
 # environment
-USERDOMAIN_ROAMINGPROFILE = LAPTOP-JP3CTMON
+PAGER = less
 # environment
-NUMBER_OF_PROCESSORS = 8
+_ = /usr/bin/code
 # environment
-PUBLIC = C:\Users\Public
+LC_PAPER = fr_FR.UTF-8
 # environment
-ASL.LOG = Destination=file
-# environment
-APPDATA = C:\Users\Bienvenue\AppData\Roaming
-# makefile (from 'Makefile', line 7)
+XDG_RUNTIME_DIR = /run/user/1000
+# makefile (from 'Makefile', line 12)
 CFLAGS = -Wall -Werror -Wextra -g
 # environment
-HOMEDRIVE = C:
+COLORTERM = truecolor
 # environment
-PROCESSOR_ARCHITECTURE = x86
-# environment
-PYCHARM COMMUNITY EDITION = C:\Program Files\JetBrains\PyCharm Community Edition 2021.2.2\bin;
+XDG_SESSION_CLASS = user
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-COMMONPROGRAMFILES(X86) = C:\Program Files (x86)\Common Files
+HOME = /home/llr
+# environment
+QT_IM_MODULE = ibus
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-TEMP = C:\Users\BIENVE~1\AppData\Local\Temp
+VSCODE_IPC_HOOK = /run/user/1000/vscode-73b7c7fb-1.68.1-main.sock
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\01d7c72f12d771795b17b6855360f8fe-1.68.1-main-sock
+TERM = xterm-256color
 # default
 .RECIPEPREFIX := 
 # automatic
@@ -214,23 +226,23 @@ VSCODE_IPC_HOOK = \\.\pipe\01d7c72f12d771795b17b6855360f8fe-1.68.1-main-sock
 # default
 SUFFIXES := 
 # environment
-ALLUSERSPROFILE = C:\ProgramData
-# environment
-SESSIONNAME = Console
-# environment
 VSCODE_CLI = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
-# default
-.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync load
 # environment
-PROCESSOR_REVISION = 8c01
-# makefile (from 'Makefile', line 9)
+VTE_VERSION = 6800
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
+# makefile (from 'Makefile', line 10)
 CC = gcc
 # environment
-PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
+XDG_MENU_PREFIX = gnome-
+# environment
+GDMSESSION = ubuntu
+# environment
+LC_IDENTIFICATION = fr_FR.UTF-8
 # variable set hash-table stats:
-# Load=108/1024=11%, Rehash=0, Collisions=14/144=10%
+# Load=115/1024=11%, Rehash=0, Collisions=14/151=9%
 
 # Pattern-specific Variable Values
 
@@ -238,7 +250,7 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
 
 # Directories
 
-# . (key c:/Users/Bienvenue/42_Work/push_swap, mtime 1656609199): 7 files, no impossibilities.
+# . (device 2051, inode 658586): 7 files, no impossibilities.
 
 # 7 files, no impossibilities in 1 directories.
 
@@ -252,40 +264,53 @@ PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 20):
-		@$(CC) -Wall -Wextra -Werror -I . -O3 -c $< -o $@
-
-lib/libft/libft.a:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 27):
-		@make -C lib/libft --no-print-directory
+#  recipe to execute (from 'Makefile', line 19):
+		${CC} ${CFLAGS} -I . -c $< -o $@
 
 # Not a target:
 srcs/main.o:
 #  Implicit rule search has been done.
-#  File does not exist.
-#  File has not been updated.
+#  Last modified 2022-07-04 22:17:46.017721753
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+srcs/utility2.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 22:00:53.427580114
+#  File has been updated.
+ 
+#  Successfully updated.
+ 
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-30 19:13:11
+#  Last modified 2022-07-04 22:23:52.996699277
 #  File has been updated.
 #  Successfully updated.
+
+# Not a target:
+srcs/init.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 22:17:46.28171814
+#  File has been updated.
+#  Successfully updated.
+
+bonus:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
 
 clean:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 33):
-		@${RM} ${OBJS}
-		@printf "%s\e[0;31m push_swap : Delete all object files\n\e[0m" "-"
-		@make clean -C lib/libft --no-print-directory
-		@make clean -C lib/ft_printf --no-print-directory
-		
+#  recipe to execute (from 'Makefile', line 29):
+ 
+		${RM} ${OBJS}
 
 re: fclean push_swap
 #  Phony target (prerequisite of .PHONY).
@@ -304,56 +329,52 @@ all: push_swap
 #  Command line target.
 #  Implicit rule search has not been done.
 #  File does not exist.
-#  File has not been updated.
+#  File has been updated.
+#  Successfully updated.
 
-fclean:
+fclean: clean
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 40):
-		@${RM} ${OBJS}
-		@printf "%s\e[0;31m push_swap : Delete all object files\n\e[0m" "-"
-		@${RM} ${NAME}
-		@printf "%s\e[0;31m push_swap : Delete executable\n\e[0m" "-"
-		@make fclean -C lib/libft --no-print-directory
-		@make fclean -C lib/ft_printf --no-print-directory
-		
+#  recipe to execute (from 'Makefile', line 32):
+		${RM} ${NAME}
 
-lib/ft_printf/libftprintf.a:
+push_swap: srcs/main.o srcs/utility.o srcs/utility2.o srcs/init.o
 #  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 30):
-		@make -C lib/ft_printf --no-print-directory
+#  Last modified 2022-07-04 22:17:46.409716388
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 22):
+		@echo "compiling so_long"
+		${CC} ${CFLAGS} ${OBJS} -o ${NAME}
 
-push_swap: srcs/main.o lib/libft/libft.a lib/ft_printf/libftprintf.a
-#  Implicit rule search has not been done.
-#  File does not exist.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 23):
-		@${CC} ${CFLAGS} ${OBJS} ${LIBFT} ${LIBFTPRINTF} -o push_swap
-		@printf "%s\e[0;32m push_swap : Compiling object file into executable\n\e[0m" "-"
+# Not a target:
+srcs/utility.o:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-04 22:17:46.169719672
+#  File has been updated.
+#  Successfully updated.
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=13/1024=1%, Rehash=0, Collisions=0/37=0%
+# Load=15/1024=1%, Rehash=0, Collisions=0/40=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 19 / storage = 154 B / avg = 8 B
-# current buf: size = 8174 B / used = 154 B / count = 19 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 22 / storage = 185 B / avg = 8 B
+# current buf: size = 8162 B / used = 185 B / count = 22 / avg = 8 B
 
-# strcache performance: lookups = 42 / hit rate = 54%
+# strcache performance: lookups = 43 / hit rate = 48%
 # hash-table stats:
-# Load=19/8192=0%, Rehash=0, Collisions=0/42=0%
-# Finished Make data base on Thu Jun 30 19:15:14 2022
+# Load=22/8192=0%, Rehash=0, Collisions=0/43=0%
+# Finished Make data base on Mon Jul  4 22:23:55 2022
 
  

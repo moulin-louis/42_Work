@@ -36,7 +36,7 @@ MLX = ./lib/mlx_linux/libmlx.a
 all:	${NAME}
 
 .c.o:
-		@$(CC) -Wall -Wextra -Werror -I . -O3 -c $< -o $@
+		@$(CC) ${CFLAGS} -I . -O3 -c $< -o $@
 
 ${NAME}:	${OBJS} ${LIBFT} ${MLX} ${LIBFTPRINTF}
 		@${CC} ${CFLAGS} ${OBJS} ${LIBFT} ${MLX} ${LIBFTPRINTF} -lX11 -lXext -o so_long

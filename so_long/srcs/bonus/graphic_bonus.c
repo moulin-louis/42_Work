@@ -105,7 +105,7 @@ int	render(t_data *data)
 	if (data->window != NULL)
 	{
 		display_score(data);
-		if (data->ctr_anim % 3000 == 0)
+		if (data->ctr_anim % 500 == 0)
 			animate_player(data);
 	}
 	return (0);
