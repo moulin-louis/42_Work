@@ -43,14 +43,14 @@ ${NAME}:	${OBJS} ${LIBFT} ${MLX} ${LIBFTPRINTF}
 		@printf "%s\e[0;32m so_long : Compiling object file into executable\n\e[0m" "-"
 
 ${LIBFT}:
-		@make -C lib/libft --no-print-directory
+		@make -C lib/libft all --no-print-directory
 
 ${LIBFTPRINTF}:
-		@make -C lib/ft_printf --no-print-directory
+		@make -C lib/ft_printf all --no-print-directory
 
 ${MLX}:
 		@make -C lib/mlx_linux --no-print-directory
-		
+
 bonus: ${OBJS_B} ${LIBFT} ${MLX} ${LIBFTPRINTF}
 		${CC} ${CFLAGS} ${OBJS_B} ${LIBFT} ${MLX} ${LIBFTPRINTF} -lX11 -lXext -o so_long
 		@printf "%s\e[0;32m so_long : Compiling bonus object file into executable\n\e[0m" "-"
@@ -61,9 +61,9 @@ clean:
 		@printf "%s\e[0;31m so_long : Delete all object files\n\e[0m" "-"
 		@make clean -C lib/libft --no-print-directory
 		@make clean -C lib/ft_printf --no-print-directory
-		
 
-fclean:	
+
+fclean:
 		@${RM} ${OBJS}
 		@${RM} ${OBJS_B}
 		@printf "%s\e[0;31m so_long : Delete all object files\n\e[0m" "-"
@@ -72,7 +72,7 @@ fclean:
 		@make fclean -C lib/libft --no-print-directory
 		@make fclean -C lib/ft_printf --no-print-directory
 		@make clean -C lib/mlx_linux --no-print-directory
-		
+
 
 re: fclean ${NAME}
 

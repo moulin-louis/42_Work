@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphic.c                                          :+:      :+:    :+:   */
+/*   graphic_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 11:50:26 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/28 10:26:24 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/05 11:36:19 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	render(t_data *data)
 	if (data->window != NULL)
 	{
 		display_score(data);
-		if (data->ctr_anim % 500 == 0)
+		if (data->ctr_anim % 3500 == 0)
 			animate_player(data);
 	}
 	return (0);
