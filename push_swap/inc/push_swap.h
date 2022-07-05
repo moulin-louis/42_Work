@@ -2,7 +2,10 @@
 # define PUSH_SWAP_H
 
 # include <unistd.h>
-#include <stdlib.h>
+# include <stdlib.h>
+# include "../libft/libft.h"
+
+
 
 typedef struct s_stack
 {
@@ -10,11 +13,10 @@ typedef struct s_stack
 	struct s_stack	*next;
 }					t_stack;
 
-int	ft_atoi(char *nptr);
-t_stack *ft_lstnew(int nbr);
-void    ft_lstadd_back(t_stack **lst, t_stack *new);
-t_stack *ft_lstlast(t_stack *lst);
-void    ft_lstclear(t_stack **lst);
-void    ft_putstr(char *str);
-t_stack *ft_init(char **av);
+t_stack	*lstnew(int nbr);
+void	lstadd_back(t_stack **lst, t_stack *new);
+t_stack	*lstlast(t_stack *lst);
+void	lstclear(t_stack **lst);
+t_stack	*init(char **av);
+int	ft_check_arg(int ac, char **av);
 #endif
