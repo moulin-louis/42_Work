@@ -1,6 +1,7 @@
 {
     "makefile.extensionOutputFolder": "./.vscode",
     "files.associations": {
-        "unistd.h": "c"
-    }
+		"unistd.h": "c",
+		"libft.h": "c"
+	}
 }
