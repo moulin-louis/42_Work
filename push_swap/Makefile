@@ -4,7 +4,11 @@ SRCS	= srcs/main.c \
 		srcs/utility.c \
 		srcs/utility2.c \
 		srcs/init.c \
-		srcs/check_input.c
+		srcs/check_input.c \
+		srcs/instruc/sa.c \
+		srcs/instruc/sb.c \
+		srcs/instruc/ss.c \
+		srcs/instruc/pa.c
 
 OBJS	= ${SRCS:.c=.o}
 
