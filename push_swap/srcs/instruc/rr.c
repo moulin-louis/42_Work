@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utility2.c                                         :+:      :+:    :+:   */
+/*   rr.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 15:31:24 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/07 20:57:07 by loumouli         ###   ########.fr       */
+/*   Created: 2022/07/08 15:57:34 by loumouli          #+#    #+#             */
+/*   Updated: 2022/07/08 16:32:50 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/push_swap.h"
+#include "../../inc/push_swap.h"
 
-void	lstclear(t_stack **lst)
+void	rr(t_stack **lst_a, t_stack **lst_b)
 {
-	t_stack	*temp;
-
-	while (*lst)
-	{
-		temp = (*lst)->next;
-		free(*lst);
-		*lst = temp;
-	}
+	ra(lst_a);
+	rb(lst_b);
 }

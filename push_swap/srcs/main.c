@@ -6,7 +6,7 @@
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:31:24 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/07 18:34:14 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/07 20:56:29 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	ft_print_lst(t_stack *lst)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 
 	tmp = lst;
 	while (tmp)
@@ -42,12 +42,12 @@ int	ft_check_list(t_stack *lst)
 
 int	main(int ac, char **av)
 {
-	t_stack *lst_a;
+	t_data	data;
 
 	if (ac < 2)
-		return(-1);
+		return (-1);
 	if (ft_check_arg(ac, av) == -1)
-		return(-1);
+		return (-1);
 	lst_a = init(av);
 	if (lst_a == NULL)
 		return (ft_putstr_fd("Error\n", 1), -1);

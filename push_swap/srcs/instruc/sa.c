@@ -6,7 +6,7 @@
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 16:01:08 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/07 18:52:58 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/07 20:59:28 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	sa(t_stack **lst_a)
 {
-
 	t_stack	*temp;
 	t_stack	*temp2;
-	
+
 	if (*lst_a == NULL || (*lst_a)->next == NULL)
 		return ;
 	else

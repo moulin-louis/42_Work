@@ -6,7 +6,7 @@
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 15:08:15 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/07 17:00:28 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/07 20:57:24 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_check_str(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -38,8 +38,8 @@ int	ft_check_overflow(char *str)
 
 int	ft_check_double(char **av)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (av[i])
