@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:00:06 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/11 19:50:20 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/12 16:42:59 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_data
 t_stack	*lstnew(int nbr);
 void	lstadd_back(t_stack **lst, t_stack *new);
 t_stack	*lstlast(t_stack *lst);
+void	lstclear(t_stack **lst);
+void	lstadd_front(t_stack **lst, t_stack *new);
 void	lstclear(t_stack **lst);
 
 t_stack	*init(char **av);

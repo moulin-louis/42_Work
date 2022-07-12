@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utility2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:31:24 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/07 20:57:07 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/12 16:33:14 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/push_swap.h"
+#include "push_swap.h"
 
 void	lstclear(t_stack **lst)
 {
@@ -22,4 +22,10 @@ void	lstclear(t_stack **lst)
 		free(*lst);
 		*lst = temp;
 	}
+}
+
+void	lstadd_front(t_stack **lst, t_stack *new)
+{
+	new->next = *lst;
+	*lst = new;
 }

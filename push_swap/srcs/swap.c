@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:39:24 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/11 19:40:14 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/12 16:46:45 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/push_swap.h"
+#include "push_swap.h"
 
 void	sa(t_stack **lst_a)
 {
@@ -28,7 +28,6 @@ void	sa(t_stack **lst_a)
 		(*lst_a)->next->next = temp2;
 	}
 }
-
 
 void	sb(t_stack **lst_b)
 {

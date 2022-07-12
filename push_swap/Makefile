@@ -1,45 +1,101 @@
-NAME	= push_swap
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
+#    Updated: 2022/07/12 15:28:49 by loumouli         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRCS	= srcs/main.c \
-		srcs/utility.c \
-		srcs/utility2.c \
-		srcs/init.c \
-		srcs/check_input.c \
-		srcs/instruc/swap.c \
-		srcs/instruc/push.c \
-		srcs/instruc/rotate.c \
-		srcs/instruc/r_rotate.c
+# ################################## #
+#               COMMAND              #
+# ################################## #
+CC			= gcc
+MKDIR		= mkdir -p
+RM			= rm -rf
 
-OBJS	= ${SRCS:.c=.o}
+# ################################## #
+#              EXEC NAME             #
+# ################################## #
+NAME		= push_swap
 
-LIBFT = libft/libft.a
+# ################################## #
+#               SOURCES              #
+# ################################## #
+C_DIR		= srcs
+C_FILES		= main.c		\
+			check_input.c \
+			init.c \
+			utility.c \
+			utility2.c \
+			push.c \
+			r_rotate.c \
+			rotate.c \
+			swap.c \
 
-CC		= gcc
 
-CFLAGS	= -Wall -Werror -Wextra -g
+SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 
-RM		= rm -f
+# ################################## #
+#               OBJECTS              #
+# ################################## #
+O_DIR		= objs
+O_FILES		= $(C_FILES:.c=.o)
+OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 
-all: 		${NAME}
+# ################################## #
+#                FLAGS               #
+# ################################## #
+CFLAGS		= -Wall -Wextra -Werror -g3
 
-.c.o:
-		${CC} ${CFLAGS} -I . -c $< -o $@
+CINCLUDES	= -I ./inc	\
+			  -I ./libft \
 
-${NAME}:	${LIBFT} ${OBJS}
-		@echo "compiling so_long"
-		${CC} ${CFLAGS} ${OBJS} -o ${NAME} ${LIBFT}
+LIBFT		= ./libft/libft.a
+CLIBS		= -L ./libft -lft
 
-${LIBFT}:
-		make -C libft all --no-print-directory
+# ################################## #
+#                RULES               #
+# ################################## #
+
+$(O_DIR)/%.o: $(C_DIR)/%.c
+			$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
+
+all:		$(NAME)
+
+check:	fclean
+check:	CFLAGS		+=  -pedantic -ansi
+check:	CFLAGS		+=  -fsanitize=address
+check:	CFLAGS		+=  -fsanitize=leak
+check:	CFLAGS		+=  -fsanitize=undefined
+check:	CFLAGS		+=  -g3
+check:	LFLAGS		+=  -fsanitize=address
+check:	LFLAGS		+=  -fsanitize=leak
+check:	LFLAGS		+=  -fsanitize=undefined
+check:	LFLAGS		+=  -g3
+check:	${NAME}
+
+$(NAME):	$(O_DIR) $(LIBFT) $(OBJS)
+			$(CC) $(OBJS) $(LFLAGS) $(CLIBS) -o $@
+
+$(O_DIR):
+			$(MKDIR) $(O_DIR)
+
+$(LIBFT):
+			make -C ./libft
 
 clean:
-		${RM} ${OBJS}
-		make -C libft clean --no-print-directory
+			$(RM) $(O_DIR)
+			make -C ./libft fclean
 
-fclean: 	clean
-		${RM} ${NAME}
-		make -C libft fclean --no-print-directory
+fclean:		clean
+			$(RM) $(NAME)
 
-re:			fclean ${NAME}
+re:			fclean all
 
-.PHONY: all clean fclean re bonus
+-include	$(OBJS:.o=.d)
+
+.PHONY: all check clean fclean re

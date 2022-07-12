@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 22:10:29 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/07 20:56:00 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/12 15:27:19 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/push_swap.h"
-#include "libft/libft.h"
+#include "push_swap.h"
 
 t_stack	*init(char **av)
 {

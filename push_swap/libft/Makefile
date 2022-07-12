@@ -1,29 +1,126 @@
-SRCS	= ft_atoi.c ft_calloc.c ft_isascii.c  ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isdigit.c ft_isprint.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_strdup.c ft_memmove.c ft_memset.c ft_strchr.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c ft_strnstr.c ft_strrchr.c ft_tolower.c ft_toupper.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_lstadd_back.c ft_lstiter.c ft_lstadd_front.c ft_lstlast.c ft_lstnew.c ft_lstsize.c ft_lstdelone.c ft_lstclear.c ft_lstmap.c
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
+#    Updated: 2022/07/12 15:47:15 by loumouli         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-OBJS	= ${SRCS:.c=.o}
+# ################################## #
+#               COMMAND              #
+# ################################## #
+CC			= gcc
+MKDIR		= mkdir -p
+RM			= rm -rf
 
-NAME	= libft.a
+# ################################## #
+#              EXEC NAME             #
+# ################################## #
+NAME		= libft.a
 
-CFLAGS	= -Wall -Werror -Wextra -g
+# ################################## #
+#               SOURCES              #
+# ################################## #
+C_DIR		= ./
+C_FILES		= ft_atoi.c \
+			ft_calloc.c \
+			ft_isascii.c \
+			ft_bzero.c \
+			ft_isalnum.c \
+			ft_isalpha.c \
+			ft_isdigit.c \
+			ft_isprint.c \
+			ft_memchr.c \
+			ft_memcmp.c \
+			ft_memcpy.c \
+			ft_strdup.c \
+			ft_memmove.c \
+			ft_memset.c \
+			ft_strchr.c \
+			ft_strlcat.c \
+			ft_strlcpy.c \
+			ft_strlen.c \
+			ft_strncmp.c \
+			ft_strnstr.c \
+			ft_strrchr.c \
+			ft_tolower.c \
+			ft_toupper.c \
+			ft_substr.c \
+			ft_strjoin.c \
+			ft_strtrim.c \
+			ft_split.c \
+			ft_itoa.c \
+			ft_strmapi.c \
+			ft_striteri.c \
+			ft_putchar_fd.c \
+			ft_putstr_fd.c \
+			ft_putendl_fd.c \
+			ft_putnbr_fd.c \
+			ft_lstadd_back.c \
+			ft_lstiter.c \
+			ft_lstadd_front.c \
+			ft_lstlast.c \
+			ft_lstnew.c \
+			ft_lstsize.c \
+			ft_lstdelone.c \
+			ft_lstclear.c \
+			ft_lstmap.c
 
-CC		= gcc
 
-RM		= rm -f
+SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 
-.c.o:
-		${CC} ${CFLAGS} -I . -c $< -o $@
+# ################################## #
+#               OBJECTS              #
+# ################################## #
+O_DIR		= objs
+O_FILES		= $(C_FILES:.c=.o)
+OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 
-${NAME}:	${OBJS}
-		ar -rc ${NAME} ${OBJS}
+# ################################## #
+#                FLAGS               #
+# ################################## #
+CFLAGS		= -Wall -Wextra -Werror -g
 
-all:	${NAME}
+# ################################## #
+#                RULES               #
+# ################################## #
+
+$(O_DIR)/%.o: $(C_DIR)/%.c
+			$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
+
+all:		$(NAME)
+
+check:	fclean
+check:	CFLAGS		+=  -pedantic -ansi
+check:	CFLAGS		+=  -fsanitize=address
+check:	CFLAGS		+=  -fsanitize=leak
+check:	CFLAGS		+=  -fsanitize=undefined
+check:	CFLAGS		+=  -g3
+check:	LFLAGS		+=  -fsanitize=address
+check:	LFLAGS		+=  -fsanitize=leak
+check:	LFLAGS		+=  -fsanitize=undefined
+check:	LFLAGS		+=  -g3
+check:	${NAME}
+
+$(NAME):	$(O_DIR) $(LIBFT) $(OBJS)
+			ar -rc ${NAME} ${OBJS}
+
+$(O_DIR):
+			$(MKDIR) $(O_DIR)
+
 
 clean:
-		@${RM} ${OBJS}
+			$(RM) $(O_DIR)
 
-fclean:	clean
-		@${RM} ${NAME}
+fclean:		clean
+			$(RM) $(NAME)
 
-re: fclean all
+re:			fclean all
 
-.PHONY: all clean fclean re
+-include	$(OBJS:.o=.d)
+
+.PHONY: all check clean fclean re
