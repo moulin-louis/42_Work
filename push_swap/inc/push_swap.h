@@ -6,7 +6,7 @@
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:00:06 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/07 21:01:16 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/11 19:50:20 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,15 @@ int		ft_check_arg(int ac, char **av);
 void	sa(t_stack **lst_a);
 void	sb(t_stack **lst_b);
 void	ss(t_stack **lst_a, t_stack **lst_b);
+
+void	pa(t_stack **lst_a, t_stack **lst_b);
+void	pb(t_stack **lst_a, t_stack **lst_b);
+
+void	ra(t_stack **lst_a);
+void	rb(t_stack **lst_b);
+void	rr(t_stack **lst_a, t_stack **lst_b);
+
+void	rra(t_stack **lst_a);
+void	rrb(t_stack **lst_b);
+void	rrr(t_stack **lst_a, t_stack **lst_b);
 #endif

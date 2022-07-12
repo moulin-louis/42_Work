@@ -1,0 +1,16 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/llr/42_Work/push_swap'
+make -C libft all --no-print-directory
+gcc -Wall -Werror -Wextra -g -I . -c srcs/main.c -o srcs/main.o
+gcc -Wall -Werror -Wextra -g -I . -c srcs/utility.c -o srcs/utility.o
+gcc -Wall -Werror -Wextra -g -I . -c srcs/utility2.c -o srcs/utility2.o
+gcc -Wall -Werror -Wextra -g -I . -c srcs/init.c -o srcs/init.o
+gcc -Wall -Werror -Wextra -g -I . -c srcs/check_input.c -o srcs/check_input.o
+ 
+gcc -Wall -Werror -Wextra -g -I . -c srcs/instruc/swap.c -o srcs/instruc/swap.o
+gcc -Wall -Werror -Wextra -g -I . -c srcs/instruc/push.c -o srcs/instruc/push.o
+gcc -Wall -Werror -Wextra -g -I . -c srcs/instruc/rotate.c -o srcs/instruc/rotate.o
+make: Leaving directory '/home/llr/42_Work/push_swap'
+ 
+make: *** No rule to make target 'srcs/instruc/r_rotate.o', needed by 'push_swap'.
+

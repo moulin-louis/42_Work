@@ -5,10 +5,10 @@ SRCS	= srcs/main.c \
 		srcs/utility2.c \
 		srcs/init.c \
 		srcs/check_input.c \
-		srcs/instruc/sa.c \
-		srcs/instruc/sb.c \
-		srcs/instruc/ss.c \
-		srcs/instruc/pa.c
+		srcs/instruc/swap.c \
+		srcs/instruc/push.c \
+		srcs/instruc/rotate.c \
+		srcs/instruc/r_rotate.c
 
 OBJS	= ${SRCS:.c=.o}
 
