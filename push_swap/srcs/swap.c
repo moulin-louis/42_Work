@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:39:24 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/12 16:46:45 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/14 14:42:55 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	sa(t_stack **lst_a)
 		(*lst_a)->next = temp;
 		(*lst_a)->next->next = temp2;
 	}
+	ft_putstr_fd("sa\n", 1);
 }
 
 void	sb(t_stack **lst_b)
@@ -44,6 +45,7 @@ void	sb(t_stack **lst_b)
 		(*lst_b)->next = temp;
 		(*lst_b)->next->next = temp2;
 	}
+	ft_putstr_fd("sb\n", 1);
 }
 
 void	ss(t_stack **lst_a, t_stack **lst_b)

@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:31:24 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/12 16:46:39 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/14 15:24:28 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ int	main(int ac, char **av)
 	t_stack	*lst_a;
 
 	if (ft_check_arg(ac, av) == -1)
-		return (-1);
+		return (ft_putstr_fd("Error\n", 2), -1);
 	lst_a = init(av);
 	if (lst_a == NULL)
-		return (ft_putstr_fd("Error\n", 1), -1);
+		return (ft_putstr_fd("Error\n", 2), -1);
 	if (ft_check_list(lst_a) == 1)
-		return (ft_putstr_fd("args already list\n", 1), -1);
-	ft_print_lst(lst_a);
+		return (lstclear(&lst_a), 0);
+	if (lstsize(lst_a) == 3 || lstsize(lst_a) == 2)
+		sort_3(&lst_a, lstsize(lst_a));
 	lstclear(&lst_a);
 	return (0);
 }

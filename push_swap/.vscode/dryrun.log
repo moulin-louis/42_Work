@@ -1,5 +1,0 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory '/mnt/nfs/homes/loumouli/Desktop/git repo/42_Work/push_swap'
-make: Nothing to be done for 'all'.
-make: Leaving directory '/mnt/nfs/homes/loumouli/Desktop/git repo/42_Work/push_swap'
- 

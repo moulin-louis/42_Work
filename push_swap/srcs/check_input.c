@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 15:08:15 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/12 15:27:39 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/14 15:05:18 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ int	ft_check_str(char *str)
 	int	i;
 
 	i = 0;
+	if (str[i] == '-')
+		i++;
 	while (str[i])
 	{
-		if (str[i] < '0' || str[i] > '9')
+		if (!ft_isdigit(str[i]))
 			return (-1);
 		i++;
 	}
@@ -64,13 +66,13 @@ int	ft_check_arg(int ac, char **av)
 	if (ac < 2)
 		return (-1);
 	if (ft_check_double(av) == -1)
-		return (ft_putstr_fd("two same nbr\n", 1), -1);
+		return (-1);
 	while (av[x])
 	{
 		if (ft_check_str(av[x]) == -1)
-			return (ft_putstr_fd("wrong input\n", 1), -1);
+			return (-1);
 		if (ft_check_overflow(av[x]) == -1)
-			return (ft_putstr_fd("Overflow problem\n", 1), -1);
+			return (-1);
 		x++;
 	}
 	return (0);
