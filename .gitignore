@@ -1,0 +1,7 @@
+.vscode/*
+a.out
+./push_swap
+*.o
+*.txt
+*.log
+./push_swap/push_swap_tester

@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/07/14 14:39:33 by loumouli         ###   ########.fr        #
+#    Updated: 2022/07/19 16:26:37 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ C_FILES		= main.c		\
 			r_rotate.c \
 			rotate.c \
 			swap.c \
-			sort_3.c
-
+			sort_3.c \
+			sort_big_list.c
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 
@@ -50,7 +50,7 @@ OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 # ################################## #
 #                FLAGS               #
 # ################################## #
-CFLAGS		= -Wall -Wextra -Werror -g3
+CFLAGS		= -Wall -Wextra -Werror -g
 
 CINCLUDES	= -I ./inc	\
 			  -I ./libft \
@@ -96,7 +96,5 @@ fclean:		clean
 			$(RM) $(NAME)
 
 re:			fclean all
-
--include	$(OBJS:.o=.d)
 
 .PHONY: all check clean fclean re

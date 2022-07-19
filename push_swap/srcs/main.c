@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:31:24 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/14 15:24:28 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:19:14 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ int	ft_check_list(t_stack *lst)
 int	main(int ac, char **av)
 {
 	t_stack	*lst_a;
+	t_stack	*lst_b;
 
+	lst_b = NULL;
 	if (ft_check_arg(ac, av) == -1)
 		return (ft_putstr_fd("Error\n", 2), -1);
 	lst_a = init(av);
@@ -53,6 +55,10 @@ int	main(int ac, char **av)
 		return (lstclear(&lst_a), 0);
 	if (lstsize(lst_a) == 3 || lstsize(lst_a) == 2)
 		sort_3(&lst_a, lstsize(lst_a));
+	//else
+		//sort_big_list(lst_a, lst_b);
+	ft_print_lst(lst_a);
+	(void)lst_b;
 	lstclear(&lst_a);
 	return (0);
 }
