@@ -6,9 +6,13 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/07/12 15:47:15 by loumouli         ###   ########.fr        #
+#    Updated: 2022/07/24 16:16:47 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+RED=\033[0;31m
+GREEN=\033[0;32m
+RESET=\033[0m
 
 # ################################## #
 #               COMMAND              #
@@ -90,7 +94,7 @@ CFLAGS		= -Wall -Wextra -Werror -g
 # ################################## #
 
 $(O_DIR)/%.o: $(C_DIR)/%.c
-			$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
+			@$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
 
 all:		$(NAME)
 
@@ -107,17 +111,21 @@ check:	LFLAGS		+=  -g3
 check:	${NAME}
 
 $(NAME):	$(O_DIR) $(LIBFT) $(OBJS)
-			ar -rc ${NAME} ${OBJS}
+			@ar -rc ${NAME} ${OBJS}
+			@echo "${GREEN}- compiling library libft.a ${RESET}"
 
 $(O_DIR):
-			$(MKDIR) $(O_DIR)
+			@$(MKDIR) $(O_DIR)
+			@echo "${GREEN}- creating libft directory objs${RESET}"
 
 
 clean:
-			$(RM) $(O_DIR)
+			@$(RM) $(O_DIR)
+			@echo "${RED}- deleting libft objects${RESET}"
 
 fclean:		clean
-			$(RM) $(NAME)
+			@$(RM) $(NAME)
+			@echo "${RED}- delete libft library${RESET}"
 
 re:			fclean all
 

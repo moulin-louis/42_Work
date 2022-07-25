@@ -6,9 +6,13 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/07/19 16:26:37 by loumouli         ###   ########.fr        #
+#    Updated: 2022/07/24 16:16:59 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+RED=\033[0;31m
+GREEN=\033[0;32m
+RESET=\033[0m
 
 # ################################## #
 #               COMMAND              #
@@ -63,7 +67,7 @@ CLIBS		= -L ./libft -lft
 # ################################## #
 
 $(O_DIR)/%.o: $(C_DIR)/%.c
-			$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
+			@$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
 
 all:		$(NAME)
 
@@ -80,20 +84,24 @@ check:	LFLAGS		+=  -g3
 check:	${NAME}
 
 $(NAME):	$(O_DIR) $(LIBFT) $(OBJS)
-			$(CC) $(OBJS) $(LFLAGS) $(CLIBS) -o $@
+			@$(CC) $(OBJS) $(LFLAGS) $(CLIBS) -o $@
+			@echo "${GREEN}- compiling push_swap executable${RESET}"
 
 $(O_DIR):
-			$(MKDIR) $(O_DIR)
+			@$(MKDIR) $(O_DIR)
+			@echo "${GREEN}- creating push_swap objects directory${RESET}"
 
 $(LIBFT):
-			make -C ./libft
+			@make -C ./libft --no-print-directory
 
 clean:
-			$(RM) $(O_DIR)
-			make -C ./libft fclean
+			@$(RM) $(O_DIR)
+			@make -C ./libft fclean --no-print-directory
+			@echo "${RED}- deleting push_swap objects${RESET}"
 
 fclean:		clean
-			$(RM) $(NAME)
+			@$(RM) $(NAME)
+			@echo "${RED}- delete push_swap executable${RESET}"
 
 re:			fclean all
 
