@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 22:10:29 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/19 16:37:24 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:10:42 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	find_pos(t_stack *lst, int nbr)
 {
 	t_stack	*temp;
-	int result;
+	int		result;
 
 	temp = lst;
 	result = 0;
@@ -38,7 +38,7 @@ t_stack	*simplify_nbr(t_stack *lst)
 	temp = temp->next;
 	while (temp)
 	{
-		lstadd_back(&result,lstnew(find_pos(lst, temp->nbr)));
+		lstadd_back(&result, lstnew(find_pos(lst, temp->nbr)));
 		temp = temp->next;
 	}
 	return (result);
