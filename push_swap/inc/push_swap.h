@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:00:06 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/19 16:22:18 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/29 19:35:27 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
+# include <stdio.h>
 
 typedef struct s_stack
 {
@@ -46,10 +47,7 @@ void	rrr(t_stack **lst_a, t_stack **lst_b);
 int		ft_check_arg(int ac, char **av);
 t_stack	*init(char **av);
 void	sort_3(t_stack **lst_a, int size);
-void	sort_big_list(t_stack *lst_a, t_stack *lst_b);
-
-
-
+void	sort_big_list(t_stack **lst_a);
 
 void	ft_print_lst(t_stack *lst);
 #endif

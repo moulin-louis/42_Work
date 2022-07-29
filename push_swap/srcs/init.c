@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 22:10:29 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/25 16:10:42 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/29 19:16:02 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_stack	*simplify_nbr(t_stack *lst)
 		lstadd_back(&result, lstnew(find_pos(lst, temp->nbr)));
 		temp = temp->next;
 	}
+	lstclear(&lst);
 	return (result);
 }
 

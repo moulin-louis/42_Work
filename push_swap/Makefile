@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
+#    By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/07/24 16:16:59 by loumouli         ###   ########.fr        #
+#    Updated: 2022/07/28 14:48:19 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,10 @@ C_FILES		= main.c		\
 			init.c \
 			utility.c \
 			utility2.c \
-			push.c \
-			r_rotate.c \
-			rotate.c \
-			swap.c \
+			instruc_push.c \
+			instruc_r_rotate.c \
+			instruc_rotate.c \
+			instruc_swap.c \
 			sort_3.c \
 			sort_big_list.c
 
