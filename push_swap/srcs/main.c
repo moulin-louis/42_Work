@@ -6,7 +6,7 @@
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:31:24 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/29 21:00:08 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/30 05:54:05 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	main(int ac, char **av)
 		sort_3(&lst_a, lstsize(lst_a));
 	else
 		sort_big_list(&lst_a);
-	ft_print_lst(lst_a);
 	lstclear(&lst_a);
 	return (0);
 }

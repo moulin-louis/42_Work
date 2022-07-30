@@ -6,7 +6,7 @@
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:55:45 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/29 21:03:23 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/30 06:18:16 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ void	raddix_for_i(t_stack **lst_a, int index)
 {
 	t_stack	*temp;
 	t_stack	*lst_b;
+	int		i;
 
 	lst_b = NULL;
 	temp = *lst_a;
-	while(temp)
+	i = lstsize(*lst_a);
+	while(i != 0)
 	{
-		printf("nbr last bits = %d\n", (temp->nbr >> index)& 1);
 		if (((temp->nbr >> index)& 1) == 1)
 			ra(lst_a);
 		else
 			pb(lst_a, &lst_b);
-		temp = temp->next;
+		temp = *lst_a;
+		i--;
 	}
 	while(lst_b)
-	{
 		pa(lst_a, &lst_b);
-	}
 	lstclear(&lst_b);
 }
 
@@ -62,7 +62,7 @@ void	sort_big_list(t_stack **lst_a)
 	while (max_nbr >> max_bits != 0)
 		max_bits++;
 	i = 0;
-	while (i < 1)
+	while (i < max_bits)
 	{
 		raddix_for_i(lst_a, i);
 		i++;

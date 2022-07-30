@@ -6,7 +6,7 @@
 #    By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/07/28 14:48:19 by loumouli         ###   ########.fr        #
+#    Updated: 2022/07/30 06:14:43 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 # ################################## #
 #                FLAGS               #
 # ################################## #
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=address
 
 CINCLUDES	= -I ./inc	\
 			  -I ./libft \
