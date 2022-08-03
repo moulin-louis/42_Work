@@ -6,7 +6,7 @@
 #    By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/07/30 06:14:43 by loumouli         ###   ########.fr        #
+#    Updated: 2022/07/30 09:53:32 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ C_FILES		= main.c		\
 			instruc_rotate.c \
 			instruc_swap.c \
 			sort_3.c \
+			sort_4_5.c \
 			sort_big_list.c
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
@@ -54,7 +55,7 @@ OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 # ################################## #
 #                FLAGS               #
 # ################################## #
-CFLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g
 
 CINCLUDES	= -I ./inc	\
 			  -I ./libft \

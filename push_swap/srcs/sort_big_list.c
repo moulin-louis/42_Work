@@ -6,7 +6,7 @@
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:55:45 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/30 06:18:16 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/07/30 10:58:38 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ void	raddix_for_i(t_stack **lst_a, int index)
 	lst_b = NULL;
 	temp = *lst_a;
 	i = lstsize(*lst_a);
-	while(i != 0)
+	while (i != 0)
 	{
-		if (((temp->nbr >> index)& 1) == 1)
+		if (((temp->nbr >> index) & 1) == 1)
 			ra(lst_a);
 		else
 			pb(lst_a, &lst_b);
 		temp = *lst_a;
 		i--;
 	}
-	while(lst_b)
+	while (lst_b)
 		pa(lst_a, &lst_b);
 	lstclear(&lst_b);
 }

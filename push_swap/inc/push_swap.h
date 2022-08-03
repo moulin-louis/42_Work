@@ -6,7 +6,7 @@
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:00:06 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/29 19:35:27 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/08/03 19:05:35 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
-# include <stdio.h>
 
 typedef struct s_stack
 {
@@ -47,7 +46,9 @@ void	rrr(t_stack **lst_a, t_stack **lst_b);
 int		ft_check_arg(int ac, char **av);
 t_stack	*init(char **av);
 void	sort_3(t_stack **lst_a, int size);
+void	sort_4(t_stack **lst_a);
+void	sort_5(t_stack **lst_a);
 void	sort_big_list(t_stack **lst_a);
 
-void	ft_print_lst(t_stack *lst);
+int		ft_check_list(t_stack *lst);
 #endif

@@ -6,33 +6,11 @@
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:31:24 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/30 05:54:05 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/08/03 18:59:37 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
-
-void	converttobinary(int a)
-{
-	if (a > 1)
-		converttobinary(a / 2);
-	printf("%d", a % 2);
-}
-
-void	ft_print_lst(t_stack *lst)
-{
-	t_stack	*tmp;
-
-	tmp = lst;
-	while (tmp)
-	{
-		printf("%d", tmp->nbr);
-		printf("\n");
-		tmp = tmp->next;
-	}
-	printf("\n");
-}
 
 int	ft_check_list(t_stack *lst)
 {
@@ -59,8 +37,12 @@ int	main(int ac, char **av)
 		return (ft_putstr_fd("Error\n", 2), -1);
 	if (ft_check_list(lst_a) == 1)
 		return (lstclear(&lst_a), 0);
-	if (lstsize(lst_a) == 3 || lstsize(lst_a) == 2)
+	if (lstsize(lst_a) <= 3)
 		sort_3(&lst_a, lstsize(lst_a));
+	else if (lstsize(lst_a) == 4)
+		sort_4(&lst_a);
+	else if (lstsize(lst_a) == 5)
+		sort_5(&lst_a);
 	else
 		sort_big_list(&lst_a);
 	lstclear(&lst_a);

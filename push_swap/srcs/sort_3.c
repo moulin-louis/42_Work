@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:24:08 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/14 15:26:20 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/08/03 19:05:21 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,20 @@ int	choose_order(t_stack *lst)
 	return (0);
 }
 
+void	sort_2(t_stack **lst_a)
+{
+	if (ft_check_list(*lst_a) == 0)
+		sa(lst_a);
+	else
+		return ;
+}
+
 void	sort_3(t_stack **lst_a, int size)
 {
 	int	order;
 
 	if (size == 2)
-		sa(lst_a);
+		return (sort_2(lst_a));
 	else
 	{
 		order = choose_order(*lst_a);
