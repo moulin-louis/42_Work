@@ -1,5 +1,0 @@
-/home/llr/42_Work/project_rust/rustlings/target/debug/deps/inotify_sys-2d3d2805199c1c32.rmeta: /home/llr/.cargo/registry/src/github.com-1ecc6299db9ec823/inotify-sys-0.1.5/src/lib.rs
-
-/home/llr/42_Work/project_rust/rustlings/target/debug/deps/inotify_sys-2d3d2805199c1c32.d: /home/llr/.cargo/registry/src/github.com-1ecc6299db9ec823/inotify-sys-0.1.5/src/lib.rs
-
-/home/llr/.cargo/registry/src/github.com-1ecc6299db9ec823/inotify-sys-0.1.5/src/lib.rs:
