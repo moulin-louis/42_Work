@@ -6,7 +6,7 @@
 #    By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/07/30 09:53:32 by loumouli         ###   ########.fr        #
+#    Updated: 2022/08/22 19:37:20 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ C_FILES		= main.c		\
 			instruc_swap.c \
 			sort_3.c \
 			sort_4_5.c \
-			sort_big_list.c
+			sort_big_list.c \
+			ft_split_custom.c
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 

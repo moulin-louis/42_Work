@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   check_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 15:08:15 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/14 15:05:18 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/08/22 20:04:02 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 int	ft_check_str(char *str)
 {
@@ -58,20 +59,22 @@ int	ft_check_double(char **av)
 	return (0);
 }
 
-int	ft_check_arg(int ac, char **av)
+int	ft_check_arg(int ac, char ***av)
 {
 	int	x;
 
 	x = 1;
 	if (ac < 2)
 		return (-1);
-	if (ft_check_double(av) == -1)
+	else if (ac == 2)
+		*av = ft_split_custom((*av)[1], ' ');
+	if (ft_check_double(*av) == -1)
 		return (-1);
-	while (av[x])
+	while ((*av)[x])
 	{
-		if (ft_check_str(av[x]) == -1)
+		if (ft_check_str((*av)[x]) == -1)
 			return (-1);
-		if (ft_check_overflow(av[x]) == -1)
+		if (ft_check_overflow((*av)[x]) == -1)
 			return (-1);
 		x++;
 	}
