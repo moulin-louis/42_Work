@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 15:48:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/25 15:18:30 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/08/24 01:02:57 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,29 @@ int	find_nbr_coll(t_data *data)
 	return (1);
 }
 
+int	check_char_map(t_data *data)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while(data->map[x])
+	{
+		y = 0;
+		while(data->map[x][y])
+		{
+			if (data->map[x][y] != 'P' && data->map[x][y] != '0'
+			&& data->map[x][y] != '1' && data->map[x][y] != 'E'
+			&& data->map[x][y] != 'C')
+				return (destroy_anything(data), -1);
+			y++;
+		}		
+		x++;
+	}
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -62,13 +85,14 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (ft_printf("Gib the right ammount of arg\n"), 0);
 	nullify_void_ptr(&data);
-	write(1, "\n", 1);
 	if (setup_map(&data, av[1]) == -1)
 		return (-1);
 	if (setup_init(&data) == 0)
 		return (-3);
 	if (find_nbr_coll(&data) == -1)
 		return (ft_putstr_fd("Error\nProbleme exit/player/coll\n", 1), -4);
+	if (check_char_map(&data) == -1)
+		return (ft_putstr_fd("Error\nInvalid char\n", 1), 1);
 	push_map(&data);
 	setup_hook(&data);
 	mlx_loop(data.init);
