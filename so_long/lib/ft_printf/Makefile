@@ -11,18 +11,23 @@ CFLAGS		= -Wall -Wextra -Werror -g
 RM			= rm -rf
 
 .c.o:
-		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+		@${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}:${OBJS}
-		ar -rcs ${NAME} ${OBJS}
+		@printf "%s\e[0;32m ft_printf : Compiling object file into elibrary\n\e[0m" "-"
+		@ar -rcs ${NAME} ${OBJS}
 
 all:    ${NAME}
 
 clean:
-		${RM} ${OBJS}
+		@${RM} ${OBJS}
+		@printf "%s\e[0;31m ft_printf : Delete all object files\n\e[0m" "-"
+
 
 fclean:    clean
-		${RM} ${NAME}
+		@${RM} ${NAME}
+		@printf "%s\e[0;31m ft_printf : Delete executable\n\e[0m" "-"
+
 
 re:     fclean all
 
