@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:31:24 by loumouli          #+#    #+#             */
-/*   Updated: 2022/08/22 19:34:52 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:00:37 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	ft_check_list(t_stack *lst)
 int	main(int ac, char **av)
 {
 	t_stack	*lst_a;
-	
+
 	if (ft_check_arg(ac, &av) == -1)
 		return (ft_putstr_fd("Error\n", 2), -1);
 	lst_a = init(av);
 	if (lst_a == NULL)
-		return (ft_putstr_fd("Error\n", 2), -1);
+		return (ft_putstr_fd("Error\nInit failed", 2), -1);
 	if (ft_check_list(lst_a) == 1)
 		return (lstclear(&lst_a), 0);
 	if (lstsize(lst_a) <= 3)

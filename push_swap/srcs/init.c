@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 22:10:29 by loumouli          #+#    #+#             */
-/*   Updated: 2022/08/22 20:18:37 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:26:55 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,11 @@ void	ft_destroy_split(char **av)
 {
 	int	x;
 
-	x = 1;
-	while (av[x])
-	{
-		// ft_putstr_fd("x = ", 1);
-		// ft_putnbr_fd(x, 1);
-		// ft_putstr_fd("\n", 1);
+	x = -1;
+	if (ft_strncmp(av[0], "place holder", ft_strlen(av[0])) != 0)
+		return ;
+	while (av[++x])
 		free(av[x]);
-		x++;
-	}
 	free(av);
 }
 
@@ -66,20 +62,29 @@ t_stack	*init( char **av)
 {
 	int		x;
 	t_stack	*lst;
+	long long temp;
 
 	x = 2;
-	lst = lstnew(ft_atoi(av[1]));
+	temp = ft_atoi_no_overflow(av[1]);
+	if (temp == 9999999999)
+		return	(ft_putstr_fd("Over/underflow", 1), NULL);
+	lst = lstnew(temp);
 	if (!lst)
-		return (NULL);
+		return (ft_putstr_fd("Error lstnew", 1), NULL);
 	while (av[x])
 	{
-		lstadd_back(&lst, lstnew(ft_atoi(av[x])));
+		temp = ft_atoi(av[x]);
+		if (temp == 9999999999)
+			return	(ft_putstr_fd("Over/underflow", 1), NULL);
+		lstadd_back(&lst, lstnew(ft_atoi_no_overflow(av[x])));
+		if (lstlast(lst) == NULL)
+		{
+			lstclear(&lst);
+			return (ft_putstr_fd("Error on creating linked list\n", 1), NULL);
+		}
 		x++;
 	}
 	lst = simplify_nbr(lst);
-	if (ft_strncmp(av[0], "place holder", ft_strlen(av[0])) == 0)
-	{
-		ft_destroy_split(av);
-	}
+	ft_destroy_split(av);
 	return (lst);
 }

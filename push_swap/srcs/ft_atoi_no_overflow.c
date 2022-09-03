@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_atoi_no_overflow.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/02 18:12:00 by loumouli          #+#    #+#             */
-/*   Updated: 2022/08/25 13:32:29 by loumouli         ###   ########.fr       */
+/*   Created: 2022/06/11 12:39:51 by marnaudy          #+#    #+#             */
+/*   Updated: 2022/08/25 17:35:24 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
- {
+long long	ft_atoi_no_overflow(char *s)
+{
+	long long		res;
 	unsigned int	i;
+	int				sign;
 
+	res = 0;
 	i = 0;
-	if (n == 0)
-		return (0);
-	while ((s1[i] == s2[i]) && s1[i] != 0 && s2[i] != 0 && i < n -1)
+	sign = 1;
+	while (s[i] && (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13)))
 		i++;
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	if (s[i] == '+' || s[i] == '-')
+	{
+		if (s[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (s[i] >= '0' && s[i] <= '9')
+	{
+		res = res * 10 + s[i] - '0';
+		i++;
+	}
+	if (res < -2147483648 || res > 2147483647 )
+		return (9999999999);
+	return (res * sign);
 }

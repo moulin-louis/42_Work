@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_custom.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 19:35:31 by loumouli          #+#    #+#             */
-/*   Updated: 2022/08/22 20:07:27 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/08/23 16:04:24 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	**ft_split_custom(char const *s, char c)
 	if (!result)
 		return (NULL);
 	result[0] = malloc(sizeof(char) * 13);
-	result[0] = "place holder";
+	ft_strlcpy(result[0], "place holder", 13);
 	result[nbr_str + 1] = NULL;
 	ft_fil_result((char *)s, result, c);
 	return (result);
