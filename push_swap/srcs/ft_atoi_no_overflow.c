@@ -6,13 +6,13 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 12:39:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/08/25 17:35:24 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/03 18:05:13 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long long	ft_atoi_no_overflow(char *s)
+long	ft_atoi_no_overflow(char *s)
 {
-	long long		res;
+	long		res;
 	unsigned int	i;
 	int				sign;
 

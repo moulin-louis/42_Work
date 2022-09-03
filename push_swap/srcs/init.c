@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 22:10:29 by loumouli          #+#    #+#             */
-/*   Updated: 2022/08/25 17:26:55 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/03 18:13:58 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_stack	*init( char **av)
 {
 	int		x;
 	t_stack	*lst;
-	long long temp;
+	long temp;
 
 	x = 2;
 	temp = ft_atoi_no_overflow(av[1]);
@@ -73,10 +73,10 @@ t_stack	*init( char **av)
 		return (ft_putstr_fd("Error lstnew", 1), NULL);
 	while (av[x])
 	{
-		temp = ft_atoi(av[x]);
+		temp = ft_atoi_no_overflow(av[x]);
 		if (temp == 9999999999)
-			return	(ft_putstr_fd("Over/underflow", 1), NULL);
-		lstadd_back(&lst, lstnew(ft_atoi_no_overflow(av[x])));
+			return	(ft_putstr_fd("Over/underflow", 1), lstclear(&lst), NULL);
+		lstadd_back(&lst, lstnew(temp));
 		if (lstlast(lst) == NULL)
 		{
 			lstclear(&lst);
