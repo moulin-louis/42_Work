@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 21:00:06 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/03 18:05:25 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/03 18:24:29 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ void	sort_big_list(t_stack **lst_a);
 int		ft_check_list(t_stack *lst);
 char	**ft_split_custom(char const *s, char c);
 void	ft_destroy_split(char **av);
-long		ft_atoi_no_overflow(char *s);
+long	ft_atoi_no_overflow(char *s);
 #endif

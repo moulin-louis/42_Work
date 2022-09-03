@@ -6,12 +6,11 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:31:24 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/03 18:09:16 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/03 18:51:50 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 int	ft_check_list(t_stack *lst)
 {

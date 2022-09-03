@@ -6,14 +6,14 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 18:12:00 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/03 18:22:36 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/08/25 13:32:29 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
+ {
 	unsigned int	i;
 
 	i = 0;

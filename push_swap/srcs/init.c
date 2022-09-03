@@ -6,12 +6,11 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 22:10:29 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/03 18:13:58 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/03 18:54:25 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 int	find_pos(t_stack *lst, int nbr)
 {
@@ -36,10 +35,14 @@ t_stack	*simplify_nbr(t_stack *lst)
 
 	temp = lst;
 	result = lstnew(find_pos(lst, temp->nbr));
+	if (result == NULL)
+		return (lstclear(&result), NULL);
 	temp = temp->next;
 	while (temp)
 	{
 		lstadd_back(&result, lstnew(find_pos(lst, temp->nbr)));
+		if (lstlast(lst) == NULL)
+			return (lstclear(&result), NULL);
 		temp = temp->next;
 	}
 	lstclear(&lst);
@@ -58,33 +61,49 @@ void	ft_destroy_split(char **av)
 	free(av);
 }
 
+int	ft_check_dbl_nbr(t_stack *lst)
+{
+	t_stack	*temp;
+	int		x;
+
+	while (lst)
+	{
+		temp = lst->next;
+		x = lst->nbr;
+		while (temp)
+		{
+			if (temp->nbr == x)
+				return (1);
+			temp = temp->next;
+		}
+		lst = lst->next;
+	}
+	return (0);
+}
+
 t_stack	*init( char **av)
 {
 	int		x;
 	t_stack	*lst;
-	long temp;
+	long	temp;
 
-	x = 2;
+	x = 1;
 	temp = ft_atoi_no_overflow(av[1]);
-	if (temp == 9999999999)
-		return	(ft_putstr_fd("Over/underflow", 1), NULL);
 	lst = lstnew(temp);
-	if (!lst)
-		return (ft_putstr_fd("Error lstnew", 1), NULL);
-	while (av[x])
+	if (!lst || temp == 9999999999)
+		return (lstclear(&lst), NULL);
+	while (av[++x])
 	{
 		temp = ft_atoi_no_overflow(av[x]);
-		if (temp == 9999999999)
-			return	(ft_putstr_fd("Over/underflow", 1), lstclear(&lst), NULL);
 		lstadd_back(&lst, lstnew(temp));
-		if (lstlast(lst) == NULL)
-		{
-			lstclear(&lst);
-			return (ft_putstr_fd("Error on creating linked list\n", 1), NULL);
-		}
-		x++;
+		if (lstlast(lst) == NULL || temp == 9999999999)
+			return (lstclear(&lst), NULL);
 	}
+	if (ft_check_dbl_nbr(lst) == 1)
+		return (lstclear(&lst), ft_putstr_fd("nbr multiple time\n", 1), NULL);
 	lst = simplify_nbr(lst);
+	if (lst == NULL)
+		return (lstclear(&lst), NULL);
 	ft_destroy_split(av);
 	return (lst);
 }

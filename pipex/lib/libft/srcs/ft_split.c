@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_custom.c                                  :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/22 19:35:31 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/03 18:51:46 by loumouli         ###   ########.fr       */
+/*   Created: 2022/05/03 18:07:26 by loumouli          #+#    #+#             */
+/*   Updated: 2022/05/08 13:51:16 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
 static	int	ft_nbr_str(char *s, char c)
 {
@@ -70,7 +70,7 @@ static	void	ft_fil_result(char *s, char **result, char c)
 	int	x;
 
 	i = 0;
-	x = 1;
+	x = 0;
 	while (s[i] == c && s[i])
 		i++;
 	while (s[i])
@@ -89,18 +89,20 @@ static	void	ft_fil_result(char *s, char **result, char c)
 	}
 }
 
-char	**ft_split_custom(char const *s, char c)
+/* Si ca return NULL car malloc fail,
+leak car je ne free pas les malloc precedent.
+A faire attention pour les prochains projets*/
+
+char	**ft_split(char const *s, char c)
 {
 	int		nbr_str;
 	char	**result;
 
 	nbr_str = ft_nbr_str((char *)s, c);
-	result = malloc(sizeof(char *) * (nbr_str + 2));
+	result = malloc(sizeof(char *) * (nbr_str + 1));
 	if (!result)
 		return (NULL);
-	result[0] = malloc(sizeof(char) * 13);
-	ft_strlcpy(result[0], "place holder", 13);
-	result[nbr_str + 1] = NULL;
 	ft_fil_result((char *)s, result, c);
+	result[nbr_str] = NULL;
 	return (result);
 }

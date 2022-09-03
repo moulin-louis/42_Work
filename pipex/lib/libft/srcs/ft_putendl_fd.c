@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi_no_overflow.c                              :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/11 12:39:51 by marnaudy          #+#    #+#             */
-/*   Updated: 2022/09/03 18:05:13 by loumouli         ###   ########.fr       */
+/*   Created: 2022/05/05 11:56:43 by loumouli          #+#    #+#             */
+/*   Updated: 2022/05/05 12:14:36 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long	ft_atoi_no_overflow(char *s)
-{
-	long		res;
-	unsigned int	i;
-	int				sign;
+#include "libft.h"
 
-	res = 0;
+void	ft_putendl_fd(char *s, int fd)
+{
+	int	i;
+
 	i = 0;
-	sign = 1;
-	while (s[i] && (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13)))
-		i++;
-	if (s[i] == '+' || s[i] == '-')
+	while (s[i])
 	{
-		if (s[i] == '-')
-			sign = -1;
+		write(fd, &s[i], 1);
 		i++;
 	}
-	while (s[i] >= '0' && s[i] <= '9')
-	{
-		res = res * 10 + s[i] - '0';
-		i++;
-	}
-	if (res < -2147483648 || res > 2147483647 )
-		return (9999999999);
-	return (res * sign);
+	write(fd, "\n", 1);
 }

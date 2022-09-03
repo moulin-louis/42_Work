@@ -1,55 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utility2.c                                         :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:31:24 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/03 18:24:21 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/03 15:00:43 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-int	lstsize(t_stack *lst)
+static	int	ft_is_wp(char c)
 {
-	int		size;
-	t_stack	*temp;
-
-	temp = lst;
-	size = 0;
-	while (temp)
-	{
-		temp = temp->next;
-		size++;
-	}
-	return (size);
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r')
+		return (1);
+	else
+		return (0);
 }
 
-long	ft_atoi_no_overflow(char *s)
+int	ft_atoi(const char *nptr)
 {
-	long			res;
-	unsigned int	i;
-	int				sign;
+	int		i;
+	int		minus;
+	long	result;
 
-	res = 0;
 	i = 0;
-	sign = 1;
-	while (s[i] && (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13)))
+	minus = 1;
+	result = 0;
+	while (ft_is_wp(nptr[i]))
 		i++;
-	if (s[i] == '+' || s[i] == '-')
+	if (nptr[i] == '-')
+		minus = -1;
+	if (nptr[i] == '-' || nptr[i] == '+')
+		i++;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		if (s[i] == '-')
-			sign = -1;
+		result = result * 10 + (nptr[i] - '0');
 		i++;
 	}
-	while (s[i] >= '0' && s[i] <= '9')
-	{
-		res = res * 10 + s[i] - '0';
-		i++;
-	}
-	if (res < -2147483648 || res > 2147483647)
-		return (9999999999);
-	return (res * sign);
+	result = result * minus;
+	return ((int)result);
 }
