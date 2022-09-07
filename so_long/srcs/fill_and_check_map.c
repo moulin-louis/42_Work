@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 11:50:39 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/25 15:19:47 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/07 18:15:57 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,20 @@ int	fill_map(t_data *data, char *path)
 	buff[x] = '\0';
 	data->map = ft_split(buff, '\n');
 	if (data->map == NULL)
-		return (-5);
+		return (printf("Split as failed\n"), free(buff), -5);
 	x = 0;
 	while (data->map[x])
 		x++;
 	return (free (buff), close (fd), x);
 }
 
-int	ft_check_first_last_line(char **map, int nbr_line)
+int	ft_check_first_last_line(int nbr_line, char **map)
 {
 	int	j;
 
 	j = 0;
+	if (!map)
+		return (-5);
 	while (map[0][j])
 	{
 		if (map[0][j] != '1')
@@ -65,7 +67,7 @@ int	check_map(int nbr_line, char **map)
 	if (nbr_line == -5)
 		return (-5);
 	x = 1;
-	if (ft_check_first_last_line(map, nbr_line) == -5)
+	if (ft_check_first_last_line(nbr_line, map) == -5)
 		return (ft_putstr_fd("Error\nNo wall at top ot bottom of the map\n",
 				1), -5);
 	while (x < nbr_line)

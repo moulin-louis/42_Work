@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:36:28 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/28 11:11:52 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/07 16:53:45 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define SO_LONG_H
 
 # include "../lib/mlx_linux/mlx.h"
-# include "../lib/libft/libft.h"
+# include "../lib/libft/inc/libft.h"
 # include "../lib/ft_printf/inc/ft_printf.h"
 # include <X11/X.h>
 # include <math.h>

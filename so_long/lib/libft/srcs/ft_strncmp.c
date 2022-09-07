@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/13 14:08:34 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/07 16:53:58 by loumouli         ###   ########.fr       */
+/*   Created: 2022/05/02 18:12:00 by loumouli          #+#    #+#             */
+/*   Updated: 2022/09/04 21:35:07 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include <unistd.h>
-# include <stdarg.h>
-# include "../../libft/inc/libft.h"
+#include "libft.h"
 
-int	ft_printf(const char *str, ...);
-int	ft_putchar_printf(char c);
-int	ft_putnbr_base_printf(int nbr, char *base);
-int	ft_putstr_printf(char *s);
-int	ft_putnbr_printf(int nbr);
-int	ft_putunbr_printf(unsigned int nb);
-int	ft_print_adress_printf(unsigned long nbr, char *str);
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned int	i;
 
-#endif
+	i = 0;
+	if (n == 0)
+		return (0);
+	while ((s1[i] == s2[i]) && s1[i] != 0 && s2[i] != 0 && i < n -1)
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}

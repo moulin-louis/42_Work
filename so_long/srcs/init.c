@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 17:24:56 by loumouli          #+#    #+#             */
-/*   Updated: 2022/07/25 15:37:25 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/07 18:20:55 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ int	setup_init(t_data *data)
 			data->height_windows,
 			"so_long");
 	if (data->window == NULL)
-		return (ft_printf("Error\nError mlx_new_windows\n"), 0);
+		return (ft_printf("Error\nError mlx_new_windows\n"), destroy_anything(data), 0);
 	return (1);
 }

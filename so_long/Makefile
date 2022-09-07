@@ -23,7 +23,7 @@ OBJS_B	= ${SRCS_B:.c=.o}
 
 CFLAGS	= -Wall -Werror -Wextra -g
 
-CC		= gcc
+CC		= clang
 
 RM		= rm -f
 
@@ -73,6 +73,8 @@ fclean:
 		@make fclean -C lib/ft_printf --no-print-directory
 		@make clean -C lib/mlx_linux --no-print-directory
 
+malloc_test: $(OBJS) ${LIBFT} ${MLX} ${LIBFTPRINTF}
+		$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} ${LIBFT} ${MLX} ${LIBFTPRINTF} -lX11 -lXext -L. -lmallocator
 
 re: fclean ${NAME}
 
