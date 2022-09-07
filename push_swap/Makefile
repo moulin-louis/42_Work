@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/09/03 18:21:02 by loumouli         ###   ########.fr        #
+#    Updated: 2022/09/07 18:33:18 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ RESET=\033[0m
 # ################################## #
 #               COMMAND              #
 # ################################## #
-CC			= gcc
+CC			= clang
 MKDIR		= mkdir -p
 RM			= rm -rf
 
@@ -62,7 +62,7 @@ CINCLUDES	= -I ./inc	\
 			  -I ./libft \
 
 LIBFT		= ./libft/libft.a
-CLIBS		= -L ./libft -lft
+CLIBS		= -L./libft -lft
 
 # ################################## #
 #                RULES               #
@@ -72,18 +72,6 @@ $(O_DIR)/%.o: $(C_DIR)/%.c
 			@$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
 
 all:		$(NAME)
-
-check:	fclean
-check:	CFLAGS		+=  -pedantic -ansi
-check:	CFLAGS		+=  -fsanitize=address
-check:	CFLAGS		+=  -fsanitize=leak
-check:	CFLAGS		+=  -fsanitize=undefined
-check:	CFLAGS		+=  -g3
-check:	LFLAGS		+=  -fsanitize=address
-check:	LFLAGS		+=  -fsanitize=leak
-check:	LFLAGS		+=  -fsanitize=undefined
-check:	LFLAGS		+=  -g3
-check:	${NAME}
 
 $(NAME):	$(O_DIR) $(LIBFT) $(OBJS)
 			@$(CC) $(OBJS) $(LFLAGS) $(CLIBS) -o $@
@@ -106,5 +94,8 @@ fclean:		clean
 			@echo "${RED}- delete push_swap executable${RESET}"
 
 re:			fclean all
+
+malloc_test: $(O_DIR) $(LIBFT) $(OBJS)
+			$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} -L./libft -lft -L. -lmallocator
 
 .PHONY: all check clean fclean re

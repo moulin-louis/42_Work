@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 22:10:29 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/03 18:54:25 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/07 18:34:31 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ t_stack	*simplify_nbr(t_stack *lst)
 	temp = lst;
 	result = lstnew(find_pos(lst, temp->nbr));
 	if (result == NULL)
-		return (lstclear(&result), NULL);
+		return (lstclear(&lst), NULL);
 	temp = temp->next;
 	while (temp)
 	{
 		lstadd_back(&result, lstnew(find_pos(lst, temp->nbr)));
 		if (lstlast(lst) == NULL)
-			return (lstclear(&result), NULL);
+			return (lstclear(&result), lstclear(&lst), NULL);
 		temp = temp->next;
 	}
 	lstclear(&lst);
