@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 14:41:52 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/10 20:29:59 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/10 20:35:19 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,10 @@ void	ft_exe_cmd(int in, int out, t_data *data, char *cmd)
 	free(command);
 }
 
-
-
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
+	int		status;
 
 	if (ac != 5)
 		return (1);
@@ -61,21 +60,16 @@ int	main(int ac, char **av, char **env)
 	if (data.pid1 == -1)
 		return (-1);
 	if (data.pid1 == 0)
-	{
 		ft_exe_cmd(data.fd_infile, data.io_pipe[1], &data, av[2]);
-	}
 	data.pid2 = fork();
 	if (data.pid2 == -1)
 		return (4);
 	if (data.pid2 == 0)
-	{
 		ft_exe_cmd(data.io_pipe[0], data.fd_outfile, &data, av[3]);
-	}
 	close(data.io_pipe[0]);
 	close(data.io_pipe[1]);
 	close(data.fd_infile);
 	close(data.fd_outfile);
-	int status;
 	waitpid(data.pid1, &status, 0);
 	waitpid(data.pid2, &status, 0);
 	return (0);

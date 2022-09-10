@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 18:07:26 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/09 15:35:05 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/10 20:35:34 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	dest[nb] = NULL;
 	if (ft_fill(dest, s, c) == 1)
-		return ( NULL);
+		return (NULL);
 	return (dest);
 }
