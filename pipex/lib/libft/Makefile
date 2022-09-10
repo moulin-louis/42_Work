@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/09/03 16:23:57 by loumouli         ###   ########.fr        #
+#    Updated: 2022/09/07 17:15:08 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,8 @@ C_FILES		= ft_atoi.c \
 			ft_lstsize.c \
 			ft_lstdelone.c \
 			ft_lstclear.c \
-			ft_lstmap.c
+			ft_lstmap.c \
+			ft_destroy_dbl_array.c
 
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
@@ -99,18 +100,6 @@ $(O_DIR)/%.o: $(C_DIR)/%.c
 			@$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
 
 all:		$(NAME)
-
-check:	fclean
-check:	CFLAGS		+=  -pedantic -ansi
-check:	CFLAGS		+=  -fsanitize=address
-check:	CFLAGS		+=  -fsanitize=leak
-check:	CFLAGS		+=  -fsanitize=undefined
-check:	CFLAGS		+=  -g3
-check:	LFLAGS		+=  -fsanitize=address
-check:	LFLAGS		+=  -fsanitize=leak
-check:	LFLAGS		+=  -fsanitize=undefined
-check:	LFLAGS		+=  -g3
-check:	${NAME}
 
 $(NAME):	$(O_DIR) $(LIBFT) $(OBJS)
 			@ar -rc ${NAME} ${OBJS}

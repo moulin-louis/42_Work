@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/09/03 16:23:09 by loumouli         ###   ########.fr        #
+#    Updated: 2022/09/09 14:59:42 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ RESET=\033[0m
 # ################################## #
 #               COMMAND              #
 # ################################## #
-CC			= gcc
+CC			= clang
 MKDIR		= mkdir -p
 RM			= rm -rf
 
@@ -30,7 +30,9 @@ NAME		= pipex
 #               SOURCES              #
 # ################################## #
 C_DIR		= srcs
-C_FILES		= main.c
+C_FILES		=	main.c \
+				ft_utils.c \
+				path_utils.c
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 
@@ -95,6 +97,9 @@ fclean:		clean
 			@make -C ./lib/ft_printf fclean --no-print-directory
 			@make -C ./lib/libft fclean --no-print-directory
 			@echo "${RED}- delete pipex executable${RESET}"
+
+malloc_test: $(O_DIR) $(FT_PRINTF) $(LIBFT) $(OBJS)
+	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} ${CLIBS} $(FT_PRINTF) $(LIBFT) -L. -lmallocator
 
 re:			fclean all
 

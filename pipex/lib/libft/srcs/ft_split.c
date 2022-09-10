@@ -6,103 +6,98 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 18:07:26 by loumouli          #+#    #+#             */
-/*   Updated: 2022/05/08 13:51:16 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/09 15:35:05 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int	ft_nbr_str(char *s, char c)
+int	ft_nb_words(char const *s, char c)
 {
-	int	nbr_str;
 	int	i;
+	int	nb;
 
-	nbr_str = 0;
 	i = 0;
+	nb = 0;
+	while (s[i])
+	{
+		if (s[i] != c && (s[i + 1] == c || !s[i + 1]))
+			nb++;
+		i++;
+	}
+	return (nb);
+}
+
+int	ft_len(char const *s, char c, size_t i)
+{
+	int	len;
+
+	len = 0;
 	while (s[i])
 	{
 		if (s[i] == c)
-			i++;
-		else
-		{
-			while (s[i] != c && s[i])
-				i++;
-			nbr_str++;
-		}
-	}
-	return (nbr_str);
-}
-
-static	int	ft_str_len_char(char *s, int i, char c)
-{
-	int	a;
-
-	a = 0;
-	while (s[i] != c && s[i])
-	{
-		a++;
+			return (len);
 		i++;
+		len++;
 	}
-	return (a);
+	return (len);
 }
 
-static	int	ft_fill_string(char *dest, char *src, int index, char sep)
+void	ft_free_all(char **tab, int x)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (src[index] != sep && src[index])
+	while (tab[i] && i < x)
 	{
-		dest[j] = src[index];
-		j++;
+		free(tab[i]);
 		i++;
-		index++;
 	}
-	dest[j] = '\0';
-	return (i);
+	free(tab);
 }
 
-static	void	ft_fil_result(char *s, char **result, char c)
+int	ft_fill(char **dest, char const *s, char c)
 {
-	int	i;
-	int	x;
+	size_t	i;
+	size_t	x;
+	size_t	len;
 
 	i = 0;
 	x = 0;
-	while (s[i] == c && s[i])
-		i++;
 	while (s[i])
 	{
+		len = 0;
 		if (s[i] != c)
 		{
-			result[x] = malloc(sizeof(char) * (ft_str_len_char(s, i, c) + 1));
-			if (!result)
-				return ;
-			i = i + ft_fill_string(result[x], s, i, c);
+			len = ft_len(s, c, i);
+			dest[x] = ft_substr(s, i, len);
+			if (!dest[x])
+			{
+				ft_free_all(dest, x);
+				return (1);
+			}
 			x++;
+			i += len;
 		}
-		if (s[i] == 0)
-			break ;
-		i++;
+		else
+			i += len + 1;
 	}
+	return (0);
 }
-
-/* Si ca return NULL car malloc fail,
-leak car je ne free pas les malloc precedent.
-A faire attention pour les prochains projets*/
 
 char	**ft_split(char const *s, char c)
 {
-	int		nbr_str;
-	char	**result;
+	char	**dest;
+	int		nb;
 
-	nbr_str = ft_nbr_str((char *)s, c);
-	result = malloc(sizeof(char *) * (nbr_str + 1));
-	if (!result)
+	if (!s)
 		return (NULL);
-	ft_fil_result((char *)s, result, c);
-	result[nbr_str] = NULL;
-	return (result);
+	nb = ft_nb_words(s, c);
+	dest = malloc (sizeof(char *) * (nb + 1));
+	if (!dest)
+		return (NULL);
+	dest[nb] = NULL;
+	if (ft_fill(dest, s, c) == 1)
+		return ( NULL);
+	return (dest);
 }

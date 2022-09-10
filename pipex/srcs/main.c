@@ -6,81 +6,66 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 14:41:52 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/04 21:38:24 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/09 15:48:11 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	**ft_get_path(char **env)
+void	ft_exe_cmd(int in, int out, t_data *data, char *cmd)
 {
-	char	**result;
-	int		x;
-	char	*temp;
-	char	*temp2;
+	char	**command;
+	char	*cmd_path;
+	char	**path;
 
-	x = 0;
-	while (env[x] && !ft_strnstr(env[x], "PATH", 5))
-		x++;
-	temp = ft_strdup(env[x]);
-	if (!temp)
-		return (NULL);
-	temp2 = ft_strtrim(temp, "PATH=");
-	if (!temp2)
-		return (free(temp), NULL);
-	result = ft_split(temp2, ':');
-	if (!result)
-		return (free(temp), free(temp2), NULL);
-	free(temp);
-	free(temp2);
-	return (result);
+	path = ft_get_path(data->env);
+	if (path == NULL)
+		return ;
+	dup2(in, STDIN_FILENO);
+	dup2(out, STDOUT_FILENO);
+	close(data->io_pipe[0]);
+	close(data->io_pipe[1]);
+	command = ft_split(cmd, ' ');
+	if (command == NULL)
+		return ;
+	cmd_path = ft_check_access(path, command[0]);
+	ft_destroy_dbl_array(path);
+	execve(cmd_path, command, data->env);
+	ft_destroy_dbl_array(command);
+	free(cmd_path);
+	free(command);
 }
 
-char	*ft_check_access(char **path, char *command)
+void	ft_waitpid(t_data *data)
 {
-	int		x;
-	char	*temp;
-	char	*temp2;
+	int	status;
 
-	x = 0;
-	while (path[x])
-	{
-		temp = ft_strjoin(path[x], "/");
-		temp2 = ft_strjoin(temp, command);
-		if (access(temp2, F_OK) == 0 && access(temp2, X_OK) == 0)
-			return (free(temp), temp2);
-		x++;
-		free(temp);
-		free(temp2);
-	}
-	return (NULL);
-}
-
-void	ft_destroy_split(char **av)
-{
-	int	x;
-
-	x = -1;
-	while (av[++x])
-		free(av[x]);
-	free(av);
+	waitpid(data->pid1, &status, 0);
+	waitpid(data->pid2, &status, 0);
 }
 
 int	main(int ac, char **av, char **env)
 {
-	char	**path;
-	char	*cmdpath;
+	t_data	data;
 
-	if (ac == 1)
-		return (0);
-	path = ft_get_path(env);
-	if (path == NULL)
-		return (ft_printf("cand find path\n"), -1);
-	cmdpath = ft_check_access(path, av[1]);
-	if (cmdpath == NULL)
-		return (ft_printf("Cant access command"), ft_destroy_split(path), -2);
-	execve(cmdpath, options, env);
-	free(cmdpath);
-	ft_destroy_split(path);
-	return (0);
+	if (ac != 5)
+		return (1);
+	if (ft_init_data(&data, av, env) == -1)
+		return (-1);
+	data.pid1 = fork();
+	if (data.pid1 == -1)
+		return (-1);
+	if (data.pid1 == 0)
+		ft_exe_cmd(data.fd_infile, data.io_pipe[1], &data, av[2]);
+	data.pid2 = fork();
+	if (data.pid2 == -1)
+		return (4);
+	if (data.pid2 == 0)
+	{
+		ft_exe_cmd(data.io_pipe[0], data.fd_outfile, &data, av[3]);
+	}
+	int status;
+	waitpid(data.pid1, &status, 0);
+	waitpid(data.pid2, &status, 0);
+	return (ft_close_stuff(data.fd_infile, data.fd_outfile, data.io_pipe), 0);
 }

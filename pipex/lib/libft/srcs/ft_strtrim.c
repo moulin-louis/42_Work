@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 13:02:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/03 16:21:11 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/04 21:29:53 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*ft_strtrim(char const*s1, char const *set)
 	char	*result;
 
 	i = 0;
-	j = 190;
+	j = 0;
 	while (ft_is_set(((char *)s1)[i], (set)) && *s1)
 		i++;
 	if (!((char *)s1)[i])
