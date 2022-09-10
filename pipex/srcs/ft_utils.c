@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:53:49 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/10 20:16:26 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/10 20:28:22 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_open(t_data *data, char **av)
 	data->fd_infile = open(av[1], O_RDONLY);
 	if (data->fd_infile <= 0)
 		return (-1);
-	ft_printf("[%s]\n", av[4]);
 	data->fd_outfile = open(av[4], O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (data->fd_outfile <= 0)
 		return (close(data->fd_infile), -1);
