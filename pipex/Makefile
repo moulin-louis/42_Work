@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/09/10 20:03:43 by loumouli         ###   ########.fr        #
+#    Updated: 2022/09/10 21:15:18 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ RESET=\033[0m
 # ################################## #
 #               COMMAND              #
 # ################################## #
-CC			= gcc
+CC			= clang
 MKDIR		= mkdir -p
 RM			= rm -rf
 
@@ -31,8 +31,7 @@ NAME		= pipex
 # ################################## #
 C_DIR		= srcs
 C_FILES		=	main.c \
-				ft_utils.c \
-				path_utils.c
+				ft_utils.c
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 
@@ -49,11 +48,12 @@ OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 CFLAGS		= -Wall -Wextra -Werror -g
 
 CINCLUDES	= -I ./inc	\
-			  -I ./ft_printf \
+			  -I ./lib
 
 FT_PRINTF	= ./lib/ft_printf/ft_printf.a
 LIBFT		= ./lib/libft/libft.a
-CLIBS		= -L ./ft_printf
+
+CLIBS		= -L./lib/ft_printf/ftprintf
 
 # ################################## #
 #                RULES               #
@@ -62,7 +62,7 @@ CLIBS		= -L ./ft_printf
 all:		$(NAME)
 
 $(NAME):	$(O_DIR) $(FT_PRINTF) $(LIBFT) $(OBJS)
-			@$(CC) $(OBJS) $(LFLAGS) $(CLIBS) $(FT_PRINTF) $(LIBFT) -o $@
+			@$(CC) $(CFLAGS) $(OBJS) $(FT_PRINTF) $(LIBFT) -o $@
 			@echo "${GREEN}- compiling pipex executable${RESET}"
 
 $(O_DIR)/%.o: $(C_DIR)/%.c
@@ -99,7 +99,7 @@ fclean:		clean
 			@echo "${RED}- delete pipex executable${RESET}"
 
 malloc_test: $(O_DIR) $(FT_PRINTF) $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} ${CLIBS} $(FT_PRINTF) $(LIBFT) -L. -lmallocator
+	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} $(FT_PRINTF) $(LIBFT) -lmallocator
 
 re:			fclean all
 
