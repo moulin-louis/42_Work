@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 11:52:31 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/03 13:15:54 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/14 23:58:09 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,29 @@ char	*get_next_line(int fd)
 		return (NULL);
 	result_line = ft_fill_result(buffer_saved);
 	return (buffer_saved = ft_del_line(buffer_saved), result_line);
+}
+
+#include <stdio.h>
+
+
+int	main(int argc, char **argv)
+{
+	char	*str;
+	int		fd;
+
+	if (argc != 2)
+		return (1);
+	fd = open(argv[1], O_RDONLY);
+	str = get_next_line(fd);
+	int i = 0;
+	while (i < 3)
+	{
+		printf("%s\n", str);
+		printf("i = %d\n", i);
+		free(str);
+		str = get_next_line(fd);
+		i++;
+	}
+	free(str);
+	return (0);
 }

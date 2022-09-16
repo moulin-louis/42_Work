@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:36:28 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/27 12:32:57 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/15 00:06:12 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_BONUS_H
 # define SO_LONG_BONUS_H
 
+
 # include "../lib/mlx_linux/mlx.h"
-# include "../lib/libft/libft.h"
+# include "../lib/libft/inc/libft.h"
 # include "../lib/ft_printf/inc/ft_printf.h"
 # include <X11/X.h>
 # include <math.h>

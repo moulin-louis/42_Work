@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
+#    By: loumouli <loumouli@>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/09/07 18:33:18 by loumouli         ###   ########.fr        #
+#    Updated: 2022/09/10 21:08:41 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ RESET=\033[0m
 # ################################## #
 #               COMMAND              #
 # ################################## #
-CC			= clang
+CC			= gcc
 MKDIR		= mkdir -p
 RM			= rm -rf
 
@@ -68,21 +68,29 @@ CLIBS		= -L./libft -lft
 #                RULES               #
 # ################################## #
 
-$(O_DIR)/%.o: $(C_DIR)/%.c
-			@$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
-
 all:		$(NAME)
 
 $(NAME):	$(O_DIR) $(LIBFT) $(OBJS)
 			@$(CC) $(OBJS) $(LFLAGS) $(CLIBS) -o $@
 			@echo "${GREEN}- compiling push_swap executable${RESET}"
 
+$(O_DIR)/%.o: $(C_DIR)/%.c
+			$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
+
 $(O_DIR):
 			@$(MKDIR) $(O_DIR)
 			@echo "${GREEN}- creating push_swap objects directory${RESET}"
 
+# ################################## #
+#             DEPENDECIES...         #
+# ################################## #
+
 $(LIBFT):
 			@make -C ./libft --no-print-directory
+
+# ################################## #
+#                CLEAN               #
+# ################################## #
 
 clean:
 			@$(RM) $(O_DIR)

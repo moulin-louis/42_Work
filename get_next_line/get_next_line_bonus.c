@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 11:17:04 by loumouli          #+#    #+#             */
-/*   Updated: 2022/06/03 13:15:27 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/16 17:20:06 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,38 +33,7 @@ char	*ft_fill_save(char *buffer_saved, int fd)
 			buffer_saved = ft_strjoin(buffer_saved, buff);
 		}
 	}
-	return (free(buff), buffer_saved);
-}
-
-char	*ft_fill_result(char *buffer_saved)
-{
-	int		len;
-	char	*result_line;
-	int		x;
-
-	len = 0;
-	x = 0;
-	while (buffer_saved[len] && buffer_saved[len] != '\n')
-		len++;
-	len++;
-	result_line = malloc(sizeof(char) * (len + 1));
-	if (!result_line)
-		return (NULL);
-	if (buffer_saved[0] == '\0')
-		return (free(result_line), NULL);
-	while (x < len)
-	{
-		result_line[x] = buffer_saved[x];
-		x++;
-	}
-	return (result_line[x] = '\0', result_line);
-}
-
-char	*ft_del_line(char *buffer_saved)
-{
-	char	*str;
-	int		i;
-	int		j;
+	return (free(buff), buffer_saved);s
 
 	i = 0;
 	while (buffer_saved[i] && buffer_saved[i] != '\n')
@@ -79,18 +48,4 @@ char	*ft_del_line(char *buffer_saved)
 	while (buffer_saved[i])
 		str[j++] = buffer_saved[i++];
 	return (free(buffer_saved), str[j] = '\0', str);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	*buffer_saved[1024];
-	char		*result_line;
-
-	if (fd <= -1 || fd >= 1024 || BUFFER_SIZE < 0)
-		return (NULL);
-	buffer_saved[fd] = ft_fill_save(buffer_saved[fd], fd);
-	if (!buffer_saved[fd])
-		return (NULL);
-	result_line = ft_fill_result(buffer_saved[fd]);
-	return (buffer_saved[fd] = ft_del_line(buffer_saved[fd]), result_line);
 }
