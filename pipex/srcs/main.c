@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@>                       +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 14:41:52 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/16 17:03:40 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:29:08 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,19 @@ int	main(int ac, char **av, char **env)
 	if (ac != 5)
 		return (ft_printf("wrong nbr of arg\n"), 1);
 	if (ft_init_data(&data, av, env) == -1)
-		return (-1);
+		return (1);
 	data.pid1 = fork();
 	if (data.pid1 == -1)
-		return (perror("Fork"), -1);
+		return (perror("Fork"), 2);
 	if (data.pid1 == 0)
-	{
-		if (ft_exe_cmd(data.fd_infile, data.io_pipe[1], &data, av[2]) == 5)
-			ft_printf("command not found : %s\n", av[2]);
-	}
+		ft_exe_cmd(data.fd_infile, data.io_pipe[1], &data, av[2]);
 	else if (data.pid1 > 0)
 	{
 		data.pid2 = fork();
 		if (data.pid2 == -1)
-			return (perror("Fork"), 4);
+			return (perror("Fork"), 3);
 		if (data.pid2 == 0)
-			{
-				if (ft_exe_cmd(data.io_pipe[0], data.fd_outfile, &data, av[3]) == 5)
-				ft_printf("command not found : %s\n", av[3]);
-			}
+			ft_exe_cmd(data.io_pipe[0], data.fd_outfile, &data, av[3]);
 		else if (data.pid2 > 0)
 			wait_n_close(&data);
 	}
@@ -53,40 +47,34 @@ int	ft_exe_cmd(int in, int out, t_data *data, char *cmd)
 	if (ft_strchr(cmd, '/'))
 		return (ft_exe_without_path(in, out, data, cmd));
 	path = ft_get_path(data->env);
-	if (path == NULL && ft_strchr(cmd, '/') == 0)
-		return (5);
-	if (dup2(in, STDIN_FILENO) == -1 || dup2(out, STDOUT_FILENO) == -1)
-		return (perror("Dup"), 1);
-	close(data->io_pipe[0]);
-	close(data->io_pipe[1]);
+	if (path == NULL)
+		return (ft_printf("command not found : %s\n", cmd), 1);
 	command = ft_split(cmd, ' ');
 	if (command == NULL)
 		return (perror("Malloc"), ft_clean_all(path, command), 1);
 	cmd_path = ft_check_access(path, command[0]);
 	if (cmd_path == NULL)
-		return (perror("Malloc"), ft_clean_all(path, command), 1);
+		return (ft_printf("command not found : %s\n", cmd),
+			ft_clean_all(path, command), 5);
+	if (dup_n_close(data, in, out) == 1)
+		return (1);
 	execve(cmd_path, command, NULL);
-	ft_clean_all(path, command);
-	free(cmd_path);
-	return (perror("Execve"),1);
+	return (perror("execve"), ft_clean_all(path, command), free(cmd_path), 1);
 }
 
 int	ft_exe_without_path(int in, int out, t_data *data, char *cmd)
 {
 	char	**command;
 
-	if (dup2(in, STDIN_FILENO) == -1 || dup2(out, STDOUT_FILENO) == -1)
-		return (perror("Dup"), 1);
-	close(data->io_pipe[0]);
-	close(data->io_pipe[1]);
+	if (dup_n_close(data, in, out) == 1)
+		return (1);
 	if (access(cmd, F_OK | X_OK) != 0)
 		return (perror("Acces"), 1);
 	command = ft_split(cmd, ' ');
 	if (command == NULL)
 		return (perror("Malloc"), 1);
 	execve(command[0], command, NULL);
-	ft_destroy_dbl_array(command);
-	return (perror("Execve"), 1);
+	return (ft_destroy_dbl_array(command), perror("Execve"), 1);
 }
 
 char	**ft_get_path(char **env)

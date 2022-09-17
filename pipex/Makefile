@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: loumouli <loumouli@>                       +#+  +:+       +#+         #
+#    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/09/14 17:06:43 by loumouli         ###   ########.fr        #
+#    Updated: 2022/09/17 15:05:58 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,9 +97,6 @@ fclean:		clean
 			@make -C ./lib/ft_printf fclean --no-print-directory
 			@make -C ./lib/libft fclean --no-print-directory
 			@echo "${RED}- delete pipex executable${RESET}"
-
-malloc_test: $(O_DIR) $(FT_PRINTF) $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} $(FT_PRINTF) $(LIBFT) -lmallocator
 
 re:			fclean all
 

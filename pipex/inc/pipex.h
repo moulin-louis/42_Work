@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@>                       +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 14:42:42 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/16 15:42:17 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/17 13:49:20 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_data
 	int		fd_outfile;
 	int		io_pipe[2];
 	char	**env;
+	int		status_child[2];
 }	t_data;
 
 void	wait_n_close(t_data *data);
@@ -40,6 +41,7 @@ char	**ft_get_path(char **env);
 int		ft_exe_cmd(int in, int out, t_data *data, char *cmd);
 void	ft_clean_all(char **path, char **command);
 char	*ft_check_access(char **path, char *command);
-int	ft_exe_without_path(int in, int out, t_data *data, char *cmd);
+int		ft_exe_without_path(int in, int out, t_data *data, char *cmd);
+int		dup_n_close(t_data *data, int in, int out);
 
 #endif
