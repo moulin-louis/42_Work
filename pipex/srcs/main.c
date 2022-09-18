@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 14:41:52 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/17 18:29:08 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/18 15:23:12 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_exe_cmd(int in, int out, t_data *data, char *cmd)
 	char	*cmd_path;
 	char	**path;
 
-	if (ft_strchr(cmd, '/'))
+	if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
 		return (ft_exe_without_path(in, out, data, cmd));
 	path = ft_get_path(data->env);
 	if (path == NULL)
@@ -58,7 +58,7 @@ int	ft_exe_cmd(int in, int out, t_data *data, char *cmd)
 			ft_clean_all(path, command), 5);
 	if (dup_n_close(data, in, out) == 1)
 		return (1);
-	execve(cmd_path, command, NULL);
+	execve(cmd_path, command, data->env);
 	return (perror("execve"), ft_clean_all(path, command), free(cmd_path), 1);
 }
 
