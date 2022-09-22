@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:36:43 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/22 15:09:06 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:19:41 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ int	main(void)
 	pid_prgm = getpid();
 	ft_printf("pid of server is = %d\n", pid_prgm);
 	while (1)
-	{
-		ft_do_nothing(pid_prgm);
-	}
+		pause();
 	return (0);
 }

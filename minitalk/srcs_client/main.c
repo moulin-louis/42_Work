@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:36:43 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/22 15:03:36 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:17:42 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void get_binary_string(char *s, int pid)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
-			usleep(100);
+			usleep(300);
 			index_bits++;
 		}
 		index_bits = 0;
