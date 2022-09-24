@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 14:41:52 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/18 15:23:12 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/24 18:56:50 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,28 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 
-	if (ac != 5)
-		return (ft_printf("wrong nbr of arg\n"), 1);
-	if (ft_init_data(&data, av, env) == -1)
-		return (1);
+	ft_init_data(ac, &data, av, env);
 	data.pid1 = fork();
 	if (data.pid1 == -1)
 		return (perror("Fork"), 2);
 	if (data.pid1 == 0)
-		ft_exe_cmd(data.fd_infile, data.io_pipe[1], &data, av[2]);
+	{
+		if (data.fd_infile > 0)
+			ft_exe_cmd(data.fd_infile, data.io_pipe[1], &data, av[2]);
+	}
 	else if (data.pid1 > 0)
 	{
 		data.pid2 = fork();
 		if (data.pid2 == -1)
 			return (perror("Fork"), 3);
 		if (data.pid2 == 0)
-			ft_exe_cmd(data.io_pipe[0], data.fd_outfile, &data, av[3]);
+		{
+			if (data.fd_outfile > 0)
+				ft_exe_cmd(data.io_pipe[0], data.fd_outfile, &data, av[3]);
+		}
 		else if (data.pid2 > 0)
 			wait_n_close(&data);
 	}
-	return (0);
 }
 
 int	ft_exe_cmd(int in, int out, t_data *data, char *cmd)

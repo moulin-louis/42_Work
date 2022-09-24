@@ -3,31 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:53:49 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/18 15:02:33 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/24 18:57:23 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	ft_init_data(t_data *data, char **av, char **env)
+void	ft_init_data(int ac, t_data *data, char **av, char **env)
 {
+	if (ac != 5)
+		exit(2);
 	data->fd_infile = open(av[1], O_RDONLY);
 	if (data->fd_infile <= 0)
 		perror("infile");
 	data->fd_outfile = open(av[4], O_TRUNC | O_CREAT | O_RDWR, 0000644);
 	if (data->fd_outfile <= 0)
-		return (close(data->fd_infile), perror("outfile"), -1);
-	if (data->fd_infile <= 0)
-		return (close(data->fd_outfile), -1);
-	if (pipe(data->io_pipe) == -1)
-		return (-1);
+		perror("outfile");
 	data->env = env;
-	data->status_child[0] = 0;
-	data->status_child[1] = 0;
-	return (0);
+	if (pipe(data->io_pipe) == -1)
+		exit(1);
 }
 
 void	ft_clean_all(char **path, char **command)
