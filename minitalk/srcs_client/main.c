@@ -3,37 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:36:43 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/22 15:17:42 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/24 22:47:06 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/client.h"
 
-void get_binary_string(char *s, int pid)
+void	get_binary_string(char *s, int pid)
 {
-	int		i;
-	int		index_bits;
+	size_t	len;
+	char	ch;
 
-	i = 0;
-	index_bits = 0;
 	if (s == NULL)
 		return ;
-	while (s[i])
+	len = ft_strlen(s);
+	for (size_t i = 0; i < len; ++i)
 	{
-		while (index_bits < 8)
+		ch = s[i];
+		for (int j = 7; j >= 0; --j)
 		{
-			if (s[i] & (1 << index_bits))
+			if (ch & (1 << j))
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
 			usleep(300);
-			index_bits++;
 		}
-		index_bits = 0;
-		i++;
+	}
+	len = 0;
+	while (len < 8)
+	{
+		kill(pid, SIGUSR1);
+		usleep(300);
+		len++;
 	}
 }
 
@@ -65,7 +69,7 @@ int	main(int ac, char **av)
 
 	if (ac != 3)
 		return (ft_printf("gib ./minitalk_client pid string\n"), -1);
-	pid = ft_atoi(av[1]); //faut que j'accepte les long
+	pid = ft_atoi(av[1]);
 	if (pid <= 0)
 		return (1);
 	get_binary_string(av[2], pid);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
+#    By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/09/22 14:54:16 by loumouli         ###   ########.fr        #
+#    Updated: 2022/09/24 22:06:10 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ RM			= rm -rf
 # ################################## #
 #              EXEC NAME             #
 # ################################## #
-NAME_CLIENT		= minitalk_client
-NAME_SERVER		= minitalk_server
+NAME_CLIENT		= client
+NAME_SERVER		= server
 
 # ################################## #
 #               SOURCES              #
@@ -35,7 +35,8 @@ C_FILES_CLIENT		=	main.c
 SRCS_CLIENT		= $(patsubst %, $(C_DIR_CLIENT)/%, $(C_FILES_CLIENT))
 
 C_DIR_SERVER		= srcs_server
-C_FILES_SERVER		= main.c
+C_FILES_SERVER		=	main.c \
+						ft_realloc_str.c
 SRCS_SERVER		= $(patsubst %, $(C_DIR_SERVER)/%, $(C_FILES_SERVER))
 
 # ################################## #
