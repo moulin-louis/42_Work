@@ -6,7 +6,7 @@
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 14:53:49 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/24 18:57:23 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/26 13:02:27 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void	wait_n_close(t_data *data)
 {
 	int	status;
 
-	close(data->fd_infile);
-	close(data->fd_outfile);
+	if (data->fd_infile > 0)
+		close(data->fd_infile);
+	if (data->fd_outfile > 0)
+		close(data->fd_outfile);
 	close(data->io_pipe[0]);
 	close(data->io_pipe[1]);
 	waitpid(data->pid1, &status, 0);

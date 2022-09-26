@@ -6,28 +6,13 @@
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:36:43 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/24 22:36:00 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/26 12:35:48 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/server.h"
 
 t_char	g_data;
-
-unsigned char	reverse_bits(unsigned char b)
-{
-	unsigned char	r;
-	unsigned int	byte_len;
-
-	byte_len = 8;
-	r = 0;
-	while (byte_len--)
-	{
-		r = (r << 1) | (b & 1);
-		b >>= 1;
-	}
-	return (r);
-}
 
 void	ft_add_char(void)
 {
@@ -51,7 +36,6 @@ void	handle_sig(int sig)
 	if (g_data.index == 8)
 	{
 		g_data.str = ft_realloc_str(g_data.str, g_data.len_str);
-		g_data.temp_char = reverse_bits(g_data.temp_char);
 		ft_add_char();
 		g_data.index = 0;
 		if (g_data.temp_char)

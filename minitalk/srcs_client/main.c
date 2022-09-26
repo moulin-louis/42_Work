@@ -6,7 +6,7 @@
 /*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:36:43 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/24 22:47:06 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:10:01 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 void	get_binary_string(char *s, int pid)
 {
-	size_t	len;
-	char	ch;
+	int		j;
+	int		i;
 
 	if (s == NULL)
 		return ;
-	len = ft_strlen(s);
-	for (size_t i = 0; i < len; ++i)
+	i = -1;
+	while (s[++i])
 	{
-		ch = s[i];
-		for (int j = 7; j >= 0; --j)
+		j = -1;
+		while (++j < 8)
 		{
-			if (ch & (1 << j))
+			if (s[i] & (1 << j))
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
 			usleep(300);
 		}
 	}
-	len = 0;
-	while (len < 8)
+	i = 0;
+	while (i < 8)
 	{
 		kill(pid, SIGUSR1);
 		usleep(300);
-		len++;
+		i++;
 	}
 }
 
