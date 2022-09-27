@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 14:41:52 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/26 17:02:26 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/27 11:13:39 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av, char **env)
 	if (data.pid1 == 0)
 	{
 		if (data.fd_infile > 0)
-			ft_exe_cmd(data.fd_infile, data.io_pipe[1], &data, "av[2]");
+			ft_exe_cmd(data.fd_infile, data.io_pipe[1], &data, av[2]);
 	}
 	else if (data.pid1 > 0)
 	{
@@ -70,11 +70,11 @@ int	ft_exe_without_path(int in, int out, t_data *data, char *cmd)
 
 	if (dup_n_close(data, in, out) == 1)
 		return (1);
-	if (access(cmd, F_OK | X_OK) != 0)
-		return (perror("Acces"), 1);
 	command = ft_split(cmd, ' ');
 	if (command == NULL)
 		return (perror("Malloc"), 1);
+	if (access(command[0], F_OK | X_OK) != 0)
+		return (perror("Acces"), 1);
 	execve(command[0], command, NULL);
 	return (ft_destroy_dbl_array(command), perror("Execve"), 1);
 }
