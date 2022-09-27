@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+         #
+#    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/09/26 12:46:58 by loumouli         ###   ########.fr        #
+#    Updated: 2022/09/26 16:36:47 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ OBJS_SERVER		= $(patsubst %, $(O_DIR_SERVER)/%, $(O_FILES_SERVER))
 # ################################## #
 #                FLAGS               #
 # ################################## #
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -g -O2
 
 CINCLUDES	= -I ./inc	\
 			  -I ./lib

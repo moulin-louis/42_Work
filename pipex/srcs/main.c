@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 14:41:52 by loumouli          #+#    #+#             */
-/*   Updated: 2022/09/26 13:10:41 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/09/26 17:02:26 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av, char **env)
 	if (data.pid1 == 0)
 	{
 		if (data.fd_infile > 0)
-			ft_exe_cmd(data.fd_infile, data.io_pipe[1], &data, av[2]);
+			ft_exe_cmd(data.fd_infile, data.io_pipe[1], &data, "av[2]");
 	}
 	else if (data.pid1 > 0)
 	{

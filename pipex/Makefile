@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/11 12:36:33 by anclarma          #+#    #+#              #
-#    Updated: 2022/09/17 15:05:58 by loumouli         ###   ########.fr        #
+#    Updated: 2022/09/26 17:47:32 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,5 +99,8 @@ fclean:		clean
 			@echo "${RED}- delete pipex executable${RESET}"
 
 re:			fclean all
+
+malloc_test: $(O_DIR) $(FT_PRINTF) $(LIBFT) $(OBJS)
+	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} $(FT_PRINTF) $(LIBFT) -L. -lmallocator
 
 .PHONY: all check clean fclean re
