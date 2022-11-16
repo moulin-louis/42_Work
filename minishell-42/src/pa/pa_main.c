@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pa_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli < loumouli@student.42.fr >        +#+  +:+       +#+        */
+/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:12:30 by loumouli          #+#    #+#             */
-/*   Updated: 2022/10/27 19:38:47 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/11/11 14:55:40 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 /* TO DO :
 - FIX QUOTE DOUBLE QUOTE
 - IMPLEMENT EXPAND */
+
 void	printfmini(t_cati *mini);
 void	fill_node_of_pipe(t_cati *mini);
 void	fill_node_env(t_cati *mini);
