@@ -1,6 +1,9 @@
 int gettimeofday(struct timeval *tv, struct timezone *tz) :
 	rempli la struct tv avec le temps passe en secondes et en milli secondes depuis le 1 janvier 1970, il faut envoyer NULL pour tz qui est obsolete.
 
+int usleep(useconds_t usec) :
+	attend usec microsecondes.
+
 int pthread_create(pthread_t * thread, pthread_attr_t * attr, void * (*start_routine)(void *), void * arg) :
 	cree un nvx thread definit par la struc attr executant la routine start_routine avec l'argument arg, il se detruit tout seul ou avec la fn pthread_exit
 
@@ -8,7 +11,7 @@ int pthread_detach(pthread_t th) :
 	place le thread th dans l'etat detache, rend impossible aux autres thread de se synchroniser a lui et garantit la liberation des ressources a la fin de se thread.
 
 int pthread_join(pthread_t thread, void **retval) :
-	la fn attend que le thread specifie qui ne doit pas etre detach, meurt et place la valeur de retour du thread dans retval.
+	la fn attend que le thread specifie, qui ne doit pas etre detache, meurt et place la valeur de retour du thread dans retval.
 
 int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *mutexattr) :
 	initialise le mutex avec les parametre specifie dans mutexattr(peut etre null alors le mutex sera initialiser avec les valeurs par defauts).

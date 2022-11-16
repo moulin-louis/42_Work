@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/13 11:42:25 by bschoeff          #+#    #+#              #
-#    Updated: 2022/11/14 14:48:27 by loumouli         ###   ########.fr        #
+#    Updated: 2022/11/16 16:28:03 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #               COMMAND              #
 # ################################## #
 
-CC			= cc
+CC			= clang
 MKDIR		= mkdir -p
 RM			= rm -rf
 
@@ -29,7 +29,8 @@ NAME		= philo
 # ################################## #
 
 C_DIR		= src
-C_FILES		= main.c
+C_FILES		= main.c	\
+			  parsing.c
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 
@@ -46,17 +47,13 @@ DEPS 		= $ $(C_FILES:.c=.d)
 #                FLAGS               #
 # ################################## #
 
-CFLAGS		= -Wall -Wextra -Werror -g3 -MMD
-
-LFLAGS		=
+CFLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=thread -MMD
 
 # ################################## #
 #                INCLUDES            #
 # ################################## #
 
 CINCLUDES	=	-I ./inc
-
-CLIBS		=
 
 # ################################## #
 #                RULES               #
@@ -65,7 +62,7 @@ CLIBS		=
 all:	$(NAME)
 
 $(NAME):	$(O_DIR) $(OBJS)
-			$(CC) $(OBJS) $(CFLAGS) $(LFLAGS) $(CLIBS) -o $@
+			$(CC) $(OBJS) $(CFLAGS) -o $@
 
 $(O_DIR)/%.o: $(C_DIR)/%.c
 			$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@
