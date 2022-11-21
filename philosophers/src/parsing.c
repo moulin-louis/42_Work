@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:28:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/11/16 16:39:14 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:15:28 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,41 @@ void	parse_input(int ac, char **av, t_philo *data)
 {
 	if (ac < 4 || ac > 5)
 		exit (1);
-	data->nbr_philo = ft_atoi(av[0]);
+	data->nbr_philo = ft_atoi(av[1]);
 	data->nbr_fork = data->nbr_philo;
-	data->ttd = ft_atoi(av[1]);
-	data->tte = ft_atoi(av[2]);
-	data->tts = ft_atoi(av[3]);
-	if (av[4])
-		data->nbr_eat = ft_atoi(av[4]);
+	data->ttd = ft_atoi(av[2]);
+	data->tte = ft_atoi(av[3]);
+	data->tts = ft_atoi(av[4]);
+	if (av[5])
+		data->nbr_eat = ft_atoi(av[5]);
 	if (data->nbr_philo < 0 || data->ttd < 0 || data->tte < 0 || data->tts < 0)
 	{
 		printf("error parsing, use positive number pls\n");
 		exit(1);
 	}
-	if (av[4] && data->nbr_eat < 0)
+	if (av[5] && data->nbr_eat < 0)
 	{
 		printf("error parsing, use positive number pls\n");
 		exit(1);
 	}
+}
+
+void	sleep_philo(int	time)
+{
+	int	x;
+
+	x = 0;
+	while (x < time)
+	{
+		usleep(1);
+		x++;
+	}
+}
+
+time_t	gettime(void)
+{
+	struct timeval tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec/1000));
 }

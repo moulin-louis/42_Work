@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/13 11:42:25 by bschoeff          #+#    #+#              #
-#    Updated: 2022/11/16 17:52:33 by loumouli         ###   ########.fr        #
+#    Updated: 2022/11/21 14:42:36 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ DEPS 		= $ $(C_FILES:.c=.d)
 #                FLAGS               #
 # ################################## #
 
-CFLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=thread -MMD
+CFLAGS		= -Wall -Wextra -Werror -g
 
 # ################################## #
 #                INCLUDES            #

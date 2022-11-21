@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:49:01 by loumouli          #+#    #+#             */
-/*   Updated: 2022/11/16 17:55:56 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:13:25 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@ typedef struct s_philo
 	int				tte;
 	int				tts;
 	int				nbr_eat;
-	struct timeval	tv;
+	time_t			c_time;
+	time_t			s_time;
 	pthread_mutex_t	lock;
+	pthread_t		id;
 }			t_philo;
 
 void	parse_input(int ac, char **av, t_philo *data);
+time_t	gettime(void);
+void	sleep_philo(int	time);
 
 #endif
