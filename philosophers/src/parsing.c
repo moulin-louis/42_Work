@@ -6,81 +6,101 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:28:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/11/22 16:47:50 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:26:04 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	chr_error(char *str)
+void	init_fork(t_rules *rules)
 {
-	int	i;
+	int	x;	
 
-	i = -1;
-	while (str[++i])
+	rules->arr_fork = malloc(sizeof(t_fork) * rules->nbr_fork);
+	if (!rules->arr_fork)
 	{
-		if (str[i] < '0' || str[i] > '9')
+		printf("Malloc failed\n");
+		exit(1);
+	}
+	x = -1;
+	while (++x < rules->nbr_philo)
+	{
+		if (pthread_mutex_init(&(rules->arr_fork[x].lock), NULL))
 		{
-			printf("error parsing, gib :\n./philo number_of_philosophers");
-			printf("time_to_die time_to_eat time_to_sleep [number_of_times_each");
-			printf("_philosopher_must_eat]\n");
-			return (1);
+			free(rules->arr_fork);
+			exit (1);
+		}
+		rules->arr_fork[x].taken = 0;
+	}
+}
+
+void	init_philo(t_group *result, t_rules *rules)
+{
+	int	x;
+
+	result->philo_grp = malloc(sizeof(t_philo) * rules->nbr_philo);
+	if (!result->philo_grp)
+	{
+		printf("Malloc failed\n");
+		exit (1);
+	}
+	x = -1;
+	while (++x < rules->nbr_philo)
+	{
+		result->philo_grp[x].id = x + 1;
+		result->philo_grp[x].rules = rules;
+	}
+	x = -1;
+	while (++x < rules->nbr_fork)
+	{
+		if (x == 0)
+		{
+			result->philo_grp[x].left_fork = rules->nbr_fork - 1;
+			result->philo_grp[x].right_fork = x;
+		}
+		else if (x == rules->nbr_fork)
+		{
+			result->philo_grp[x].left_fork = x - 1;
+			result->philo_grp[x].right_fork = 0;
+		}
+		else
+		{
+			result->philo_grp[x].left_fork = x - 1;
+			result->philo_grp[x].right_fork = x;
 		}
 	}
-	return (0);
 }
 
-int	ft_atoi(const char *str)
-{
-	int	nbr;
 
-	nbr = 0;
-	if (chr_error((char *)str))
-		exit (2);
-	while (*str != '\0' && *str >= '0' && *str <= '9')
-	{
-		nbr = nbr * 10 + *str - 48;
-		str++;
-	}
-	return (nbr);
-}
-
-void	parse_input(int ac, char **av, t_philo *data)
+t_group	parsing(int ac, char **av)
 {
-	if (ac < 5 || ac > 6)
+	t_group	result;
+	t_rules	*rules;
+
+	rules = malloc(sizeof(t_rules));
+	if (!rules)
+		exit(1);
+	if (ac < 5 | ac > 6)
 		exit (1);
-	data->nbr_philo = ft_atoi(av[1]);
-	data->nbr_fork = data->nbr_philo;
-	data->ttd = ft_atoi(av[2]);
-	data->tte = ft_atoi(av[3]);
-	data->tts = ft_atoi(av[4]);
+	memset(&result, 0, sizeof(result));
+	memset(&rules, 0, sizeof(rules));
+
+	rules->nbr_philo = ft_atoi(av[1]);
+	rules->nbr_fork = rules->nbr_philo;
+	rules->ttd = ft_atoi(av[2]);
+	rules->tte = ft_atoi(av[3]);
+	rules->tts = ft_atoi(av[4]);
 	if (av[5])
-		data->nbr_eat = ft_atoi(av[5]);
-	if (data->nbr_philo < 0 || data->ttd < 0 || data->tte < 0 || data->tts < 0)
-	{
-		printf("error parsing, use positive number pls\n");
+		rules->max_eat = ft_atoi(av[5]);
+	if (rules->nbr_philo <= 0 || rules->ttd <= 0 || rules->tte <= 0
+		|| rules->tts <= 0 || (av[5] && rules->max_eat <= 0))
 		exit(1);
-	}
-	if (av[5] && data->nbr_eat < 0)
-	{
-		printf("error parsing, use positive number pls\n");
-		exit(1);
-	}
-}
+		
+	init_fork(rules);
+	init_philo(&result, rules);
 
-void	sleep_philo(int time)
-{
-	time_t	end_time;
-
-	end_time = gettime() + time;
-	while (gettime() < end_time)
-		usleep(100);
-}
-
-time_t	gettime(void)
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	printf("in parsing\n");
+	print_groups(result);
+	
+	return (result);
 }

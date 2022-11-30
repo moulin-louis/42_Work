@@ -42,9 +42,6 @@ minishell
 *.swp
 
 # Checkers & misc
-test.c
-tester.c
-tester
 readline.sup
 infile
 outfile

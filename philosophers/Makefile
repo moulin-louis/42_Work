@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/13 11:42:25 by bschoeff          #+#    #+#              #
-#    Updated: 2022/11/21 14:42:36 by loumouli         ###   ########.fr        #
+#    Updated: 2022/11/30 17:32:42 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ NAME		= philo
 
 C_DIR		= src
 C_FILES		= main.c	\
-			  parsing.c
+			  parsing.c \
+			  utils.c   \
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 
