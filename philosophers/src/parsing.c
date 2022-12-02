@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:28:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/02 19:20:17 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/02 19:48:57 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,19 @@ void	init_philo(t_group *groups, char **av)
 
 	memset(&rules, 0, sizeof(rules));
 	set_rules(&rules, groups, av);
+
 	groups->philo_grp = malloc(sizeof(t_philo) * rules.nbr_philo);
 	if (!groups->philo_grp)
 		print_clean_n_quit("Malloc failed\n", groups, errno);
 	memset(groups->philo_grp, 0, sizeof(t_philo) * rules.nbr_philo);
+
 	x = -1;
 	while (++x < rules.nbr_philo)
 	{
 		groups->philo_grp[x].id = x + 1;
 		groups->philo_grp[x].rules = &rules;
 	}
+
 	init_fork_id_in_philo(groups, &rules);
 }
 
@@ -106,5 +109,6 @@ t_group	parsing(int ac, char **av)
 		print_clean_n_quit("Wrong nbr of args\n", NULL, 1);
 	memset(&groups, 0, sizeof(groups));	
 	init_philo(&groups, av);
+	printf("nbr philo = %d\n", groups.philo_grp[0].rules->nbr_philo);
 	return (groups);
 }
