@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:28:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/02 19:48:57 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/02 23:31:13 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	init_fork_id_in_philo(t_group *groups, t_rules *rules)
 	}
 }
 
-/*init each t_philo struct in a array of t_philo, fill forks id and point to
+/*malloc an array of x t_philos and init each of them : fill forks id and point to
 the right t_rules struct*/
 void	init_philo(t_group *groups, char **av)
 {
