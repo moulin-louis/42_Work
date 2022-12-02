@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/13 11:42:25 by bschoeff          #+#    #+#              #
-#    Updated: 2022/11/30 17:32:42 by loumouli         ###   ########.fr        #
+#    Updated: 2022/12/02 18:16:35 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ C_DIR		= src
 C_FILES		= main.c	\
 			  parsing.c \
 			  utils.c   \
+			  clean.c	\
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 

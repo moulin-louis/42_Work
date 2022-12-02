@@ -12,10 +12,23 @@
 
 #include "philo.h"
 
-int	chr_error(char *str)
+/*printf the error, clean the heap and exit program with the error_code */
+
+int	print_clean_n_quit(char *str, t_group *groups, int error_code)
 {
+	printf("%s", str);
+	clean_groups(groups);
+	exit (error_code);
+}
+
+/*Convert string input into int*/
+
+int	ft_atoi(const char *str)
+{
+	int	nbr;
 	int	i;
 
+	nbr = 0;
 	i = -1;
 	while (str[++i])
 	{
@@ -24,19 +37,9 @@ int	chr_error(char *str)
 			printf("error parsing, gib :\n./philo number_of_philosophers");
 			printf("time_to_die time_to_eat time_to_sleep [number_of_times");
 			printf("_each_philosopher_must_eat]\n");
-			return (1);
+			exit(1);
 		}
 	}
-	return (0);
-}
-
-int	ft_atoi(const char *str)
-{
-	int	nbr;
-
-	nbr = 0;
-	if (chr_error((char *)str))
-		exit (2);
 	while (*str != '\0' && *str >= '0' && *str <= '9')
 	{
 		nbr = nbr * 10 + *str - 48;
@@ -44,6 +47,8 @@ int	ft_atoi(const char *str)
 	}
 	return (nbr);
 }
+
+/*custom sleep fn to avoid usleep delay*/
 
 void	sleep_philo(int time)
 {
@@ -53,6 +58,8 @@ void	sleep_philo(int time)
 	while (gettime() < end_time)
 		usleep(100);
 }
+
+/*get current timestamp*/
 
 time_t	gettime(void)
 {

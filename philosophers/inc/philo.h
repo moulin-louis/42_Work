@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:49:01 by loumouli          #+#    #+#             */
-/*   Updated: 2022/11/30 18:03:49 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:16:59 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 # include <pthread.h>
 # include <stdlib.h>
 
-typedef struct	s_fork
+typedef struct s_fork
 {
 	pthread_mutex_t	lock;
 	int				taken;
 }				t_fork;
 
-typedef struct	s_rules
+typedef struct s_rules
 {
 	int		nbr_philo;
 	int		nbr_fork;
@@ -47,7 +47,7 @@ typedef struct s_philo
 	int		nbr_eat;
 }				t_philo;
 
-typedef struct	s_group
+typedef struct s_group
 {
 	t_philo		*philo_grp;
 	pthread_t	*id_thread;
@@ -56,6 +56,8 @@ typedef struct	s_group
 t_group	parsing(int ac, char **av);
 time_t	gettime(void);
 void	sleep_philo(int time);
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
 void	print_groups(t_group groups);
+int		print_clean_n_quit(char *str, t_group *groups, int error_code);
+void	clean_groups(t_group *groups);
 #endif

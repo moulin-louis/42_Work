@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:45:55 by loumouli          #+#    #+#             */
-/*   Updated: 2022/11/30 18:25:04 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/02 19:04:24 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,17 @@ void	*handle_philo(void	*ptr)
 	return (ptr);
 }
 
+/*print all my struct*/
+
 void	print_groups(t_group groups)
 {
+	int	x;
 	printf("T_GROUP :\n");
 	printf("philo_grp = %p\n", groups.philo_grp);
 	printf("id_thread = %p\n", groups.id_thread);
 	printf("\n");
 	printf("\nT_PHILO :\n");
-	int x = -1;
+	x = -1;
 	while (++x < groups.philo_grp[0].rules->nbr_philo)
 	{
 		printf("Philo %d :\n", groups.philo_grp[x].id);
@@ -44,8 +47,8 @@ void	print_groups(t_group groups)
 	printf("max_eat = %d\n", groups.philo_grp[0].rules->max_eat);
 	printf("arr_fork = %p\n", groups.philo_grp[0].rules->arr_fork);
 	x = -1;
-	while (++x < groups.philo_grp[0].rules->nbr_fork)
-		printf("arr_fork[%d] : taken = %d\n", x, groups.philo_grp[0].rules->arr_fork[x].taken);
+	//while (++x < groups.philo_grp[0].rules->nbr_fork)
+	//	printf("arr_fork[%d] : taken = %d\n", x, groups.philo_grp[0].rules->arr_fork[x].taken);
 	printf("\n");
 }
 
