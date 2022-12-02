@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:49:01 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/02 18:16:59 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/02 23:29:58 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,16 @@
 # include <pthread.h>
 # include <stdlib.h>
 
+/*struc for fork, contain a mutex to lock the fork and a bool to tell
+if the fork is taken*/
+
 typedef struct s_fork
 {
 	pthread_mutex_t	lock;
 	int				taken;
 }				t_fork;
+
+/*Conain the rules input by the user and an array of struct of fork*/
 
 typedef struct s_rules
 {
@@ -37,6 +42,9 @@ typedef struct s_rules
 	t_fork	*arr_fork;
 }				t_rules;
 
+/*A struct for each philo, contain a ptr to the rules, its own id, id for
+their fork and the timestamp of the last meal taken*/
+
 typedef struct s_philo
 {
 	int		id;
@@ -47,17 +55,22 @@ typedef struct s_philo
 	int		nbr_eat;
 }				t_philo;
 
+/*main struc, contain an array of philo struct and an array of thread id*/
+
 typedef struct s_group
 {
 	t_philo		*philo_grp;
 	pthread_t	*id_thread;
 }				t_group;
 
+/*Parsing*/
 t_group	parsing(int ac, char **av);
+/*Utils*/
 time_t	gettime(void);
 void	sleep_philo(int time);
 int		ft_atoi(const char *str);
 void	print_groups(t_group groups);
 int		print_clean_n_quit(char *str, t_group *groups, int error_code);
+/*Clean*/
 void	clean_groups(t_group *groups);
 #endif
