@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:12:30 by loumouli          #+#    #+#             */
-/*   Updated: 2022/11/11 14:55:40 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:54:01 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	parsing(char *input, t_cati **mini)
 	lst = init_token_list(input, mini);
 	split_lst_operator(&lst, mini);
 	expand_lst(&lst, mini);
+	clean_quote(&lst, mini);
 	parse_options(&lst, mini);
 	fill_node_of_pipe(*mini);
 	fill_node_env(*mini);
