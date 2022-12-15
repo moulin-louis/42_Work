@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:49:01 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/02 23:29:58 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:11:00 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_rules
 	int		tte;
 	int		tts;
 	int		max_eat;
+	int		trigger_stop;
 	t_fork	*arr_fork;
 }				t_rules;
 
@@ -61,16 +62,23 @@ typedef struct s_group
 {
 	t_philo		*philo_grp;
 	pthread_t	*id_thread;
+	t_rules		*rules;
+	pthread_t	id_superviser;
 }				t_group;
 
 /*Parsing*/
-t_group	parsing(int ac, char **av);
+t_group	parsing_n_init(int ac, char **av);
+
+/*Fn to check end of simulation*/
+void	*check_end(void *ptr);
+
 /*Utils*/
 time_t	gettime(void);
-void	sleep_philo(int time);
+void	sleep_philo(int time, t_rules *rules);
 int		ft_atoi(const char *str);
 void	print_groups(t_group groups);
 int		print_clean_n_quit(char *str, t_group *groups, int error_code);
+
 /*Clean*/
 void	clean_groups(t_group *groups);
 #endif

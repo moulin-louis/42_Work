@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/13 11:42:25 by bschoeff          #+#    #+#              #
-#    Updated: 2022/12/02 19:50:10 by loumouli         ###   ########.fr        #
+#    Updated: 2022/12/15 15:11:02 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,11 @@ NAME		= philo
 # ################################## #
 
 C_DIR		= src
-C_FILES		= main.c	\
-			  parsing.c \
-			  utils.c   \
-			  clean.c	\
+C_FILES		= main.c		\
+			  parsing.c 	\
+			  utils.c   	\
+			  clean.c		\
+			  check_end.c	\
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 
@@ -49,7 +50,7 @@ DEPS 		= $ $(C_FILES:.c=.d)
 #                FLAGS               #
 # ################################## #
 
-CFLAGS		= -Wall -Wextra -Werror -g
+CFLAGS		= -Wall -Wextra -Werror -MMD -g
 
 # ################################## #
 #                INCLUDES            #
@@ -85,5 +86,6 @@ fclean:		clean
 re:			fclean all
 
 -include	$(OBJS:.o=.d)
+-include ./objs/*.d
 
 .PHONY: all check clean fclean re

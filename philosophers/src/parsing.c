@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:28:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/02 23:31:13 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:32:45 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	set_rules(t_rules *rules, t_group *groups, char **av)
 	rules->ttd = ft_atoi(av[4]);
 	if (av[5])
 		rules->max_eat = ft_atoi(av[5]);
-	if (av[5])
-		rules->max_eat = ft_atoi(av[5]);
+	else
+		rules->max_eat = -1;
 	if (rules->nbr_philo <= 0 || rules->ttd <= 0 || rules->tte <= 0
 		|| rules->tts <= 0 || (av[5] && rules->max_eat <= 0))
 		print_clean_n_quit("Gib valid nbr", groups, 1);
@@ -74,41 +74,50 @@ void	init_fork_id_in_philo(t_group *groups, t_rules *rules)
 	}
 }
 
-/*malloc an array of x t_philos and init each of them : fill forks id and point to
-the right t_rules struct*/
+/*malloc an array of x t_philos and init each of them : fill forks id and 
+point to the right t_rules struct*/
+
 void	init_philo(t_group *groups, char **av)
 {
 	int		x;
 	t_rules	rules;
+	t_rules	*rls_ptr;
 
 	memset(&rules, 0, sizeof(rules));
 	set_rules(&rules, groups, av);
-
+	rls_ptr = malloc(sizeof(t_rules));
+	*rls_ptr = rules;
 	groups->philo_grp = malloc(sizeof(t_philo) * rules.nbr_philo);
 	if (!groups->philo_grp)
 		print_clean_n_quit("Malloc failed\n", groups, errno);
 	memset(groups->philo_grp, 0, sizeof(t_philo) * rules.nbr_philo);
-
 	x = -1;
 	while (++x < rules.nbr_philo)
 	{
 		groups->philo_grp[x].id = x + 1;
-		groups->philo_grp[x].rules = &rules;
+		groups->philo_grp[x].last_meal = gettime();
+		groups->philo_grp[x].rules = rls_ptr;
 	}
-
+	groups->rules = rls_ptr;
 	init_fork_id_in_philo(groups, &rules);
 }
 
 /*check compliance and call init fn*/
 
-t_group	parsing(int ac, char **av)
+t_group	parsing_n_init(int ac, char **av)
 {
 	t_group	groups;
+	t_group	*grp_ptr;
 
+	memset(&groups, 0, sizeof(t_group));
+	grp_ptr = malloc(sizeof(t_group));
+	*grp_ptr = groups;
 	if (ac < 5 || ac > 6)
 		print_clean_n_quit("Wrong nbr of args\n", NULL, 1);
-	memset(&groups, 0, sizeof(groups));	
 	init_philo(&groups, av);
-	printf("nbr philo = %d\n", groups.philo_grp[0].rules->nbr_philo);
+	groups.id_thread = malloc(sizeof(t_philo) * groups.rules->nbr_philo);
+	if (!groups.id_thread)
+		print_clean_n_quit("Malloc Failed\n", &groups, errno);
+	free(grp_ptr);
 	return (groups);
 }

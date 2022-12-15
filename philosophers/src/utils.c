@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:31:15 by loumouli          #+#    #+#             */
-/*   Updated: 2022/11/30 17:32:57 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:33:04 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ int	ft_atoi(const char *str)
 
 /*custom sleep fn to avoid usleep delay*/
 
-void	sleep_philo(int time)
+void	sleep_philo(int time, t_rules *rules)
 {
 	time_t	end_time;
 
 	end_time = gettime() + time;
-	while (gettime() < end_time)
+	while (!rules->trigger_stop && gettime() < end_time)
 		usleep(100);
 }
 
