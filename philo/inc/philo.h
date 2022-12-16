@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:49:01 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/16 16:06:34 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/17 00:33:19 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_rules
 	int				tts;
 	int				max_eat;
 	int				trigger_stop;
+	long int		start_timestamp;
 	pthread_mutex_t	lock_nbr_meal;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	lock_stop_1;
@@ -84,7 +85,7 @@ void	sleep_philo(int time, t_rules *rules);
 int		ft_atoi(const char *str);
 void	print_groups(t_group groups);
 int		print_clean_n_quit(char *str, t_group *groups, int error_code);
-void	printf_mutex(t_rules *rules, char *action, long int timestamp,
+void	printf_mutex(t_rules *rules, char *action, long int actuel_time,
 			int id_philo);
 int		check_stop(t_rules *rules);
 

@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:45:55 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/16 16:10:13 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/17 00:31:39 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	init_last_meal(t_group *groups)
 		groups->philo_grp[x].last_meal = gettime();
 		x++;
 	}
+	groups->rules->start_timestamp = gettime();
 }
 
 void	*handle_philo(void	*ptr)
@@ -52,7 +53,10 @@ void	*handle_philo(void	*ptr)
 		if (check_stop(philo->rules))
 			go_eat(philo);
 		if (check_stop(philo->rules))
+		{
+			printf_mutex(philo->rules, "is sleeping", gettime(), philo->id);
 			sleep_philo(philo->rules->tts, philo->rules);
+		}
 		if (check_stop(philo->rules))
 			printf_mutex(philo->rules, "is thinking", gettime(), philo->id);
 	}

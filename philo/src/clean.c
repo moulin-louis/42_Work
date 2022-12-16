@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 18:15:32 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/16 16:06:55 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/17 00:13:38 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	clean_rules(t_rules *rls)
 
 void	clean_groups(t_group *groups)
 {
+	if (!groups)
+		return ;
 	if (groups->philo_grp)
 		clean_rules(groups->philo_grp[0].rules);
 	free(groups->philo_grp);

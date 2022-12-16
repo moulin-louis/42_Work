@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:31:15 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/16 16:00:21 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/17 00:33:13 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,7 @@ int	ft_atoi(const char *str)
 	while (str[++i])
 	{
 		if (str[i] < '0' || str[i] > '9')
-		{
-			printf("error parsing, gib :\n./philo number_of_philosophers");
-			printf("time_to_die time_to_eat time_to_sleep [number_of_times");
-			printf("_each_philosopher_must_eat]\n");
-			exit(1);
-		}
+			return (-1);
 	}
 	while (*str != '\0' && *str >= '0' && *str <= '9')
 	{
@@ -71,11 +66,11 @@ time_t	gettime(void)
 
 /*Printf with a mutex to avoid overlaping*/
 
-void	printf_mutex(t_rules *rules, char *action, long int timestamp,
+void	printf_mutex(t_rules *rules, char *action, long int actuel_time,
 		int id_philo)
 {
 	pthread_mutex_lock(&rules->print_mutex);
 	if (check_stop(rules))
-		printf("%ld philo %d %s\n", timestamp, id_philo, action);
+		printf("%ld %d %s\n", actuel_time - rules->start_timestamp, id_philo, action);
 	pthread_mutex_unlock(&rules->print_mutex);
 }

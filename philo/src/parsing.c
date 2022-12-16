@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:28:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/16 16:13:16 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/17 00:21:40 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ void	set_rules(t_rules *rules, t_group *groups, char **av)
 	else
 		rules->max_eat = -1;
 	if (rules->nbr_philo <= 0 || rules->ttd <= 0 || rules->tte <= 0
-		|| rules->tts <= 0 || (av[5] && rules->max_eat <= 0))
-		print_clean_n_quit("Gib valid nbr", groups, 1);
+		|| rules->tts <= 0 || (av[5] && rules->max_eat <= 0)
+		||rules->nbr_philo > 200)
+		print_clean_n_quit("Gib valid nbr\n", groups, 1);
 	pthread_mutex_init(&rules->print_mutex, NULL);
 	pthread_mutex_init(&rules->lock_nbr_meal, NULL);
 	init_fork(rules, groups);
@@ -109,17 +110,17 @@ void	init_philo(t_group *groups, char **av)
 t_group	parsing_n_init(int ac, char **av)
 {
 	t_group	groups;
-	t_group	*grp_ptr;
+//	t_group	*grp_ptr;
 
 	memset(&groups, 0, sizeof(t_group));
-	grp_ptr = malloc(sizeof(t_group));
-	*grp_ptr = groups;
+	// grp_ptr = malloc(sizeof(t_group));
+	// *grp_ptr = groups;
 	if (ac < 5 || ac > 6)
 		print_clean_n_quit("Wrong nbr of args\n", NULL, 1);
 	init_philo(&groups, av);
 	groups.id_thread = malloc(sizeof(t_philo) * groups.rules->nbr_philo);
 	if (!groups.id_thread)
 		print_clean_n_quit("Malloc Failed\n", &groups, errno);
-	free(grp_ptr);
+	//free(grp_ptr);
 	return (groups);
 }
