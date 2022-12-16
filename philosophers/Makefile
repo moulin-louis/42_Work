@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/13 11:42:25 by bschoeff          #+#    #+#              #
-#    Updated: 2022/12/15 15:11:02 by loumouli         ###   ########.fr        #
+#    Updated: 2022/12/16 16:13:41 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #               COMMAND              #
 # ################################## #
 
-CC			= cc
+CC			= gcc
 MKDIR		= mkdir -p
 RM			= rm -rf
 
@@ -34,6 +34,7 @@ C_FILES		= main.c		\
 			  utils.c   	\
 			  clean.c		\
 			  check_end.c	\
+			  eat.c			\
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 
@@ -50,8 +51,7 @@ DEPS 		= $ $(C_FILES:.c=.d)
 #                FLAGS               #
 # ################################## #
 
-CFLAGS		= -Wall -Wextra -Werror -MMD -g
-
+CFLAGS		= -Wall -Wextra -Werror -MMD -g3 -fsanitize=thread
 # ################################## #
 #                INCLUDES            #
 # ################################## #
@@ -89,3 +89,4 @@ re:			fclean all
 -include ./objs/*.d
 
 .PHONY: all check clean fclean re
+.NOTPARALLEL:fclean

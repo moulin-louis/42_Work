@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:28:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/15 15:32:45 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/16 16:13:16 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	set_rules(t_rules *rules, t_group *groups, char **av)
 {
 	rules->nbr_philo = ft_atoi(av[1]);
 	rules->nbr_fork = rules->nbr_philo;
-	rules->tte = ft_atoi(av[2]);
-	rules->tts = ft_atoi(av[3]);
-	rules->ttd = ft_atoi(av[4]);
+	rules->ttd = ft_atoi(av[2]);
+	rules->tte = ft_atoi(av[3]);
+	rules->tts = ft_atoi(av[4]);
 	if (av[5])
 		rules->max_eat = ft_atoi(av[5]);
 	else
@@ -45,7 +45,10 @@ void	set_rules(t_rules *rules, t_group *groups, char **av)
 	if (rules->nbr_philo <= 0 || rules->ttd <= 0 || rules->tte <= 0
 		|| rules->tts <= 0 || (av[5] && rules->max_eat <= 0))
 		print_clean_n_quit("Gib valid nbr", groups, 1);
+	pthread_mutex_init(&rules->print_mutex, NULL);
+	pthread_mutex_init(&rules->lock_nbr_meal, NULL);
 	init_fork(rules, groups);
+	//pthread_mutex_init(&rules->lock_stop_1, NULL);
 }
 
 /*Init fork id*/
@@ -95,7 +98,6 @@ void	init_philo(t_group *groups, char **av)
 	while (++x < rules.nbr_philo)
 	{
 		groups->philo_grp[x].id = x + 1;
-		groups->philo_grp[x].last_meal = gettime();
 		groups->philo_grp[x].rules = rls_ptr;
 	}
 	groups->rules = rls_ptr;

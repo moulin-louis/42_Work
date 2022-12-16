@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:31:15 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/15 15:33:04 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/16 16:00:21 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	sleep_philo(int time, t_rules *rules)
 	time_t	end_time;
 
 	end_time = gettime() + time;
-	while (!rules->trigger_stop && gettime() < end_time)
+	while (check_stop(rules) && gettime() < end_time)
 		usleep(100);
 }
 
@@ -67,4 +67,15 @@ time_t	gettime(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+/*Printf with a mutex to avoid overlaping*/
+
+void	printf_mutex(t_rules *rules, char *action, long int timestamp,
+		int id_philo)
+{
+	pthread_mutex_lock(&rules->print_mutex);
+	if (check_stop(rules))
+		printf("%ld philo %d %s\n", timestamp, id_philo, action);
+	pthread_mutex_unlock(&rules->print_mutex);
 }

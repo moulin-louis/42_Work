@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:49:01 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/15 15:11:00 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/16 16:06:34 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,17 @@ typedef struct s_fork
 
 typedef struct s_rules
 {
-	int		nbr_philo;
-	int		nbr_fork;
-	int		ttd;
-	int		tte;
-	int		tts;
-	int		max_eat;
-	int		trigger_stop;
-	t_fork	*arr_fork;
+	int				nbr_philo;
+	int				nbr_fork;
+	int				ttd;
+	int				tte;
+	int				tts;
+	int				max_eat;
+	int				trigger_stop;
+	pthread_mutex_t	lock_nbr_meal;
+	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	lock_stop_1;
+	t_fork			*arr_fork;
 }				t_rules;
 
 /*A struct for each philo, contain a ptr to the rules, its own id, id for
@@ -69,6 +72,9 @@ typedef struct s_group
 /*Parsing*/
 t_group	parsing_n_init(int ac, char **av);
 
+/*Eating fn*/
+void	go_eat(t_philo *philo);
+
 /*Fn to check end of simulation*/
 void	*check_end(void *ptr);
 
@@ -78,6 +84,9 @@ void	sleep_philo(int time, t_rules *rules);
 int		ft_atoi(const char *str);
 void	print_groups(t_group groups);
 int		print_clean_n_quit(char *str, t_group *groups, int error_code);
+void	printf_mutex(t_rules *rules, char *action, long int timestamp,
+			int id_philo);
+int		check_stop(t_rules *rules);
 
 /*Clean*/
 void	clean_groups(t_group *groups);

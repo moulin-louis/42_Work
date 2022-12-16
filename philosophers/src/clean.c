@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 18:15:32 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/15 15:31:28 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/16 16:06:55 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ void	clean_rules(t_rules *rls)
 		x--;
 		pthread_mutex_destroy(&(rls->arr_fork[x].lock));
 	}
+	pthread_mutex_destroy(&rls->lock_nbr_meal);
+	pthread_mutex_destroy(&rls->lock_stop_1);
+	pthread_mutex_destroy(&rls->print_mutex);
 	free(rls->arr_fork);
 	free(rls);
 }
