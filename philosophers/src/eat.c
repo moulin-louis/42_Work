@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:20:58 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/16 15:40:14 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/16 23:29:03 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	trigger_eat_n_unlock(t_philo *philo)
 			printf_mutex(rules, "is eating", gettime(), philo->id);
 		if (check_stop(rules))
 			sleep_philo(rules->tte, rules);
-		philo->last_meal = gettime();
 		pthread_mutex_lock(&rules->lock_nbr_meal);
+		philo->last_meal = gettime();
 		philo->nbr_eat++;
 		pthread_mutex_unlock(&rules->lock_nbr_meal);
 		unlock_fork(philo, philo->left_fork);
@@ -77,15 +77,32 @@ void	trigger_eat_n_unlock(t_philo *philo)
 
 void	go_eat(t_philo *philo)
 {
-	while (check_stop(philo->rules))
+	if (philo->id %2)
 	{
-		if (check_stop(philo->rules)
-			&& lock_all_fork(philo, philo->left_fork, philo->right_fork))
+		while (check_stop(philo->rules))
 		{
-			trigger_eat_n_unlock(philo);
-			return ;
+			if (check_stop(philo->rules)
+				&& lock_all_fork(philo, philo->left_fork, philo->right_fork))
+			{
+				trigger_eat_n_unlock(philo);
+				return ;
+			}
+			else
+				usleep(10);
 		}
-		else
-			usleep(10);
+	}
+	else
+	{
+		while (check_stop(philo->rules))
+		{
+			if (check_stop(philo->rules)
+				&& lock_all_fork(philo, philo->right_fork, philo->left_fork))
+			{
+				trigger_eat_n_unlock(philo);
+				return ;
+			}
+			else
+				usleep(10);
+		}
 	}
 }
