@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:31:15 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/17 00:33:13 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:46:23 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,12 @@ void	sleep_philo(int time, t_rules *rules)
 	time_t	end_time;
 
 	end_time = gettime() + time;
-	while (check_stop(rules) && gettime() < end_time)
+	while (gettime() < end_time)
+	{
+		if (!check_stop(rules))
+			break ;
 		usleep(100);
+	}
 }
 
 /*get current timestamp*/

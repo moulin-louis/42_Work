@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 14:48:11 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/17 00:29:58 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:04:34 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	check_death(t_group *groups)
 	int	i;
 
 	i = -1;
+	time_t current_time = gettime();
 	while (++i < groups->rules->nbr_philo)
 	{
 		pthread_mutex_lock(&groups->rules->lock_nbr_meal);
-		if (gettime() >= groups->philo_grp[i].last_meal + groups->rules->ttd)
+		if (current_time >= groups->philo_grp[i].last_meal + groups->rules->ttd)
 		{
-			printf_mutex(groups->rules, "died", gettime(), i + 1),
-			pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
-			return (1);
+			printf_mutex(groups->rules, "died", gettime(), i + 1);
+			return (pthread_mutex_unlock(&groups->rules->lock_nbr_meal), 1);
 		}
 		pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
 	}
@@ -38,19 +38,22 @@ int	check_death(t_group *groups)
 int	check_nbr_meal(t_group *groups)
 {
 	int	i;
-	int	nbr_of_philo_fullfill;
 
 	i = -1;
-	nbr_of_philo_fullfill = 0;
-	while (check_stop(groups->rules) && (i++ < groups->rules->nbr_philo))
+	while (++i < groups->rules->nbr_philo)
 	{
 		pthread_mutex_lock(&groups->rules->lock_nbr_meal);
 		if (groups->philo_grp[i].nbr_eat == groups->rules->max_eat)
-			nbr_of_philo_fullfill++;
-		pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
-	}
-	if (nbr_of_philo_fullfill == groups->rules->nbr_philo)
-		return (1);
+		{
+			pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
+			continue ;
+		}
+		else
+		{
+			pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
+			break ;
+		}
+	}	
 	return (0);
 }
 

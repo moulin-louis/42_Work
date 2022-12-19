@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:49:01 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/17 00:33:19 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:42:19 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_rules
 {
 	int				nbr_philo;
 	int				nbr_fork;
-	int				ttd;
+	time_t			ttd;
 	int				tte;
 	int				tts;
 	int				max_eat;

@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:20:58 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/16 23:29:03 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/19 11:51:42 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,11 @@ void	trigger_eat_n_unlock(t_philo *philo)
 	}
 }
 
+/**/
+
 void	go_eat(t_philo *philo)
 {
-	if (philo->id %2)
+	if (philo->id % 2)
 	{
 		while (check_stop(philo->rules))
 		{
@@ -91,6 +93,7 @@ void	go_eat(t_philo *philo)
 				usleep(10);
 		}
 	}
+
 	else
 	{
 		while (check_stop(philo->rules))
