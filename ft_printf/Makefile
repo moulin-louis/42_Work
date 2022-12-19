@@ -1,6 +1,6 @@
 NAME    	= libftprintf.a
 
-SRCS    	=  ./srcs/ft_printf.c ./srcs/ft_putchar_printf.c ./srcs/ft_putstr_printf.c ./srcs/ft_putnbr_base_printf.c ./srcs/ft_putnbr_printf.c ./srcs/ft_putunbr_printf.c ./srcs/ft_print_adress_printf.c
+SRCS    	=  ./srcs/ft_printf.c ./srcs/ft_putchar_printf.c ./srcs/ft_putstr_printf.c ./srcs/ft_putnbr_base_printf.c ./srcs/ft_putnbr_printf.c ./srcs/ft_putunbr_printf.c ./srcs/ft_print_adress_printf.c ./srcs/ft_putnbr_long.c
 
 OBJS		= ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:45:55 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/17 00:31:39 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:15:52 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,23 @@ void	init_last_meal(t_group *groups)
 void	*handle_philo(void	*ptr)
 {
 	t_philo	*philo;
+	t_rules	*rules;
+	time_t tt_think;
 
 	philo = (t_philo *)ptr;
-	if (philo->id % 2)
-		usleep(10);
-	while (check_stop(philo->rules))
+	rules = philo->rules;
+	while (check_stop(rules))
 	{
-		if (check_stop(philo->rules))
+		if (check_stop(rules))
 			go_eat(philo);
-		if (check_stop(philo->rules))
+		if (check_stop(rules))
 		{
-			printf_mutex(philo->rules, "is sleeping", gettime(), philo->id);
-			sleep_philo(philo->rules->tts, philo->rules);
+			printf_mutex(rules, "is sleeping", gettime(), philo->id);
+			sleep_philo(rules->tts, rules);
 		}
-		if (check_stop(philo->rules))
-			printf_mutex(philo->rules, "is thinking", gettime(), philo->id);
+		printf_mutex(rules, "is thinking", gettime(), philo->id);
+		tt_think = get_tthk(rules, philo);
+		sleep_philo(tt_think, rules);
 	}
 	return (ptr);
 }
@@ -71,14 +73,14 @@ void	start_philo(t_group *groups)
 
 	x = -1;
 	init_last_meal(groups);
+	pthread_create(&groups->id_superviser, NULL, &check_end, groups);
 	while (++x < groups->rules->nbr_philo)
 		pthread_create(&groups->id_thread[x], NULL, &handle_philo,
 			&groups->philo_grp[x]);
-	pthread_create(&groups->id_superviser, NULL, &check_end, groups);
 	x = -1;
+	pthread_join(groups->id_superviser, NULL);
 	while (++x < groups->rules->nbr_philo)
 		pthread_join(groups->id_thread[x], NULL);
-	pthread_join(groups->id_superviser, NULL);
 }
 
 /*Main fn, call parsing fn and start the simulation*/
@@ -88,8 +90,8 @@ int	main(int ac, char **av)
 	t_group	groups;
 
 	groups = parsing_n_init(ac, av);
-	//printf("start at :\n%ld\n", gettime());
 	start_philo(&groups);
 	clean_groups(&groups);
 	return (0);
 }
+

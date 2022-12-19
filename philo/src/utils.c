@@ -6,11 +6,29 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:31:15 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/19 11:46:23 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/19 16:57:09 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/*Calculate time to think for each philo*/
+
+time_t	get_tthk(t_rules *rules, t_philo *philo)
+{
+	time_t	result;
+	
+	result = (rules->ttd - (gettime() - philo->last_meal) - rules->tte) / 2;
+	if (rules->tts == 0)
+	{
+		result = (gettime() + rules->ttd) - rules->tte - 10;
+	}
+	if (result > 500)
+		return (500);
+	if (result < 0)
+		return (0);
+	return (result);
+}
 
 /*printf the error, clean the heap and exit program with the error_code */
 
@@ -54,7 +72,7 @@ void	sleep_philo(int time, t_rules *rules)
 	{
 		if (!check_stop(rules))
 			break ;
-		usleep(100);
+		usleep(1);
 	}
 }
 

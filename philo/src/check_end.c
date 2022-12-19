@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 14:48:11 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/19 12:04:34 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:15:47 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	check_death(t_group *groups)
 	int	i;
 
 	i = -1;
-	time_t current_time = gettime();
+	//time_t current_time = gettime();
 	while (++i < groups->rules->nbr_philo)
 	{
 		pthread_mutex_lock(&groups->rules->lock_nbr_meal);
-		if (current_time >= groups->philo_grp[i].last_meal + groups->rules->ttd)
+		if (gettime() > groups->philo_grp[i].last_meal + groups->rules->ttd)
 		{
 			printf_mutex(groups->rules, "died", gettime(), i + 1);
 			return (pthread_mutex_unlock(&groups->rules->lock_nbr_meal), 1);
@@ -51,10 +51,10 @@ int	check_nbr_meal(t_group *groups)
 		else
 		{
 			pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
-			break ;
+			return (0);
 		}
 	}	
-	return (0);
+	return (1);
 }
 
 /*Check if we need to end the simulation*/
@@ -80,7 +80,7 @@ void	*check_end(void *ptr)
 			pthread_mutex_unlock(&groups->rules->lock_stop_1);
 			return (NULL);
 		}
-		usleep(100);
+		usleep(1);
 	}
 	return (NULL);
 }

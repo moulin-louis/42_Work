@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:49:01 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/19 11:42:19 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:15:39 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	*check_end(void *ptr);
 /*Utils*/
 time_t	gettime(void);
 void	sleep_philo(int time, t_rules *rules);
+time_t	get_tthk(t_rules *rules, t_philo *philo);
 int		ft_atoi(const char *str);
 void	print_groups(t_group groups);
 int		print_clean_n_quit(char *str, t_group *groups, int error_code);

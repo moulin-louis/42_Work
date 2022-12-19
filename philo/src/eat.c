@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:20:58 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/19 11:51:42 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:47:45 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,33 @@
 
 /*try to lock the fork in the id position*/
 
-int	lock_all_fork(t_philo *philo, int id_left, int id_right)
+int	lock_all_fork(t_philo *philo, int id_1, int id_2)
 {
 	t_rules	*rules;
 
+	//printf("je check les fork\n");
+	if (id_1 == id_2)
+		return (0);
 	rules = philo->rules;
-	pthread_mutex_lock(&rules->arr_fork[id_left].lock);
-	if (rules->arr_fork[id_left].taken == 0)
+	pthread_mutex_lock(&rules->arr_fork[id_1].lock);
+	if (rules->arr_fork[id_1].taken == 0)
 	{
-		pthread_mutex_lock(&rules->arr_fork[id_right].lock);
-		if (rules->arr_fork[id_right].taken == 0)
+		pthread_mutex_lock(&rules->arr_fork[id_2].lock);
+		if (rules->arr_fork[id_2].taken == 0)
 		{
-			rules->arr_fork[id_left].taken = 1;
+			rules->arr_fork[id_1].taken = 1;
 			printf_mutex(rules, "has taken a fork", gettime(), philo->id);
-			rules->arr_fork[id_right].taken = 1;
+			rules->arr_fork[id_2].taken = 1;
 			printf_mutex(rules, "has taken a fork", gettime(), philo->id);
-			pthread_mutex_unlock(&rules->arr_fork[id_right].lock);
-			pthread_mutex_unlock(&rules->arr_fork[id_left].lock);
+			pthread_mutex_unlock(&rules->arr_fork[id_2].lock);
+			pthread_mutex_unlock(&rules->arr_fork[id_1].lock);
 			return (1);
 		}
-		pthread_mutex_unlock(&rules->arr_fork[id_right].lock);
-		pthread_mutex_unlock(&rules->arr_fork[id_left].lock);
+		pthread_mutex_unlock(&rules->arr_fork[id_2].lock);
+		pthread_mutex_unlock(&rules->arr_fork[id_1].lock);
 		return (0);
 	}
-	pthread_mutex_unlock(&rules->arr_fork[id_left].lock);
+	pthread_mutex_unlock(&rules->arr_fork[id_1].lock);
 	return (0);
 }
 
@@ -64,21 +67,26 @@ void	trigger_eat_n_unlock(t_philo *philo)
 		rules = philo->rules;
 		if (check_stop(philo->rules))
 			printf_mutex(rules, "is eating", gettime(), philo->id);
-		if (check_stop(rules))
-			sleep_philo(rules->tte, rules);
 		pthread_mutex_lock(&rules->lock_nbr_meal);
 		philo->last_meal = gettime();
+		if (check_stop(rules))
+			sleep_philo(rules->tte, rules);
 		philo->nbr_eat++;
 		pthread_mutex_unlock(&rules->lock_nbr_meal);
+	
 		unlock_fork(philo, philo->left_fork);
 		unlock_fork(philo, philo->right_fork);
 	}
 }
 
-/**/
+/*Wont stop till philo has eat
+Left fork first for even philo id
+Right fork first for odd philo id
+*/
 
 void	go_eat(t_philo *philo)
 {
+	//printf_mutex(philo->rules, "start trying to eat", gettime(), philo->id);
 	if (philo->id % 2)
 	{
 		while (check_stop(philo->rules))
@@ -90,10 +98,9 @@ void	go_eat(t_philo *philo)
 				return ;
 			}
 			else
-				usleep(10);
+				usleep(100);
 		}
 	}
-
 	else
 	{
 		while (check_stop(philo->rules))
@@ -105,7 +112,7 @@ void	go_eat(t_philo *philo)
 				return ;
 			}
 			else
-				usleep(10);
+				continue ;
 		}
 	}
 }
