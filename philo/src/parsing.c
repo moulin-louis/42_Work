@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:28:07 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/22 13:14:18 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/22 13:38:51 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,13 +134,13 @@ t_group	parsing_n_init(int ac, char **av)
 	if (!init_philo(&groups, av))
 	{
 		clean_groups(&groups);
-		return (memset(&groups, 0, sizeof(t_group)), groups);
+		exit (1);
 	}
 	groups.id_thread = malloc(sizeof(t_philo) * groups.rules->nbr_philo);
 	if (!groups.id_thread)
 	{
 		clean_groups(&groups);
-		return (memset(&groups, 0, sizeof(t_group)), groups);
+		exit (1);
 	}
 	return (groups);
 }

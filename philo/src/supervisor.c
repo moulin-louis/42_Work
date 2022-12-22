@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 14:48:11 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/22 13:10:45 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/22 14:48:39 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,13 @@ void	*check_end(void *ptr)
 	t_group	*groups;
 
 	groups = (void *)ptr;
+	while (1)
+	{
+		if (check_start(groups->rules) == 1)
+			break ;
+		if (check_start(groups->rules) == 2)
+			return (NULL);
+	}
 	if (groups->rules->max_eat == 0)
 	{
 		pthread_mutex_lock(&groups->rules->lock_stop_1);

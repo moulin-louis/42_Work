@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:20:58 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/22 13:07:58 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/22 14:00:42 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,14 @@ void	go_eat(t_philo *philo)
 {
 	while (check_stop(philo->rules))
 	{
-		if (philo->id % 2
+		if ((philo->id % 2)
 			&& lock_all_fork(philo, philo->left_fork, philo->right_fork))
 		{
 			trigger_eat_n_unlock(philo);
 			return ;
 		}
-		else if (lock_all_fork(philo, philo->right_fork, philo->left_fork))
+		else if (!(philo->id % 2)
+			&& lock_all_fork(philo, philo->right_fork, philo->left_fork))
 		{
 			trigger_eat_n_unlock(philo);
 			return ;
