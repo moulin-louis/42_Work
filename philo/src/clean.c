@@ -6,11 +6,12 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 18:15:32 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/19 17:05:15 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/22 13:12:39 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdlib.h>
 
 /*Clean the rules struct*/
 

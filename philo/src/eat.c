@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 15:20:58 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/19 17:47:45 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/22 13:07:58 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	lock_all_fork(t_philo *philo, int id_1, int id_2)
 {
 	t_rules	*rules;
 
-	//printf("je check les fork\n");
 	if (id_1 == id_2)
 		return (0);
 	rules = philo->rules;
@@ -69,11 +68,12 @@ void	trigger_eat_n_unlock(t_philo *philo)
 			printf_mutex(rules, "is eating", gettime(), philo->id);
 		pthread_mutex_lock(&rules->lock_nbr_meal);
 		philo->last_meal = gettime();
+		pthread_mutex_unlock(&rules->lock_nbr_meal);
 		if (check_stop(rules))
 			sleep_philo(rules->tte, rules);
+		pthread_mutex_lock(&rules->lock_nbr_meal);
 		philo->nbr_eat++;
 		pthread_mutex_unlock(&rules->lock_nbr_meal);
-	
 		unlock_fork(philo, philo->left_fork);
 		unlock_fork(philo, philo->right_fork);
 	}
@@ -86,33 +86,18 @@ Right fork first for odd philo id
 
 void	go_eat(t_philo *philo)
 {
-	//printf_mutex(philo->rules, "start trying to eat", gettime(), philo->id);
-	if (philo->id % 2)
+	while (check_stop(philo->rules))
 	{
-		while (check_stop(philo->rules))
+		if (philo->id % 2
+			&& lock_all_fork(philo, philo->left_fork, philo->right_fork))
 		{
-			if (check_stop(philo->rules)
-				&& lock_all_fork(philo, philo->left_fork, philo->right_fork))
-			{
-				trigger_eat_n_unlock(philo);
-				return ;
-			}
-			else
-				usleep(100);
+			trigger_eat_n_unlock(philo);
+			return ;
 		}
-	}
-	else
-	{
-		while (check_stop(philo->rules))
+		else if (lock_all_fork(philo, philo->right_fork, philo->left_fork))
 		{
-			if (check_stop(philo->rules)
-				&& lock_all_fork(philo, philo->right_fork, philo->left_fork))
-			{
-				trigger_eat_n_unlock(philo);
-				return ;
-			}
-			else
-				continue ;
+			trigger_eat_n_unlock(philo);
+			return ;
 		}
 	}
 }

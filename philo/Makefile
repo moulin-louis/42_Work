@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/13 11:42:25 by bschoeff          #+#    #+#              #
-#    Updated: 2022/12/19 16:19:20 by loumouli         ###   ########.fr        #
+#    Updated: 2022/12/22 12:51:53 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,9 @@ C_DIR		= src
 C_FILES		= main.c		\
 			  parsing.c 	\
 			  utils.c   	\
+			  utils_2.c		\
 			  clean.c		\
-			  check_end.c	\
+			  supervisor.c	\
 			  eat.c			\
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
@@ -50,7 +51,7 @@ DEPS 		= $ $(C_FILES:.c=.d)
 #                FLAGS               #
 # ################################## #
 
-CFLAGS		= -Wall -Wextra -Werror -MMD -g
+CFLAGS		= -Wall -Wextra -Werror -g#3 -fsanitize=address
 # ################################## #
 #                INCLUDES            #
 # ################################## #
@@ -64,7 +65,7 @@ CINCLUDES	=	-I ./inc
 all:	$(NAME)
 
 $(NAME):	$(O_DIR) $(OBJS)
-			$(CC) $(OBJS) $(CFLAGS) -o $@
+			$(CC) $(OBJS) $(CFLAGS) -lpthread -o $@
 
 $(O_DIR)/%.o: $(C_DIR)/%.c
 			$(CC) $(CFLAGS) $(CINCLUDES) -c $< -o $@

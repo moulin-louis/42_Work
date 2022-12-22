@@ -6,37 +6,30 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:31:15 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/19 16:57:09 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/22 13:14:25 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <unistd.h>
+#include <sys/time.h>
+#include <stdio.h>
 
 /*Calculate time to think for each philo*/
 
 time_t	get_tthk(t_rules *rules, t_philo *philo)
 {
 	time_t	result;
-	
+
 	result = (rules->ttd - (gettime() - philo->last_meal) - rules->tte) / 2;
 	if (rules->tts == 0)
-	{
-		result = (gettime() + rules->ttd) - rules->tte - 10;
-	}
+		result = (rules->ttd -(gettime() - philo->last_meal))
+			- rules->tte - 10 ;
 	if (result > 500)
 		return (500);
 	if (result < 0)
 		return (0);
 	return (result);
-}
-
-/*printf the error, clean the heap and exit program with the error_code */
-
-int	print_clean_n_quit(char *str, t_group *groups, int error_code)
-{
-	printf("%s", str);
-	clean_groups(groups);
-	exit (error_code);
 }
 
 /*Convert string input into int*/
@@ -84,15 +77,4 @@ time_t	gettime(void)
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
-
-/*Printf with a mutex to avoid overlaping*/
-
-void	printf_mutex(t_rules *rules, char *action, long int actuel_time,
-		int id_philo)
-{
-	pthread_mutex_lock(&rules->print_mutex);
-	if (check_stop(rules))
-		printf("%ld %d %s\n", actuel_time - rules->start_timestamp, id_philo, action);
-	pthread_mutex_unlock(&rules->print_mutex);
 }

@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_end.c                                        :+:      :+:    :+:   */
+/*   supervisor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 14:48:11 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/19 17:15:47 by loumouli         ###   ########.fr       */
+/*   Updated: 2022/12/22 13:10:45 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <unistd.h>
 
 /*Check if all philo are all alive based on their last meal*/
 
@@ -19,7 +20,6 @@ int	check_death(t_group *groups)
 	int	i;
 
 	i = -1;
-	//time_t current_time = gettime();
 	while (++i < groups->rules->nbr_philo)
 	{
 		pthread_mutex_lock(&groups->rules->lock_nbr_meal);
