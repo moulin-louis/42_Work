@@ -67,8 +67,10 @@ typedef struct s_group
 	pthread_t	id_superviser;
 }				t_group;
 
+void	start_philo(t_group *groups);
+
 /*Parsing*/
-t_group	parsing_n_init(int ac, char **av);
+void	parsing_n_init(int ac, char **av);
 
 /*Eating fn*/
 void	go_eat(t_philo *philo);

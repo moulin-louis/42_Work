@@ -130,13 +130,16 @@ int	init_philo(t_group *groups, char **av)
 	rls_ptr = malloc(sizeof(t_rules));
 	if (!rls_ptr)
 		return (1);
+
 	*rls_ptr = rules;
 	groups->rules = rls_ptr;
 	if (!set_rules(rls_ptr, av))
 		return (2);
+
 	groups->philo_grp = malloc(sizeof(t_philo) * rules.nbr_philo);
 	if (!groups->philo_grp)
 		return (3);
+		
 	memset(groups->philo_grp, 0, sizeof(t_philo) * rules.nbr_philo);
 	x = -1;
 	while (++x < rules.nbr_philo)
@@ -150,7 +153,7 @@ int	init_philo(t_group *groups, char **av)
 
 /*check compliance and call init fn*/
 
-t_group	parsing_n_init(int ac, char **av)
+void	parsing_n_init(int ac, char **av)
 {
 	t_group	groups;
 	int		status;
@@ -179,5 +182,6 @@ t_group	parsing_n_init(int ac, char **av)
 		clean_groups(&groups);
 		exit (1);
 	}
-	return (groups);
+	start_philo(&groups);
+	clean_groups(&groups);
 }

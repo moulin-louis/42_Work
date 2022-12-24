@@ -107,12 +107,10 @@ void	start_philo(t_group *groups)
 
 /*Main fn, call parsing fn and start the simulation*/
 
+#include <string.h>
+
 int	main(int ac, char **av)
 {
-	t_group	groups;
-
-	groups = parsing_n_init(ac, av);
-	//start_philo(&groups);
-	clean_groups(&groups);
+	parsing_n_init(ac, av);
 	return (0);
 }
