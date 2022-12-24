@@ -88,4 +88,5 @@ int		check_start(t_rules *rules);
 
 /*Clean*/
 void	clean_groups(t_group *groups);
+void	clean_rules(t_rules *rls);
 #endif

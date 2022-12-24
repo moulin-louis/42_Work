@@ -24,18 +24,49 @@ int	init_fork(t_rules *rules)
 
 	rules->arr_fork = malloc(sizeof(t_fork) * rules->nbr_fork);
 	if (!rules->arr_fork)
-		return (0);
+		return (rules->nbr_fork = 0, ("malloc arr fork failed\n"), 0);
 	x = -1;
 	while (++x < rules->nbr_philo)
 	{
 		if (pthread_mutex_init(&(rules->arr_fork[x].lock), NULL))
 		{
 			rules->nbr_fork = x;
-			return (0);
+			return (printf("mutex init failed for fork\n"), 0);
 		}
 		rules->arr_fork[x].taken = 0;
 	}
 	return (1);
+}
+
+int	mutex_init(t_rules *rules)
+{
+	if (pthread_mutex_init(&rules->print_mutex, NULL))
+	{
+		printf("mutex print init failed\n");
+		return (1);
+	}
+	if (pthread_mutex_init(&rules->lock_nbr_meal, NULL))
+	{
+		printf("mutex nbr meal init failed\n");
+		pthread_mutex_destroy(&rules->print_mutex);
+		return (1);
+	}
+	if (pthread_mutex_init(&rules->lock_stop_1, NULL))
+	{
+		printf("mutex print lock stop failed\n");
+		pthread_mutex_destroy(&rules->print_mutex);
+		pthread_mutex_destroy(&rules->lock_nbr_meal);
+		return (1);
+	}
+	if (pthread_mutex_init(&rules->lock_nbr_thread, NULL))
+	{
+		printf("mutex nbr thread launched init failed\n");
+		pthread_mutex_destroy(&rules->print_mutex);
+		pthread_mutex_destroy(&rules->lock_nbr_meal);
+		pthread_mutex_destroy(&rules->lock_nbr_meal);
+		return (1);
+	}
+	return (0);
 }
 
 /*fill t_rules stuct with user input*/
@@ -54,14 +85,12 @@ int	set_rules(t_rules *rules, char **av)
 		|| rules->tts < 0 || (av[5] && rules->max_eat <= 0)
 		||rules->nbr_philo > 200)
 		return (printf("Gib valid argument for philo pls\n"), 0);
-	if (pthread_mutex_init(&rules->print_mutex, NULL))
-		return (0);
-	if (pthread_mutex_init(&rules->lock_nbr_meal, NULL))
-		return (0);
-	if (pthread_mutex_init(&rules->lock_stop_1, NULL))
-		return (0);
-	if (pthread_mutex_init(&rules->lock_nbr_thread, NULL))
-		return (0);
+	if (mutex_init(rules))
+	{
+		free(rules);
+		exit (errno);
+	}
+	
 	if (!init_fork(rules))
 		return (0);
 	return (1);
@@ -98,15 +127,16 @@ int	init_philo(t_group *groups, char **av)
 	t_rules	*rls_ptr;
 
 	memset(&rules, 0, sizeof(rules));
-	if (!set_rules(&rules, av))
-		return (0);
 	rls_ptr = malloc(sizeof(t_rules));
 	if (!rls_ptr)
-		return (0);
+		return (1);
 	*rls_ptr = rules;
+	groups->rules = rls_ptr;
+	if (!set_rules(rls_ptr, av))
+		return (2);
 	groups->philo_grp = malloc(sizeof(t_philo) * rules.nbr_philo);
 	if (!groups->philo_grp)
-		return (free(rls_ptr), 0);
+		return (3);
 	memset(groups->philo_grp, 0, sizeof(t_philo) * rules.nbr_philo);
 	x = -1;
 	while (++x < rules.nbr_philo)
@@ -114,9 +144,8 @@ int	init_philo(t_group *groups, char **av)
 		groups->philo_grp[x].id = x + 1;
 		groups->philo_grp[x].rules = rls_ptr;
 	}
-	groups->rules = rls_ptr;
 	init_fork_id_in_philo(groups, &rules);
-	return (1);
+	return (0);
 }
 
 /*check compliance and call init fn*/
@@ -124,6 +153,7 @@ int	init_philo(t_group *groups, char **av)
 t_group	parsing_n_init(int ac, char **av)
 {
 	t_group	groups;
+	int		status;
 
 	memset(&groups, 0, sizeof(t_group));
 	if (ac < 5 || ac > 6)
@@ -131,11 +161,18 @@ t_group	parsing_n_init(int ac, char **av)
 		printf("Wrong numbers of arguements pls\n");
 		exit (1);
 	}
-	if (!init_philo(&groups, av))
+	status = init_philo(&groups, av);
+	if (status == 1)
+		exit(status);
+	if (status == 2)
 	{
-		clean_groups(&groups);
-		exit (1);
+		clean_rules(groups.rules);
+		free(groups.rules);
 	}
+	if (status == 3)
+		clean_groups(&groups);
+	if (status)
+		exit(status);
 	groups.id_thread = malloc(sizeof(t_philo) * groups.rules->nbr_philo);
 	if (!groups.id_thread)
 	{

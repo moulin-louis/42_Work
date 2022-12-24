@@ -51,16 +51,14 @@ void	*handle_philo(void	*ptr)
 	pthread_mutex_lock(&rules->lock_nbr_thread);
 	rules->nbr_thread_launched++;
 	pthread_mutex_unlock(&rules->lock_nbr_thread);
-	//printf_mutex(rules, "is waiting", gettime(), philo->id);
-	// while (1)
-	// {
+	while (1)
+	{
 
-	// 	if (check_start(rules) == 1)
-	// 		break ;
-	// 	if (check_start(rules) == 2)
-	// 		return (NULL);
-	// }
-	//printf_mutex(rules, "sim is starting", gettime(), philo->id);
+		if (check_start(rules) == 1)
+			break ;
+		if (check_start(rules) == 2)
+			return (NULL);
+	}
 	while (check_stop(rules))
 	{
 		go_eat(philo);
@@ -114,7 +112,7 @@ int	main(int ac, char **av)
 	t_group	groups;
 
 	groups = parsing_n_init(ac, av);
-	start_philo(&groups);
+	//start_philo(&groups);
 	clean_groups(&groups);
 	return (0);
 }

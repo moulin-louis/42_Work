@@ -40,10 +40,16 @@ int	check_nbr_meal(t_group *groups)
 	int	i;
 
 	i = -1;
+	
 	while (++i < groups->rules->nbr_philo)
 	{
 		pthread_mutex_lock(&groups->rules->lock_nbr_meal);
-		if (groups->philo_grp[i].nbr_eat == groups->rules->max_eat)
+		if (groups->rules->max_eat == -1)
+		{
+			pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
+			return (0);
+		}
+		if (groups->philo_grp[i].nbr_eat >= groups->rules->max_eat)
 		{
 			pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
 			continue ;
