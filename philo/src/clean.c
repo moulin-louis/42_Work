@@ -13,11 +13,10 @@
 #include "philo.h"
 #include <stdlib.h>
 #include <stdio.h>
+
 /*Clean the rules struct*/
 
-
-
-void	clean_rules(t_rules *rls)
+void	clean_rules(t_rules *rls, int code)
 {
 	int	x;
 
@@ -27,10 +26,13 @@ void	clean_rules(t_rules *rls)
 		x--;
 		pthread_mutex_destroy(&(rls->arr_fork[x].lock));
 	}
-	pthread_mutex_destroy(&rls->lock_nbr_meal);
-	pthread_mutex_destroy(&rls->lock_stop_1);
-	pthread_mutex_destroy(&rls->print_mutex);
 	free(rls->arr_fork);
+	if (code == 1)
+	{
+		pthread_mutex_destroy(&rls->lock_nbr_meal);
+		pthread_mutex_destroy(&rls->lock_stop_1);
+		pthread_mutex_destroy(&rls->print_mutex);
+	}
 }
 
 /*Clean all of my struct*/
@@ -39,8 +41,7 @@ void	clean_groups(t_group *groups)
 {
 	if (!groups)
 		return ;
-	clean_rules(groups->rules);
-	free(groups->rules);
+	clean_rules(groups->rules, 1);
 	free(groups->philo_grp);
 	free(groups->id_thread);
 }

@@ -71,6 +71,8 @@ void	start_philo(t_group *groups);
 
 /*Parsing*/
 void	parsing_n_init(int ac, char **av);
+int		set_rules(t_rules *rules, char **av);
+int		init_philo(t_group *groups, t_rules *rules);
 
 /*Eating fn*/
 void	go_eat(t_philo *philo);
@@ -83,6 +85,7 @@ void	*check_end(void *ptr);
 time_t	gettime(void);
 void	sleep_philo(int time, t_rules *rules);
 time_t	get_tthk(t_rules *rules, t_philo *philo);
+int		wait_start(t_rules *rules);
 int		ft_atoi(const char *str);
 void	printf_mutex(t_rules *rules, char *action, long int actuel_time,
 			int id_philo);
@@ -90,5 +93,5 @@ int		check_start(t_rules *rules);
 
 /*Clean*/
 void	clean_groups(t_group *groups);
-void	clean_rules(t_rules *rls);
+void	clean_rules(t_rules *rls, int code);
 #endif

@@ -12,7 +12,8 @@
 
 #include "philo.h"
 
-/*try to lock the fork in the id position*/
+/*Try to lock two forks
+Lock fork if and only if we can lock all two fork*/
 
 int	lock_all_fork(t_philo *philo, int id_1, int id_2)
 {
@@ -43,7 +44,7 @@ int	lock_all_fork(t_philo *philo, int id_1, int id_2)
 	return (0);
 }
 
-/*unlock id fork*/
+/*Unlock id fork*/
 
 void	unlock_fork(t_philo *philo, int id)
 {
@@ -55,7 +56,8 @@ void	unlock_fork(t_philo *philo, int id)
 	pthread_mutex_unlock(&rules->arr_fork[id].lock);
 }
 
-/*will eat and unlock all fork after that*/
+/*Will eat, update last meal and nbr meal
+Unlock two fork*/
 
 void	trigger_eat_n_unlock(t_philo *philo)
 {
@@ -80,8 +82,9 @@ void	trigger_eat_n_unlock(t_philo *philo)
 }
 
 /*Wont stop till philo has eat
-Left fork first for even philo id
-Right fork first for odd philo id
+To prevent potential mutex dead lock :
+- Left fork first for even philo id
+- Right fork first for odd philo id
 */
 
 void	go_eat(t_philo *philo)

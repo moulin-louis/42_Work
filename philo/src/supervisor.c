@@ -33,14 +33,13 @@ int	check_death(t_group *groups)
 	return (0);
 }
 
-/*Check if all philo have eaten the minimun ammount of meal */
+/*Check if all philo have eaten at least the minimun ammount of meal */
 
 int	check_nbr_meal(t_group *groups)
 {
 	int	i;
 
 	i = -1;
-	
 	while (++i < groups->rules->nbr_philo)
 	{
 		pthread_mutex_lock(&groups->rules->lock_nbr_meal);
@@ -63,26 +62,23 @@ int	check_nbr_meal(t_group *groups)
 	return (1);
 }
 
-/*Check if we need to end the simulation*/
+/*THis is the main routines of the supervisor thread
+It will check for two end conditions :
+- if a philo is dead
+- if all philo has eaten at least X time*/
 
 void	*check_end(void *ptr)
 {
 	t_group	*groups;
 
 	groups = (void *)ptr;
-	while (1)
-	{
-		if (check_start(groups->rules) == 1)
-			break ;
-		if (check_start(groups->rules) == 2)
-			return (NULL);
-	}
+	if (wait_start(groups->rules))
+		return (NULL);
 	if (groups->rules->max_eat == 0)
 	{
 		pthread_mutex_lock(&groups->rules->lock_stop_1);
 		groups->rules->trigger_stop = 1;
-		pthread_mutex_unlock(&groups->rules->lock_stop_1);
-		return (NULL);
+		return (pthread_mutex_unlock(&groups->rules->lock_stop_1), NULL);
 	}
 	while (1)
 	{
@@ -90,10 +86,9 @@ void	*check_end(void *ptr)
 		{
 			pthread_mutex_lock(&groups->rules->lock_stop_1);
 			groups->rules->trigger_stop = 1;
-			pthread_mutex_unlock(&groups->rules->lock_stop_1);
-			return (NULL);
+			return (pthread_mutex_unlock(&groups->rules->lock_stop_1), NULL);
 		}
-		usleep(1);
+		usleep(10);
 	}
 	return (NULL);
 }

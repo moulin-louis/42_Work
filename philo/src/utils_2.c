@@ -12,6 +12,7 @@
 
 #include "philo.h"
 #include <stdio.h>
+#include <unistd.h>
 
 /*Check if all thread has launched*/
 
@@ -36,4 +37,20 @@ void	printf_mutex(t_rules *rules, char *action, long int actuel_time,
 		printf("%ld %d %s\n", actuel_time - rules->start_timestamp,
 			id_philo, action);
 	pthread_mutex_unlock(&rules->print_mutex);
+}
+
+/*Wait for the launch of all thread to start the simulations*/
+
+int	wait_start(t_rules *rules)
+{
+	while (1)
+	{
+		if (check_start(rules) == 1)
+			break ;
+		if (check_start(rules) == 2)
+			return (1);
+		else
+			usleep(10);
+	}
+	return (0);
 }

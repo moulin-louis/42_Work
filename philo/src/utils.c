@@ -15,7 +15,8 @@
 #include <sys/time.h>
 #include <stdio.h>
 
-/*Calculate time to think for each philo*/
+/*Calculate time to think for each philo
+Mean to avoid egoist philo*/
 
 time_t	get_tthk(t_rules *rules, t_philo *philo)
 {
@@ -32,7 +33,8 @@ time_t	get_tthk(t_rules *rules, t_philo *philo)
 	return (result);
 }
 
-/*Convert string input into int*/
+/*Convert string input into int
+Check if there is only number in it*/
 
 int	ft_atoi(const char *str)
 {
