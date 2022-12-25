@@ -81,7 +81,10 @@ int	set_rules(t_rules *rules, char **av)
 	if (rules->nbr_philo <= 0 || rules->ttd < 0 || rules->tte < 0
 		|| rules->tts < 0 || (av[5] && rules->max_eat <= 0)
 		||rules->nbr_philo > 200)
-		return (printf("Gib valid argument for philo pls\n"), 0);
+	{
+		printf("Gib valid argument for philo pls\n");
+		exit (6);
+	}
 	if (mutex_init(rules))
 	{
 		clean_rules(rules, 0);

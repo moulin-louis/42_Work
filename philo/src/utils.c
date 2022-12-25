@@ -56,7 +56,7 @@ int	ft_atoi(const char *str)
 	return (nbr);
 }
 
-/*custom sleep fn to avoid usleep delay*/
+/*custom sleep fn to avoid usleep delgtay*/
 
 void	sleep_philo(int time, t_rules *rules)
 {
