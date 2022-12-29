@@ -51,7 +51,7 @@ DEPS 		= $ $(C_FILES:.c=.d)
 #                FLAGS               #
 # ################################## #
 
-CFLAGS		= -Wall -Wextra -Werror -g#3 -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -O2#3 -fsanitize=address
 # ################################## #
 #                INCLUDES            #
 # ################################## #

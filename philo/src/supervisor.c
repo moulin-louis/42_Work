@@ -72,15 +72,13 @@ void	*check_end(void *ptr)
 	t_group	*groups;
 
 	groups = (void *)ptr;
-	if (wait_start(groups->rules))
-		return (NULL);
 	if (groups->rules->max_eat == 0)
 	{
 		pthread_mutex_lock(&groups->rules->lock_stop_1);
 		groups->rules->trigger_stop = 1;
 		return (pthread_mutex_unlock(&groups->rules->lock_stop_1), NULL);
 	}
-	while (1)
+	while (check_stop(groups->rules))
 	{
 		if (check_death(groups) || check_nbr_meal(groups))
 		{

@@ -21,6 +21,10 @@
 
 int	check_stop(t_rules *rules)
 {
+	pthread_mutex_lock(&rules->lock_nbr_thread);
+	if (rules->nbr_thread_launched == -1)
+		return (pthread_mutex_unlock(&rules->lock_nbr_thread), 0);
+	pthread_mutex_unlock(&rules->lock_nbr_thread);
 	pthread_mutex_lock(&rules->lock_stop_1);
 	if (rules->trigger_stop == 1)
 	{
@@ -57,11 +61,6 @@ void	*handle_philo(void	*ptr)
 
 	philo = (t_philo *)ptr;
 	rules = philo->rules;
-	pthread_mutex_lock(&rules->lock_nbr_thread);
-	rules->nbr_thread_launched++;
-	pthread_mutex_unlock(&rules->lock_nbr_thread);
-	if (wait_start(rules))
-		return (NULL);
 	while (check_stop(rules))
 	{
 		go_eat(philo);
