@@ -134,7 +134,7 @@ test_that_dont_die()
 	tts=$5
 	nbr_run=0
 	sec=1
-	time_to_run=5
+	time_to_run=20
 
 	cease_n_desit_philo
 	echo -n "$GREEN- Launching 3 run of $time_to_run sec for PATH/philo $nbr_philo $ttd $tte $tts : $RESET"
@@ -261,6 +261,7 @@ test_that_die()
 			echo "❌"
 			return 1
 		fi
+		rm ./temp_tester.log
 		nbr_run=$(( $nbr_run + 1 ))
 	done
 	pkill philo
@@ -274,7 +275,7 @@ launch_test_that_die()
 	cease_n_desit_philo
 	test_that_die $1 4 800 200 2147483647 800
 	cease_n_desit_philo
-	test_that_die $1 5 0 200 200 0
+	test_that_die $1 5 60 200 200 60
 	cease_n_desit_philo
 	test_that_die $1 1 200 200 200 200
 	cease_n_desit_philo
@@ -286,6 +287,56 @@ launch_test_that_die()
 	cease_n_desit_philo
 	test_that_die $1 200 410 200 200 410
 	cease_n_desit_philo
+}
+
+test_nbr_meal()
+{
+	philo_exe=$1
+	nbr_philo=$2
+	ttd=$3
+	tte=$4
+	tts=$5
+	nbr_meal=$6
+	nbr_run=1
+	nbr_line_expected=$((nbr_meal * nbr_philo))
+
+	cease_n_desit_philo
+	echo -n "$GREEN- Launching 3 run of PATH/philo $nbr_philo $ttd $tte $tts $nbr_meal :$RESET"
+	while [ $nbr_run -lt 3 ];do
+		("$philo_exe" $nbr_philo $ttd $tte $tts $nbr_meal > ./temp_tester.log)
+		sleep 5
+		pgrep philo > /dev/null
+		if [ "$?" -eq 0 ];then
+			echo "❌"
+			echo "$RED- Your program should stop with this args$RESET"
+			return 1
+		fi
+		current_lines=$(grep eating "./temp_tester.log" | wc -l)
+		if [ $current_lines -lt $nbr_line_expected ];then
+			echo "❌"
+			echo "$RED- Your programs output $current_lines meal, $nbr_line_expected expected$RESET"
+			return 1
+		fi
+		nbr_run=$(( $nbr_run + 1 ))
+		rm ./temp_tester.log
+	done
+	echo "$GREEN ✅ $RESET"
+}
+
+launch_test_nbr_meal()
+{
+	echo "$GREEN- Launching a bunch of test where philo must eat X times"
+	test_nbr_meal $1 3 400 100 100 3
+	cease_n_desit_philo
+	test_nbr_meal $1 200 800 200 200 9
+	cease_n_desit_philo
+	test_nbr_meal $1 10 1000 100 100 15
+	cease_n_desit_philo
+	test_nbr_meal $1 10 1000 100 100 5
+	cease_n_desit_philo
+	test_nbr_meal $1 10 1000 100 100 50
+	cease_n_desit_philo
+	test_nbr_meal $1 10 1000 100 100 1
 }
 
 #Define color constant
@@ -325,3 +376,5 @@ launch_test_that_dont_die $philo_exe
 
 #launch a bunch of test of situations where 0 philo should die
 launch_test_that_die $philo_exe
+
+launch_test_nbr_meal $philo_exe
