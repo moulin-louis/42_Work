@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:31:15 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/22 13:14:25 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/01/04 00:41:41 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,45 @@
 #include <sys/time.h>
 #include <stdio.h>
 
+/*Check if we need to stop tht simulation
+- Return 0 if simulation need to stop
+- Return 1 if simulation can continue*/
+
+int	check_stop(t_rules *rules)
+{
+	pthread_mutex_lock(&rules->lock_nbr_thread);
+	if (rules->nbr_thread_launched == -1)
+		return (pthread_mutex_unlock(&rules->lock_nbr_thread), 0);
+	pthread_mutex_unlock(&rules->lock_nbr_thread);
+	pthread_mutex_lock(&rules->lock_stop_1);
+	if (rules->trigger_stop == 1)
+	{
+		pthread_mutex_unlock(&rules->lock_stop_1);
+		return (0);
+	}
+	pthread_mutex_unlock(&rules->lock_stop_1);
+	return (1);
+}
+
 /*Calculate time to think for each philo
 Mean to avoid egoist philo*/
 
 time_t	get_tthk(t_rules *rules, t_philo *philo)
 {
-	time_t	result;
+	time_t	result_ms;
 
-	result = (rules->ttd - (gettime() - philo->last_meal) - rules->tte) / 2;
+	result_ms = (rules->ttd - (gettime() - philo->last_meal) - rules->tte) / 2;
 	if (rules->tts == 0)
-		result = (rules->ttd -(gettime() - philo->last_meal))
+		result_ms = (rules->ttd -(gettime() - philo->last_meal))
 			- rules->tte - 10 ;
-	if (result > 500)
-		return (500);
-	if (result < 0)
-		return (0);
-	return (result);
+	if (result_ms > 500)
+		result_ms = 500;
+	if (result_ms < 0)
+		result_ms = 0;
+	// pthread_mutex_lock(&rules->print_mutex);
+	// printf("philo %d is thinking for %ld\n", philo->id, result_ms);
+	// pthread_mutex_unlock(&rules->print_mutex);
+	return (result_ms);
 }
 
 /*Convert string input into int
@@ -62,6 +85,8 @@ void	sleep_philo(int time, t_rules *rules)
 {
 	time_t	end_time;
 
+	if (time == 0)
+		return ;
 	end_time = gettime() + time;
 	while (gettime() < end_time)
 	{

@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:49:01 by loumouli          #+#    #+#             */
-/*   Updated: 2022/12/22 13:14:10 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:01:17 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,9 @@ void	*check_end(void *ptr);
 time_t	gettime(void);
 void	sleep_philo(int time, t_rules *rules);
 time_t	get_tthk(t_rules *rules, t_philo *philo);
-int		wait_start(t_rules *rules);
 int		ft_atoi(const char *str);
 void	printf_mutex(t_rules *rules, char *action, long int actuel_time,
 			int id_philo);
-int		check_start(t_rules *rules);
 
 /*Clean*/
 void	clean_groups(t_group *groups);
