@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:45:55 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/04 00:10:56 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/01/05 12:56:16 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,17 @@ void	*handle_philo(void	*ptr)
 {
 	t_philo	*philo;
 	t_rules	*rules;
+	time_t	tthk;
 
 	philo = (t_philo *)ptr;
 	rules = philo->rules;
-	//wait for all thread to start
-	// wait_start(rules);
-	// philo->last_meal = gettime();
-	// if (philo->id %2)
-	// 	usleep(10);
 	while (check_stop(rules))
 	{
 		go_eat(philo);
 		printf_mutex(rules, "is sleeping", gettime(), philo->id);
 		sleep_philo(rules->tts, rules);
+		tthk = get_tthk(rules, philo);
 		printf_mutex(rules, "is thinking", gettime(), philo->id);
-		time_t tthk = get_tthk(rules, philo);
-		// pthread_mutex_lock(&rules->print_mutex);
-		// printf("philo %d is thinking for %ld\n", philo->id, tthk);
-		// pthread_mutex_unlock(&rules->print_mutex);
 		sleep_philo(tthk, rules);
 	}
 	return (ptr);
@@ -89,26 +82,16 @@ void	start_philo(t_group *groups)
 	pthread_create(&groups->id_superviser, NULL, &check_end, groups);
 	while (++x < groups->rules->nbr_philo)
 	{
-		if (pthread_create(&groups->id_thread[x], NULL,	&handle_philo, &groups->philo_grp[x]))
+		if (pthread_create(&groups->id_thread[x], NULL, &handle_philo,
+				&groups->philo_grp[x]))
 		{
-			
 			pthread_mutex_lock(&groups->rules->lock_nbr_thread);
 			groups->rules->nbr_thread_launched = -1;
 			pthread_mutex_unlock(&groups->rules->lock_nbr_thread);
-
 			printf_mutex(groups->rules, "failed to start thread", gettime(), x);
-
 			break ;
 		}
 	}
-	printf("all thread launched\n");
-	//printf("x = %d\n", x);
-	// if (x == groups->rules->nbr_philo)
-	// {
-	// 	pthread_mutex_lock(&groups->rules->lock_nbr_thread);
-	// 	groups->rules->nbr_thread_launched = 1;
-	// 	pthread_mutex_unlock(&groups->rules->lock_nbr_thread);
-	// }
 	i = -1;
 	while (++i < x)
 	{

@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:49:01 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/03 16:01:17 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/01/04 13:17:58 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_rules
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	lock_stop_1;
 	pthread_mutex_t	lock_nbr_thread;
+	pthread_mutex_t	lock_lastmeal;
 	t_fork			*arr_fork;
 }				t_rules;
 

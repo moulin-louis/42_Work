@@ -6,13 +6,12 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 14:48:11 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/03 19:42:39 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:12:37 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <unistd.h>
-
 /*Check if all philo are all alive based on their last meal*/
 
 int	check_death(t_group *groups)
@@ -20,17 +19,17 @@ int	check_death(t_group *groups)
 	int	i;
 
 	i = -1;
-	pthread_mutex_lock(&groups->rules->lock_nbr_meal);
 	while (++i < groups->rules->nbr_philo)
 	{
+		pthread_mutex_lock(&groups->rules->lock_lastmeal);
 		if (gettime() > groups->philo_grp[i].last_meal + groups->rules->ttd)
 		{	
 			printf_mutex(groups->rules, "died", gettime(), i + 1);
 			pthread_mutex_lock(&groups->rules->print_mutex);
-			return (pthread_mutex_unlock(&groups->rules->lock_nbr_meal), 1);
+			return (pthread_mutex_unlock(&groups->rules->lock_lastmeal), 1);
 		}
+		pthread_mutex_unlock(&groups->rules->lock_lastmeal);
 	}
-	pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
 	return (0);
 }
 
@@ -41,24 +40,33 @@ int	check_nbr_meal(t_group *groups)
 	int	i;
 
 	i = -1;
-	pthread_mutex_lock(&groups->rules->lock_nbr_meal);
 	while (++i < groups->rules->nbr_philo)
 	{
+		pthread_mutex_lock(&groups->rules->lock_nbr_meal);
 		if (groups->rules->max_eat == -1)
 		{
 			pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
 			return (0);
 		}
 		if (groups->philo_grp[i].nbr_eat >= groups->rules->max_eat)
+		{
+			pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
 			continue ;
+		}
 		else
 		{
 			pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
 			return (0);
 		}
 	}
-	pthread_mutex_unlock(&groups->rules->lock_nbr_meal);
 	return (1);
+}
+
+void	trigger_stop(t_rules *rules)
+{
+	pthread_mutex_lock(&rules->lock_stop_1);
+	rules->trigger_stop = 1;
+	pthread_mutex_unlock(&rules->lock_stop_1);
 }
 
 /*THis is the main routines of the supervisor thread
@@ -81,19 +89,16 @@ void	*check_end(void *ptr)
 	{
 		if (check_death(groups))
 		{
-			pthread_mutex_lock(&groups->rules->lock_stop_1);
-			groups->rules->trigger_stop = 1;
+			trigger_stop(groups->rules);
 			pthread_mutex_unlock(&groups->rules->print_mutex);
-			return (pthread_mutex_unlock(&groups->rules->lock_stop_1), NULL);
+			return (NULL);
 		}
 		if (check_nbr_meal(groups))
 		{
-			pthread_mutex_lock(&groups->rules->lock_stop_1);
-			groups->rules->trigger_stop = 1;
-			return (pthread_mutex_unlock(&groups->rules->lock_stop_1), NULL);
-
+			trigger_stop(groups->rules);
+			return (NULL);
 		}
-		//usleep(10);
+		usleep(50);
 	}
 	return (NULL);
 }

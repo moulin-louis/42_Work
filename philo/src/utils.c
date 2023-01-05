@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:31:15 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/04 00:41:41 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/01/05 13:09:51 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,10 @@ time_t	get_tthk(t_rules *rules, t_philo *philo)
 	time_t	result_ms;
 
 	result_ms = (rules->ttd - (gettime() - philo->last_meal) - rules->tte) / 2;
-	if (rules->tts == 0)
-		result_ms = (rules->ttd -(gettime() - philo->last_meal))
-			- rules->tte - 10 ;
 	if (result_ms > 500)
 		result_ms = 500;
-	if (result_ms < 0)
-		result_ms = 0;
-	// pthread_mutex_lock(&rules->print_mutex);
-	// printf("philo %d is thinking for %ld\n", philo->id, result_ms);
-	// pthread_mutex_unlock(&rules->print_mutex);
+	if (result_ms <= 0)
+		result_ms = 1;
 	return (result_ms);
 }
 
@@ -62,7 +56,9 @@ Check if there is only number in it*/
 int	ft_atoi(const char *str)
 {
 	int	nbr;
+	int nbr_tmp;
 	int	i;
+	int j;
 
 	nbr = 0;
 	i = -1;
@@ -73,6 +69,13 @@ int	ft_atoi(const char *str)
 	}
 	while (*str != '\0' && *str >= '0' && *str <= '9')
 	{
+		j = 0;
+		while (j++ < 10) {
+			nbr_tmp = nbr;
+			nbr += nbr;
+			if (nbr < nbr_tmp)
+			 return (-1);
+		}
 		nbr = nbr * 10 + *str - 48;
 		str++;
 	}
@@ -92,7 +95,7 @@ void	sleep_philo(int time, t_rules *rules)
 	{
 		if (!check_stop(rules))
 			break ;
-		usleep(1);
+		usleep(5);
 	}
 }
 
