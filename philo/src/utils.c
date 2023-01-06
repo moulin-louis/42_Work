@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:31:15 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/06 10:46:05 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/01/06 10:49:14 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	ft_atoi(const char *str)
 		nbr = nbr+ (* str - 48);
 		str++;
 	}
-	printf("nbr = %d\n", nbr);
 	return (nbr);
 }
 
