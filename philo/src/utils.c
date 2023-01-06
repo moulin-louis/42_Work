@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:31:15 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/05 13:09:51 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/01/06 10:46:05 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int	ft_atoi(const char *str)
 {
 	int	nbr;
 	int nbr_tmp;
+	int	nbr_tmp2;
 	int	i;
-	int j;
 
 	nbr = 0;
 	i = -1;
@@ -69,16 +69,18 @@ int	ft_atoi(const char *str)
 	}
 	while (*str != '\0' && *str >= '0' && *str <= '9')
 	{
-		j = 0;
-		while (j++ < 10) {
+		i = 0;
+		nbr_tmp2 = nbr;
+		while (i++ < 9) {
 			nbr_tmp = nbr;
-			nbr += nbr;
+			nbr += nbr_tmp2;
 			if (nbr < nbr_tmp)
-			 return (-1);
+				return (-1);
 		}
-		nbr = nbr * 10 + *str - 48;
+		nbr = nbr+ (* str - 48);
 		str++;
 	}
+	printf("nbr = %d\n", nbr);
 	return (nbr);
 }
 
