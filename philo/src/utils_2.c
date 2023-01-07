@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 19:35:11 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/03 18:04:25 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/01/07 13:21:49 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,19 @@ void	printf_mutex(t_rules *rules, char *action, long int actuel_time,
 				id_philo, action);
 		pthread_mutex_unlock(&rules->print_mutex);
 	}
+}
+
+/*Calculate time to think for each philo
+Mean to avoid egoist philo*/
+
+time_t	get_tthk(t_rules *rules, t_philo *philo)
+{
+	time_t	result_ms;
+
+	result_ms = (rules->ttd - (gettime() - philo->last_meal) - rules->tte) / 2;
+	if (result_ms > 500)
+		result_ms = 500;
+	if (result_ms <= 0)
+		result_ms = 1;
+	return (result_ms);
 }

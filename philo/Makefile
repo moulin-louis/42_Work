@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/13 11:42:25 by bschoeff          #+#    #+#              #
-#    Updated: 2023/01/04 13:20:12 by loumouli         ###   ########.fr        #
+#    Updated: 2023/01/07 16:58:30 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 #               COMMAND              #
 # ################################## #
 
-CC			= gcc
+CC			= cc
 MKDIR		= mkdir -p
 RM			= rm -rf
 
@@ -84,6 +84,9 @@ fclean:		clean
 			$(RM) $(NAME)
 
 re:			fclean all
+
+malloc_test: $(O_DIR) $(OBJS)
+		$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -g -o $@ ${OBJS} -lpthread -L. -lmallocator 
 
 -include	$(OBJS:.o=.d)
 -include ./objs/*.d

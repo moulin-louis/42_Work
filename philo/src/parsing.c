@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 15:28:07 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/04 14:59:35 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/01/07 16:34:55 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	init_fork(t_rules *rules)
 
 	rules->arr_fork = malloc(sizeof(t_fork) * rules->nbr_fork);
 	if (!rules->arr_fork)
-		return (rules->nbr_fork = 0, ("malloc arr fork failed\n"), 1);
+		return (rules->nbr_fork = 0, printf("malloc arr fork failed\n"), 1);
 	x = -1;
 	while (++x < rules->nbr_philo)
 	{
@@ -42,9 +42,11 @@ int	init_fork(t_rules *rules)
 
 int	mutex_init(t_rules *rules)
 {
-	pthread_mutex_init(&rules->lock_lastmeal, NULL);
+	if (pthread_mutex_init(&rules->lock_lastmeal, NULL))
+		return (printf("mutex last meal init failed\n"), 1);
 	if (pthread_mutex_init(&rules->print_mutex, NULL))
-		return (printf("mutex print init failed\n"), 1);
+		return (pthread_mutex_destroy(&rules->lock_lastmeal),
+			printf("mutex print init failed\n"), 1);
 	if (pthread_mutex_init(&rules->lock_nbr_meal, NULL))
 	{
 		pthread_mutex_destroy(&rules->print_mutex);

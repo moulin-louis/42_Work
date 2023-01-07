@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 14:45:55 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/05 12:56:16 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/01/07 15:50:18 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	main(int ac, char **av)
 		printf("Failed to init philo struct\n");
 		return (3);
 	}
-	groups.id_thread = malloc(sizeof(t_philo) * groups.rules->nbr_philo);
+	groups.id_thread = malloc(sizeof(pthread_t) * groups.rules->nbr_philo);
 	if (!groups.id_thread)
 	{
 		printf("Malloc id thread failed\n");
