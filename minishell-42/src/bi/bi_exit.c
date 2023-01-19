@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 11:12:28 by bschoeff          #+#    #+#             */
-/*   Updated: 2023/01/13 12:18:45 by loumouli         ###   ########.fr       */
+/*   Created: 2022/10/07 11:12:28 by foster	           #+#    #+#             */
+/*   Updated: 2023/01/16 12:38:31 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	alphanum(char *str)
 	if (str[0] == '-' || str[0] == '+')
 		i++;
 	while (str[++i])
-		if (str[i] < '0' || str[i] > '9')
+		if ((str[i] < '0' || str[i] > '9'))
 			return (0);
 	return (1);
 }
@@ -45,8 +45,11 @@ static unsigned char	statouc(char *str)
 		i++;
 	while (str[++i])
 	{
-		n *= 10;
-		n += str[i] - '0';
+		if (str[i] != '\'' && str[i] != '"')
+		{
+			n *= 10;
+			n += str[i] - '0';
+		}
 	}
 	return (n * sign);
 }
@@ -83,5 +86,6 @@ int	bi_exit(t_cati **mini, t_cati *node)
 			full_exit(mini, 0);
 		status = statouc(node->cmd[1]);
 	}
-	return (g_status = status, full_exit(mini, g_status), g_status);
+	g_var.g_status = status;
+	return (full_exit(mini, g_var.g_status), g_var.g_status);
 }

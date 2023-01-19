@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 15:37:24 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/13 12:23:57 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/01/16 13:24:01 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*find_var(char *str, char *temp1, t_cati **mini)
 	temp = (*mini)->envp;
 	if (ut_strcmp(str, "?"))
 	{
-		result = ut_itoa(g_status);
+		result = ut_itoa(g_var.g_status);
 		if (!result)
 			return (free(str), free(temp1), NULL);
 		return (result);
@@ -143,7 +143,8 @@ void	expand_lst(t_tok **lst, t_cati **mini)
 				mode_dbl_quote++;
 			if (temp->str[i] == '\'' && !(mode_dbl_quote % 2))
 				mode_quote++;
-			if (temp->str[i] == '$' && !(mode_quote % 2))
+			if (temp->str[i] == '$' && !(mode_quote % 2)
+				&& !(temp->str[i + 1] == '\"'))
 				i += trigger_expand(temp, i, lst, mini) - 1;
 		}
 		temp = temp->next;

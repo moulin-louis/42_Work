@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exe_execute.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: foster <foster@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 09:53:11 by bschoeff          #+#    #+#             */
-/*   Updated: 2023/01/13 12:21:30 by loumouli         ###   ########.fr       */
+/*   Created: 2022/10/10 09:53:11 by foster            #+#    #+#             */
+/*   Updated: 2023/01/14 19:51:18 by foster           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	execute(t_cati **mini)
 	{
 		waitpid(node->pid, &node->fds.status, 0);
 		if (!node->next)
-			g_status = WEXITSTATUS(node->fds.status);
+			g_var.g_status = WEXITSTATUS(node->fds.status);
 		node = node->next;
 	}
-	return (g_pid = 1, 0);
+	return (g_var.g_pid = 1, 0);
 }

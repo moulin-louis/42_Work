@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 08:55:02 by bschoeff          #+#    #+#             */
-/*   Updated: 2023/01/13 12:19:52 by loumouli         ###   ########.fr       */
+/*   Created: 2022/09/27 08:55:02 by loumouli          #+#    #+#             */
+/*   Updated: 2023/01/16 17:10:06 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	bi_pwd(t_cati *node)
 	char	*buff;
 	size_t	size;
 
-	g_status = 0;
+	g_var.g_status = 0;
 	pwd = ft_getenv(node->envp);
 	if (pwd)
-		return (printf("%s\n", pwd), g_status);
+		return (printf("%s\n", pwd), g_var.g_status);
 	else
 	{
 		size = 1;
@@ -49,6 +49,6 @@ int	bi_pwd(t_cati *node)
 			size++;
 			pwd = getcwd(buff, size);
 		}
-		return (printf("%s\n", pwd), free(pwd), g_status);
+		return (printf("%s\n", pwd), free(pwd), g_var.g_status);
 	}
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/04 09:32:09 by bschoeff          #+#    #+#             */
-/*   Updated: 2023/01/13 12:19:07 by loumouli         ###   ########.fr       */
+/*   Created: 2022/10/04 09:32:09 by loumouli          #+#    #+#             */
+/*   Updated: 2023/01/16 17:10:05 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,11 @@
 
 static int	error_msg(char *str)
 {
-	g_status = 1;
+	g_var.g_status = 1;
 	ut_putstr_fd("shellnado: export: \"", 2);
 	ut_putstr_fd(str, 2);
 	ut_putstr_fd("\": not a valid identifier\n", 2);
 	return (0);
-}
-
-static void	display_expt_ev(t_cati *node)
-{
-	t_envp	*tmp;
-
-	tmp = node->envp;
-	while (tmp)
-	{
-		printf("declare -x ");
-		printf("%s", tmp->var[0]);
-		if (tmp->var[1])
-		{
-			printf("=\"");
-			printf("%s", tmp->var[1]);
-			printf("\"");
-		}
-		printf("\n");
-		tmp = tmp->next;
-	}
 }
 
 static int	already_exists(t_cati *node, char *str)
@@ -66,6 +46,8 @@ static int	check_compliance(char *str)
 	int		k;
 	char	*ref;
 
+	if (ut_strcmp(str, "="))
+		return (error_msg(str));
 	if (str[0] >= '0' && str[0] <= '9')
 		return (error_msg(str));
 	j = -1;
@@ -81,6 +63,8 @@ static int	check_compliance(char *str)
 				return (error_msg(str));
 		}
 	}
+	if (j == 0)
+		return (error_msg(str));
 	return (1);
 }
 
@@ -88,9 +72,12 @@ int	bi_export(t_cati *node)
 {
 	int	i;
 
-	g_status = 0;
-	if (!node->cmd[1])
-		return (display_expt_ev(node), g_status);
+	g_var.g_status = 0;
+	if (!node->cmd[1] || ut_strcmp(node->cmd[1], "\n") == 1)
+	{
+		ut_env_split_tri(node);
+		return (g_var.g_status);
+	}
 	i = 0;
 	while (node->cmd[++i])
 	{
@@ -99,12 +86,12 @@ int	bi_export(t_cati *node)
 			if (already_exists(node, node->cmd[i]))
 			{
 				if (!change_content(node, node->cmd[i]))
-					return (g_status);
+					return (g_var.g_status);
 			}
 			else
 				if (!do_the_expt(node, node->cmd[i]))
-					return (g_status);
+					return (g_var.g_status);
 		}
 	}
-	return (g_status);
+	return (g_var.g_status);
 }

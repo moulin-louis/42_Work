@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 14:20:54 by bschoeff          #+#    #+#             */
-/*   Updated: 2023/01/13 12:15:27 by loumouli         ###   ########.fr       */
+/*   Created: 2022/10/24 14:20:54 by loumouli          #+#    #+#             */
+/*   Updated: 2023/01/16 17:10:01 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,20 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-extern int	g_status;
-extern int	g_pid;
-
 typedef struct s_fds
 {
 	int		pfd[2];
 	int		ret;
 	int		status;
 }		t_fds;
+
+typedef struct s_glob
+{
+	int		g_status;
+	pid_t	g_pid;
+}				t_glob;
+
+extern t_glob	g_var;
 
 typedef struct s_envp
 {
@@ -69,8 +74,6 @@ int		bi_exit(t_cati **mini, t_cati *node);
 int		bi_export(t_cati *node);
 int		bi_pwd(t_cati *node);
 int		bi_unset(t_cati **mini, t_cati *node);
-
-
 
 /* PARSING */
 /*signal*/
@@ -130,6 +133,7 @@ void	ut_putstr_fd(char *s, int fd);
 void	ut_cmd_not_found(char *s);
 char	**ut_split_char(const char *str, char c);
 int		ut_strcmp(char *s1, char *s2);
+int		ut_strcmp2(char *s1, char *s2);
 char	*ut_strcpy(char *s2);
 char	*ut_strinsert(const char *og, char *target, const char *payload);
 char	*ut_strjoin(char *s1, char *s2);
@@ -158,6 +162,7 @@ void	clean_tok(t_tok **lst);
 /* ENVIRONEMENTS */
 int		ev_build_env(char **env, t_envp **envp);
 char	**ut_env_split(char *str);
+void	ut_env_split_tri(t_cati *env);
 int		set_new1(t_envp *new1);
 int		set_new2(t_envp *new2);
 int		set_new3(t_envp *new3);
