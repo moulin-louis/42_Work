@@ -143,8 +143,7 @@ void	expand_lst(t_tok **lst, t_cati **mini)
 				mode_dbl_quote++;
 			if (temp->str[i] == '\'' && !(mode_dbl_quote % 2))
 				mode_quote++;
-			if (temp->str[i] == '$' && !(mode_quote % 2)
-				&& !(temp->str[i + 1] == '\"'))
+			if (temp->str[i] == '$' && !(mode_quote % 2))
 				i += trigger_expand(temp, i, lst, mini) - 1;
 		}
 		temp = temp->next;
