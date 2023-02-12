@@ -1,3 +1,9 @@
+SRCS	=
+
+OBJS	= ${SRCS:.c=.o}
+
+SRCS_B	=
+
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -6,7 +12,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 13:30:11 by loumouli          #+#    #+#              #
-#    Updated: 2023/02/12 15:33:58 by loumouli         ###   ########.fr        #
+#    Updated: 2023/02/12 11:30:19 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,16 +26,56 @@ RM			= rm -rf
 # ################################## #
 #              EXEC NAME             #
 # ################################## #
-NAME		= pipex
+NAME		= libft.a
 
 # ################################## #
 #               SOURCES              #
 # ################################## #
 C_DIR		= src
-C_FILES		=	main.c				\
-				utils.c				\
-				error_management.c	\
-				
+C_FILES =	ft_atoi.c 			\
+			ft_calloc.c 		\
+			ft_isascii.c  		\
+			ft_bzero.c 			\
+			ft_isalnum.c 		\
+			ft_isalpha.c 		\
+			ft_isdigit.c 		\
+			ft_isprint.c 		\
+			ft_memchr.c 		\
+			ft_memcmp.c 		\
+			ft_memcpy.c 		\
+			ft_strdup.c 		\
+			ft_memmove.c 		\
+			ft_memset.c 		\
+			ft_strchr.c 		\
+			ft_strlcat.c 		\
+			ft_strlcpy.c 		\
+			ft_strlen.c 		\
+			ft_strncmp.c 		\
+			ft_strnstr.c 		\
+			ft_strrchr.c 		\
+			ft_tolower.c 		\
+			ft_toupper.c 		\
+			ft_substr.c 		\
+			ft_strjoin.c 		\
+			ft_strtrim.c 		\
+			ft_split.c 			\
+			ft_itoa.c 			\
+			ft_strmapi.c 		\
+			ft_striteri.c		\
+			ft_putchar_fd.c		\
+			ft_putstr_fd.c 		\
+			ft_putendl_fd.c 	\
+			ft_putnbr_fd.c		\
+			ft_lstadd_back.c	\
+			ft_lstadd_front.c	\
+			ft_lstclear.c		\
+			ft_lstdelone.c		\
+			ft_lstiter.c		\
+			ft_lstlast.c		\
+			ft_lstmap.c			\
+			ft_lstnew.c			\
+			ft_lstsize.c		\
+			clean_split.c		\
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
 
@@ -48,9 +94,7 @@ CFLAGS		= -Wall -Wextra -Werror -g -MMD
 # ################################## #
 #                INCLUDES            #
 # ################################## #
-CINCLUDES	=	-I ./inc -I ./libft/inc
-LIBFT 		= 	./libft/libft.a
-
+CINCLUDES = -I ./inc
 # ################################## #
 #                RULES               #
 # ################################## #
@@ -58,38 +102,29 @@ LIBFT 		= 	./libft/libft.a
 all:	$(NAME)
 
 $(O_DIR):
-			$(MKDIR) $(O_DIR)
+		$(MKDIR) $(O_DIR)
 
 $(O_DIR)/%.o: $(C_DIR)/%.c
-			$(CC)  $(CFLAGS) $(CINCLUDES) -c $< -o $@
-
-$(LIBFT):
-		make -C ./libft all
+		$(CC)  $(CFLAGS) $(CINCLUDES) -c $< -o $@
 
 
-$(NAME): $(LIBFT) $(O_DIR) $(OBJS)
-			$(CC)  $(OBJS) $(CFLAGS) $(LIBFT) -o $@
+
+$(NAME): $(O_DIR) $(OBJS)
+			ar rcs ${NAME} ${OBJS}
 
 # ################################## #
 #                CLEAN               #
 # ################################## #
 
 clean:
-			make -C ./libft clean
 			$(RM) $(O_DIR)
 
-fclean:
-			$(RM) $(O_DIR)
-			make -C ./libft fclean
+fclean: clean
 			$(RM) $(NAME)
-
-bonus:
-	make -C ./bonus all
 
 re:			fclean all
 
-
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
 
 -include ./objs/*.d
 
