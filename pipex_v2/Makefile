@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 13:30:11 by loumouli          #+#    #+#              #
-#    Updated: 2023/02/14 09:58:21 by loumouli         ###   ########.fr        #
+#    Updated: 2023/02/14 10:35:31 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,7 @@ re:			fclean all
 malloc_test:  $(LIBFT) $(O_DIR) $(OBJS)
 	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} $(LIBFT) -L. -lmallocator
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
 
 -include ./objs/*.d
 

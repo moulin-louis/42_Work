@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:07:38 by loumouli          #+#    #+#             */
-/*   Updated: 2023/02/13 13:33:36 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:42:15 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	data_tokdel(t_data *tok)
 		close(tok->pipe_fd[0]);
 	if (tok->pipe_fd[1] > 0)
 		close(tok->pipe_fd[1]);
-	if (tok->outfile)
+	if (tok->outfile > 0)
 		close(tok->outfile);
 	free(tok);
 }

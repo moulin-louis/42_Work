@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_lst_bonus.c                                  :+:      :+:    :+:   */
+/*   utils_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 10:07:38 by loumouli          #+#    #+#             */
-/*   Updated: 2023/02/14 09:57:47 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:23:45 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	data_tokdel(t_data *tok)
 		close(tok->pipe_fd[0]);
 	if (tok->pipe_fd[1] > 0)
 		close(tok->pipe_fd[1]);
-	if (tok->outfile)
+	if (tok->outfile > 0)
 		close(tok->outfile);
 	free(tok);
 }

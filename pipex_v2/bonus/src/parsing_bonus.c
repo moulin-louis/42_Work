@@ -6,13 +6,13 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 09:57:45 by loumouli          #+#    #+#             */
-/*   Updated: 2023/02/13 13:39:56 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:42:36 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-void	init_pipe( t_data *data )
+void	init_pipe(t_data *data)
 {
 	t_data	*temp;
 
@@ -28,7 +28,7 @@ void	init_pipe( t_data *data )
 	}
 }
 
-void	parse_command( t_data *data, char **av )
+void	parse_command(t_data *data, char **av)
 {
 	int		x;
 	t_data	*temp;
@@ -54,7 +54,8 @@ void	open_file(char **av, t_data *data, int ac)
 
 	if (!data)
 		return ;
-	close(data->pipe_fd[0]);
+	if (data->pipe_fd[0] > 0)
+		close(data->pipe_fd[0]);
 	data->pipe_fd[0] = open(av[1], O_RDONLY);
 	if (data->pipe_fd[0] == -1)
 		perror("infile: ");
@@ -66,19 +67,19 @@ void	open_file(char **av, t_data *data, int ac)
 	{
 		data_lstclear(data);
 		perror("outfile: ");
-		exit (1);
+		exit(1);
 	}
 }
 
-t_data	*parsing( char **av, char **env, int ac)
+t_data	*parsing(char **av, char **env, int ac)
 {
 	t_data	*data;
 	t_data	*temp;
 	int		x;
 
 	data = NULL;
-		x = 0;
-	while (++x < ac -2)
+	x = 0;
+	while (++x < ac - 2)
 	{
 		temp = data_lstnew();
 		if (!temp)
@@ -86,6 +87,7 @@ t_data	*parsing( char **av, char **env, int ac)
 		temp->env = env;
 		data_lstaddback(&data, temp);
 	}
+	init_pipe(data);
 	parse_command(data, av);
 	find_path_cmd(data);
 	open_file(av, data, ac);

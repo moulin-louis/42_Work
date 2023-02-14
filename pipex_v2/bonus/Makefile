@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 13:30:11 by loumouli          #+#    #+#              #
-#    Updated: 2023/02/13 11:59:59 by loumouli         ###   ########.fr        #
+#    Updated: 2023/02/14 10:40:03 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ $(LIBFT):
 
 $(NAME): $(LIBFT) $(O_DIR) $(OBJS)
 			$(CC)  $(OBJS) $(CFLAGS) $(LIBFT) -o $@
+			cp pipex_bonus ../pipex
 
 # ################################## #
 #                CLEAN               #

@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:08:39 by loumouli          #+#    #+#             */
-/*   Updated: 2023/02/13 13:20:31 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/02/14 10:39:10 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**parse_path(t_data *data, char **env)
 	while (env[++it] && !ft_strnstr(env[it], "PATH", 5))
 		;
 	if (env[it] == NULL)
-		return (exit(1), NULL);
+		return (NULL);
 	temp = ft_strdup(env[it]);
 	if (!temp)
 		return (perror("malloc: "), data_lstclear(data), exit(1), NULL);
@@ -45,6 +45,16 @@ void	free_2_str(char *str1, char *str2)
 	free(str2);
 }
 
+char	*dup_cmd(char *cmd, t_data *data)
+{
+	char	*temp;
+
+	temp = ft_strdup(cmd);
+	if (!temp)
+		return (perror("malloc: "), data_lstclear(data), exit(1), NULL);
+	return (temp);
+}
+
 char	*get_path_cmd(t_data *data, char *cmd, char **path)
 {
 	int		x;
@@ -53,12 +63,9 @@ char	*get_path_cmd(t_data *data, char *cmd, char **path)
 
 	x = -1;
 	if (access(cmd, F_OK | X_OK) == 0)
-	{
-		temp = ft_strdup(cmd);
-		if (!temp)
-			return (perror("malloc: "), data_lstclear(data), exit(1), NULL);
-		return (temp);
-	}
+		return (dup_cmd(cmd, data));
+	if (!path)
+		return (NULL);
 	while (path[++x])
 	{
 		temp = ft_strjoin(path[x], "/");
@@ -86,5 +93,6 @@ void	find_path_cmd(t_data *data)
 		temp->cmd_path = get_path_cmd(temp, temp->option[0], path);
 		temp = temp->next;
 	}
-	clean_array(path);
+	if (path)
+		clean_array(path);
 }
