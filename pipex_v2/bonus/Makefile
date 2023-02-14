@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 13:30:11 by loumouli          #+#    #+#              #
-#    Updated: 2023/02/12 11:30:19 by loumouli         ###   ########.fr        #
+#    Updated: 2023/02/13 11:59:59 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,16 @@ RM			= rm -rf
 # ################################## #
 #              EXEC NAME             #
 # ################################## #
-NAME		= pipex
+NAME		= pipex_bonus
 
 # ################################## #
 #               SOURCES              #
 # ################################## #
 C_DIR		= src
-C_FILES		=	main.c				\
-				utils.c				\
-				error_management.c	\
+C_FILES		=	main_bonus.c				\
+				parsing_bonus.c				\
+				utils_lst_bonus.c			\
+				path_bonus.c				\
 				
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))

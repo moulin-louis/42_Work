@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:35:59 by loumouli          #+#    #+#             */
-/*   Updated: 2023/02/12 12:35:59 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/02/13 13:31:57 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include "libft.h"
 # include <unistd.h>
@@ -24,22 +24,21 @@
 
 typedef struct s_data
 {
-	int		pipe_fd[2];
-	int		fd_in;
-	int		fd_out;
-	long	pid1;
-	long	pid2;
-	char	**env;
-	char	**path;
+	int				pipe_fd[2];
+	int				outfile;
+	long			pid;
+	char			**option;
+	char			*cmd_path;
+	char			**env;
+	struct s_data	*next;
 }	t_data;
 
-int		ft_strcmp(char *s1, char *s2);
-void	open_file(t_data *data, char **av);
-void	parse_path(t_data *data, char **env);
-void	wait_n_close(t_data *data);
 void	close_all(t_data *data);
-void	clean_exit(t_data *data, int err);
-void	perror_n_exit(t_data *data, int err);
-void	parse_file_path(t_data *data, char **av, char **env);
+t_data	*parsing(char **av, char **env, int ac);
+t_data	*data_lstnew( void );
+void	data_lstaddback(t_data **data, t_data *new_tok);
+void	data_tokdel(t_data *tok);
+void	data_lstclear(t_data *data);
+void	find_path_cmd(t_data *data);
 
 #endif

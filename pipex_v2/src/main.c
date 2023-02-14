@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:40:11 by loumouli          #+#    #+#             */
-/*   Updated: 2023/02/12 12:40:11 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/02/13 10:01:59 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	*get_path_cmd(t_data *data, char *cmd)
 	char	*temp2;
 
 	x = -1;
+	if (!data->path)
+		return (NULL);
 	while (data->path[++x])
 	{
 		temp = ft_strjoin(data->path[x], "/");
@@ -113,8 +115,7 @@ int	main(int ac, char **av, char **env)
 		else
 		{
 			wait_n_close(&data);
-			clean_array(data.path);
-			exit(0);
+			clean_exit(&data, 0);
 		}
 	}
 }
