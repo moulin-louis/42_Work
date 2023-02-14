@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 13:30:11 by loumouli          #+#    #+#              #
-#    Updated: 2023/02/12 15:33:58 by loumouli         ###   ########.fr        #
+#    Updated: 2023/02/14 09:58:21 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,9 @@ NAME		= pipex
 # ################################## #
 C_DIR		= src
 C_FILES		=	main.c				\
-				utils.c				\
-				error_management.c	\
+				parsing.c				\
+				utils_lst.c			\
+				path.c				\
 				
 
 SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
@@ -88,8 +89,10 @@ bonus:
 
 re:			fclean all
 
+malloc_test:  $(LIBFT) $(O_DIR) $(OBJS)
+	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} $(LIBFT) -L. -lmallocator
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
 
 -include ./objs/*.d
 
