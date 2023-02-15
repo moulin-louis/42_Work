@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 13:30:11 by loumouli          #+#    #+#              #
-#    Updated: 2023/02/14 10:35:31 by loumouli         ###   ########.fr        #
+#    Updated: 2023/02/15 11:49:33 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,40 +59,49 @@ LIBFT 		= 	./libft/libft.a
 all:	$(NAME)
 
 $(O_DIR):
-			$(MKDIR) $(O_DIR)
+		$(MKDIR) $(O_DIR)
 
 $(O_DIR)/%.o: $(C_DIR)/%.c
-			$(CC)  $(CFLAGS) $(CINCLUDES) -c $< -o $@
+		$(CC)  $(CFLAGS) $(CINCLUDES) -c $< -o $@
 
 $(LIBFT):
 		make -C ./libft all
 
 
 $(NAME): $(LIBFT) $(O_DIR) $(OBJS)
-			$(CC)  $(OBJS) $(CFLAGS) $(LIBFT) -o $@
+		$(CC)  $(OBJS) $(CFLAGS) $(LIBFT) -o $@
 
 # ################################## #
 #                CLEAN               #
 # ################################## #
 
 clean:
-			make -C ./libft clean
-			$(RM) $(O_DIR)
+		make -C ./libft clean
+		$(RM) $(O_DIR)
 
 fclean:
-			$(RM) $(O_DIR)
-			make -C ./libft fclean
-			$(RM) $(NAME)
+		$(RM) $(O_DIR)
+		make -C ./libft fclean
+		$(RM) $(NAME)
 
 bonus:
-	make -C ./bonus all
+		make -C ./bonus all
+
+bonus_clean:
+		make -C ./bonus clean
+
+bonus_fclean:
+		make -C ./bonus fclean
+
+bonus_re:
+		make -C ./bonus re
 
 re:			fclean all
 
 malloc_test:  $(LIBFT) $(O_DIR) $(OBJS)
 	$(CC) $(CFLAGS) -fsanitize=undefined -rdynamic -o $@ ${OBJS} $(LIBFT) -L. -lmallocator
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus bonus_clean bonus_fclean bonus_re
 
 -include ./objs/*.d
 

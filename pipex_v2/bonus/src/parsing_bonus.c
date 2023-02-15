@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 09:57:45 by loumouli          #+#    #+#             */
-/*   Updated: 2023/02/14 10:42:36 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:53:46 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,22 @@ void	open_file(char **av, t_data *data, int ac)
 	}
 }
 
+void	check_args(char **av, t_data *data)
+{
+	int	x;
+
+	x = -1;
+	while (av[++x])
+	{
+		if (av[x][0] == 0)
+		{
+			data_lstclear(data);
+			ft_putstr_fd("command not '' found\n", 2);
+			exit(127);
+		}
+	}
+}
+
 t_data	*parsing(char **av, char **env, int ac)
 {
 	t_data	*data;
@@ -88,8 +104,9 @@ t_data	*parsing(char **av, char **env, int ac)
 		data_lstaddback(&data, temp);
 	}
 	init_pipe(data);
+	open_file(av, data, ac);
+	check_args(av, data);
 	parse_command(data, av);
 	find_path_cmd(data);
-	open_file(av, data, ac);
 	return (data);
 }

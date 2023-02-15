@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 12:40:11 by loumouli          #+#    #+#             */
-/*   Updated: 2023/02/14 10:24:55 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/02/15 11:53:34 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,6 @@ void	wait_n_clear(t_data *data)
 		data = temp;
 	}
 	exit (WEXITSTATUS(status));
-}
-
-void	print_lst(t_data *data)
-{
-	int		x;
-	t_data	*temp;
-
-	temp = data;
-	while (temp)
-	{
-		printf("cmd_path = %s\n", temp->cmd_path);
-		x = -1;
-		while (temp->option[++x])
-			printf("option[%d] = %s ", x, temp->option[x]);
-		printf("\n");
-		printf("outfile = %d \n", data->outfile);
-		printf("pipe fd[0] = %d \n", temp->pipe_fd[0]);
-		printf("pipe fd[1] = %d \n", temp->pipe_fd[1]);
-		temp = temp->next;
-	}
 }
 
 int	main(int ac, char **av, char **env)
