@@ -1,0 +1,12 @@
+NO                                   ./assets/textures/BRICK_1A_v2.xpm
+SO     ./assets/textures/BRICK_2A_v2.xpm
+WE                ./assets/textures/BRICK_3D_v2.xpm
+EA ./assets/textures/BRICK_4A_v2.xpm
+
+F                           0,100,0
+C 1,0,255
+
+111111111111
+111111100001
+    1111N111
+    11111111
