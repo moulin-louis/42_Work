@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:22:07 by loumouli          #+#    #+#             */
-/*   Updated: 2023/03/14 15:22:08 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:39:27 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ std:: string  open_file( const std::string& path )
 }
 
 void try_parsing( char *file_path ) {
-	try { std::string database = open_file("/mnt/nfs/homes/loumouli/42_Work/cpp_42/CPP_09/ex00/data.csv"); }
+	try { std::string database = open_file("./data.csv"); }
 	catch (std::ios_base::failure& x) {	std::cout << x.what() << std::endl;	exit(1); }
 
 	try { std::string input = open_file((std::string)file_path); }
@@ -50,7 +50,7 @@ int main( int ac, char **av ) {
 	try_parsing(av[1]);
 	
 	BitcoinExchange exchange;
-	exchange.setDatabase(open_file("/mnt/nfs/homes/loumouli/42_Work/cpp_42/CPP_09/ex00/data.csv"));
+	exchange.setDatabase(open_file("./data.csv"));
 	exchange.setInput(open_file(av[1]));
 	exchange.BuildMapData();
 	exchange.printPrice();
