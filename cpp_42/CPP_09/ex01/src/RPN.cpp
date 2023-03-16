@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:25:50 by loumouli          #+#    #+#             */
-/*   Updated: 2023/03/14 15:54:01 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/03/16 09:57:09 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ bool is_forbiden_char( char c ) {
 }
 
 void	RPN::add_stack( void ) {
-	if (this->stack.size() != 2) {
+	//std::cout << "adding the stack" << std::endl;
+	if (this->stack.size() == 1) {
 		throw std::invalid_argument("invalid logic in input");
 	}
 	int two = this->stack.top();
@@ -55,7 +56,8 @@ void	RPN::add_stack( void ) {
 }
 
 void	RPN::sub_stack( void ) {
-	if (this->stack.size() != 2) {
+	//std::cout << "substracting the stack" << std::endl;
+	if (this->stack.size() == 1) {
 		throw std::invalid_argument("invalid logic in input");
 	}
 	int two = this->stack.top();
@@ -66,7 +68,8 @@ void	RPN::sub_stack( void ) {
 }
 
 void	RPN::div_stack( void ) {
-	if (this->stack.size() != 2) {
+	//std::cout << "dividing the stack" << std::endl;
+	if (this->stack.size() == 1) {
 		throw std::invalid_argument("invalid logic in input");
 	}
 	int two = this->stack.top();
@@ -77,7 +80,8 @@ void	RPN::div_stack( void ) {
 }
 
 void	RPN::mul_stack( void ) {
-	if (this->stack.size() != 2) {
+	//std::cout << "multiplying the stack" << std::endl;
+	if (this->stack.size() == 1) {
 		throw std::invalid_argument("invalid logic in input");
 	}
 	int two = this->stack.top();
@@ -85,6 +89,16 @@ void	RPN::mul_stack( void ) {
 	int one = this->stack.top();
 	this->stack.pop();
 	this->stack.push(one * two);
+}
+
+void RPN::display_stack( void ) {
+	std::cout << "current stack :" << std::endl;
+	std::stack<int> clone = this->stack;
+	for (;!clone.empty(); ) {
+		std::cout << clone.top() << std::endl;
+		clone.pop();
+	}
+	std::cout << std::endl;
 }
 
 int RPN::process_input( const std::string& input ) {
@@ -99,12 +113,15 @@ int RPN::process_input( const std::string& input ) {
 	for (unsigned long i = 0; i < input.size(); i++)
 	{
 		if (input[i] == ' ') { continue; }
-		else if (input[i] == '-') {	this->sub_stack(); }
+		//this->display_stack();
+		if (input[i] == '-') {	this->sub_stack(); }
 		else if (input[i] == '+') { this->add_stack(); }
 		else if (input[i] == '/') { this->div_stack(); }
 		else if (input[i] == '*') { this->mul_stack(); }
 		else { this->stack.push(input[i] - '0'); }
 	}
+	// std::cout << "Stack after all operations = " << std::endl;
+	// this->display_stack();
 	if (this->stack.size() != 1 ) {
 		throw std::invalid_argument("invalid logic in input");
 	}
