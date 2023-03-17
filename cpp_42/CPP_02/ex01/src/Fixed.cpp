@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 11:00:06 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/20 13:42:52 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:16:58 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	Fixed::setRawBits ( int const raw ) {
 }
 //Return the value as a float
 float	Fixed::toFloat( void ) const {
-	return ((float)this->value / (1 << this->nbr_fract_bits));
+	return (this->value / (1 << this->nbr_fract_bits));
 }
 //Return the value as an int
 int	Fixed::toInt( void ) const {

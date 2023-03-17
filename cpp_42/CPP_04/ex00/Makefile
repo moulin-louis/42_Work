@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 13:30:11 by loumouli          #+#    #+#              #
-#    Updated: 2023/01/23 13:27:53 by loumouli         ###   ########.fr        #
+#    Updated: 2023/03/17 10:06:55 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,11 @@ NAME		= Animal
 #               SOURCES              #
 # ################################## #
 C_DIR		= src
+				
 C_FILES		=	main.cpp		\
 				Animal.cpp		\
-				Dog.cpp			\
 				Cat.cpp			\
+				Dog.cpp			\
 				WrongAnimal.cpp	\
 				WrongCat.cpp	\
 				
@@ -43,9 +44,8 @@ O_FILES		= $(C_FILES:.cpp=.o)
 OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 
 # ################################## #
-#                FLAGS               #
+#               FLAGS                #
 # ################################## #
-
 CFLAGS		= -Wall -Wextra -Werror -g -MMD -std=c++98
 
 # ################################## #
@@ -54,9 +54,8 @@ CFLAGS		= -Wall -Wextra -Werror -g -MMD -std=c++98
 CINCLUDES	=	-I ./inc
 
 # ################################## #
-#                RULES               #
+#               RULES                #
 # ################################## #
-
 all:	$(NAME)
 
 $(O_DIR):
@@ -69,10 +68,10 @@ $(O_DIR)/%.o: $(C_DIR)/%.cpp
 $(NAME): $(O_DIR) $(OBJS)
 			$(CC) $(OBJS) $(CFLAGS) -o $@
 
-# ################################## #
-#                CLEAN               #
-# ################################## #
 
+# ################################## #
+#               CLEAN                #
+# ################################## #
 clean:
 			$(RM) $(O_DIR)
 
@@ -81,7 +80,11 @@ fclean:		clean
 
 re:			fclean all
 
+# ################################## #
+#               MAKEFILE RULES       #
+# ################################## #
+-include 	./objs/*.d
+
 .PHONY: all clean fclean re
--include ./objs/*.d
 
 .NOTPARALLEL:fclean

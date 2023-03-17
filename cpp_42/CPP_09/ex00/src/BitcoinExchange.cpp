@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:22:03 by loumouli          #+#    #+#             */
-/*   Updated: 2023/03/14 15:22:05 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:00:21 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void BitcoinExchange::printPrice( void ) {
 		std::string float_str = line.substr(line.find(" | ") + 3, line.size());
 		std::string date_str = line.substr(0, line.find(" | "));
 		float nbr = to_float(float_str);
-		if (nbr > 100) {
+		if (nbr > 1000) {
 			std::cout << "Error: too large number => " << float_str << std::endl;
 			(old_pos += line.size()) += 1;
 			continue ;

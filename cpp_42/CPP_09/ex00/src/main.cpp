@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:22:07 by loumouli          #+#    #+#             */
-/*   Updated: 2023/03/14 19:39:27 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/03/16 12:00:31 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int main( int ac, char **av ) {
 		return 1;
 	}
 	try_parsing(av[1]);
-	
 	BitcoinExchange exchange;
 	exchange.setDatabase(open_file("./data.csv"));
 	exchange.setInput(open_file(av[1]));

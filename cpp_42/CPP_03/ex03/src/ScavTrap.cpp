@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 17:55:30 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/20 18:14:33 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:51:57 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ ScavTrap::ScavTrap( const ScavTrap& var)
 
 ScavTrap::~ScavTrap( void )
 {
+	std::cout << "name = " << this->name << std::endl;
 	std::cout << "ScavTrap default destructor called" << std::endl;
 }
 

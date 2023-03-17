@@ -6,7 +6,7 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 13:30:11 by loumouli          #+#    #+#              #
-#    Updated: 2023/03/14 15:33:02 by loumouli         ###   ########.fr        #
+#    Updated: 2023/03/16 12:01:26 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,8 +66,6 @@ $(O_DIR)/%.o: $(C_DIR)/%.cpp
 $(NAME): $(O_DIR) $(OBJS)
 			$(CC) $(OBJS) $(CFLAGS) -o $@
 
-objs_only: $(O_DIR) $(OBJS)
-	@echo "Object file compiled"
 
 # ################################## #
 #                CLEAN               #

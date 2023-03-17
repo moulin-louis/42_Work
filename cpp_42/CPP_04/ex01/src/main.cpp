@@ -6,7 +6,7 @@
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 12:05:55 by loumouli          #+#    #+#             */
-/*   Updated: 2023/01/23 15:28:53 by loumouli         ###   ########.fr       */
+/*   Updated: 2023/03/17 10:33:51 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,35 +23,35 @@ int main()
 		if (i % 2)
 		{
 			ptr[i] = new Cat();
-			std::cout << std::endl << "One cat created" << std::endl << std::endl;
+			std::cout << "One cat created" << std::endl;
 		}
 		else
 		{
 			ptr[i] = new Dog();
-			std::cout << std::endl << "One dog created" << std::endl << std::endl;
+			std::cout << "One dog created" << std::endl;
 		}
 	}
 	std::cout << std::endl << "Constructor done..." << std::endl << std::endl;
 	for (int i = 0; i < NBR_ANIMALS; i++)
 	{
 		delete ptr[i];
-		std::cout << std::endl << "One animal delete" << std::endl << std::endl;
+		std::cout << "One animal delete" << std::endl;
 	}
 
-	std::cout << std::endl << "Second Test" << std::endl << std::endl;
-	Dog	temp1;
-	std::cout << std::endl << std::endl;
-	Dog temp2;
-	std::cout << std::endl << std::endl;
+	Dog dog1;
+	Dog dog2;
+	
+	dog1.display_brain();
+	dog1.set_idea(0, "food");
+	dog1.set_idea(1, "play");
+	dog1.set_idea(2, "sleep");
+	dog1.display_brain();
+	dog2 = dog1;
+	dog1.set_idea(3, "other cat");
+	std::cout << std::endl<< "Brain of dog1" << std::endl;
+	dog1.display_brain();
+	std::cout << std::endl << "Brain of dog2" << std::endl;
+	dog2.display_brain();
 
-	Brain* ptr_brain1 = temp1.get_brain();
-	ptr_brain1->ideas[0] = "FOOD";
-	temp2 = temp1;
-	Brain* ptr_brain2 = temp2.get_brain();
-	std::cout << ptr_brain1->ideas[0] << " is the idead 0 of Dog1" << std::endl;
-	std::cout << ptr_brain2->ideas[0] << " is the idead 0 of Dog2" << std::endl;
-	ptr_brain1->ideas[0] = "SLEEP";
-	std::cout << ptr_brain1->ideas[0] << " is the idead 0 of Dog1" << std::endl;
-	std::cout << ptr_brain2->ideas[0] << " is the idead 0 of Dog2" << std::endl;
 	return 0;
 }
