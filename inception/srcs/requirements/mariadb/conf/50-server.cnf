@@ -1,0 +1,11 @@
+# Mariadb conf file
+# Global options
+[client-server]
+socket=/var/lib/mysql/mysql.sock
+
+# Server options
+[mysqld]
+datadir=/var/lib/mysql
+
+[server]
+bind-address=0.0.0.0
