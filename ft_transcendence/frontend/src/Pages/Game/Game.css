@@ -1,0 +1,252 @@
+.game-board {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  border: 1px solid black;
+  margin: 0 auto;
+}
+
+.paddle {
+  position: absolute;
+  width: 10px;
+  height: 100px;
+  background-color: rgb(77, 184, 77);
+}
+
+.lobby {
+  position: relative;
+  width: 300px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.left {
+  left: 0;
+  top: 150px;
+}
+
+.right {
+  right: 0;
+  top: 150px;
+}
+
+.score {
+  position: absolute;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.left {
+  left: 200px;
+}
+
+.right {
+  right: 200px;
+}
+
+.heading-button {
+  background-color: #04809F;
+  padding: 10px 20px;
+  border-radius: 12px;
+}
+
+.play-button-text {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  margin-right: 5px;
+  color: #fff;
+  display: inline-flex;
+}
+
+.play-button-icon {
+  display: inline-flex;
+  margin-right: 15px;
+}
+
+.game-over {
+  margin: auto;
+  text-align: center;
+  font-size: 48px;
+}
+
+.game-inline-card {
+  display: flex;
+}
+
+.game-vertical-align {
+  display: contents;
+}
+
+.game-type-text {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  color: #3F434A;
+}
+
+.game-type-box {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+.game-auto-margin {
+  margin: auto;
+}
+
+.game-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.game-nickname-card {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 22px;
+  text-align: center;
+  color: #3F434A;
+  margin-top: 10px;
+}
+
+.cursor-pointer-game {
+  cursor: url('./icons/Racquet.svg'), auto;
+}
+
+.game-avatar-connect:hover {
+  border: 1px solid #04809F;
+}
+
+.connect-text {
+  color: #04809F;
+}
+
+.text-without-games {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 30px;
+  color: #3F434A;
+}
+
+.start-button {
+  background: #ebf1f3;
+  padding: 8px 70px;
+  color: #04809F;
+  margin-top: 30px;
+  border-radius: 14px;
+}
+
+.newgame-text {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  margin-right: 5px;
+  display: inline-flex;
+}
+
+.full-width-cards {
+  width: 100%;
+}
+
+.chat-popup-new-game {
+  margin-top: 30px;
+  margin-bottom: 20px !important;
+}
+
+.game-popup-big-head {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 42px;
+  display: flex;
+  align-items: center;
+  color: #3F434A;
+}
+
+.random-choose-button {
+  padding: 0px 15px;
+  border-radius: 15px;
+  margin-left: auto;
+  background: #ebf1f3;
+  color: #04809F;
+  font-size: 12px;
+}
+
+.disabled-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  margin: 50px 12px;
+  padding: 40px;
+  text-align: center;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 22px;
+  cursor: pointer;
+}
+
+.position-card-game {
+  position: relative
+}
+
+.margin-right-card-game {
+  margin-right: 15px;
+}
+
+.inline-game-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 1200px) {
+  .game-auto-margin {
+    margin: 0 10px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .mobile-game-card {
+    margin: 0px;
+    display: block;
+  }
+
+  .game-auto-margin {
+    margin-right: 20px !important;
+    margin: 0;
+  }
+
+  .game-nickname-card {
+    margin-right: 20px;
+  }
+
+  .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 22px;
+    cursor: pointer;
+    width: 40px;
+  }
+  .disabled-overlay {
+    margin: 0px 12px;
+}
+}

@@ -1,0 +1,191 @@
+.zero-margin-auth {
+  margin: auto;
+}
+
+.auth-padding {
+  padding: 30px;
+}
+
+.login-block {
+  margin-left: 0 !important;
+}
+
+.auth-logo-center {
+  margin: auto;
+}
+
+.auth-text-heading {
+  font-size: 36px;
+  color: #202020;
+  font-weight: bold;
+}
+
+.auth-margin {
+  margin-bottom: 20px;
+}
+
+.auth-small-margin {
+  margin-bottom: 15px;
+}
+
+.auth-big-margin {
+  margin-bottom: 60px;
+}
+
+.auth-text-center {
+  text-align: center;
+}
+
+.auth-vertical-center {
+  align-items: center;
+}
+
+.auth-rounded-corners {
+  border-radius: 30px;
+}
+
+.auth-shadow {
+  box-shadow: 0px 8px 32px 0px rgba(0, 0, 0, 0.06);
+}
+
+.auth-button {
+  padding: 10px 20px;
+  border: 1px solid #DCDBDD;
+  border-radius: 12px;
+}
+
+.auth-guest-button {
+  padding: 10px 20px;
+  background: #04809f30;
+  border-radius: 12px;
+}
+
+.auth-right-margin {
+  margin-right: 15px;
+}
+
+.auth-button:hover {
+  background-color: #F4F7F7;
+}
+
+.auth-guest-button:hover {
+  background: #04809f49;
+}
+
+.auth-button-text {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #202020;
+  margin-right: 20px;
+  display: inline-flex;
+}
+
+.auth-button-guest-text {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #04809F;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-flex;
+}
+
+.auth-button-icon {
+  display: inline-flex;
+  margin-right: 30px;
+}
+
+.auth-avatars-margin {
+  margin-right: 25px;
+}
+
+.auth-description {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  color: #84818A;
+  margin-top: 20px;
+}
+
+.auth-avatar-circle {
+  width: 32px;
+  border-radius: 50px;
+  display: inline-flex;
+  border: 1px white solid;
+  margin-right: -12px;
+}
+
+.auth-small-button {
+  padding: 5px 10px;
+  background: #04809f30;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.auth-small-button-text {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #04809F;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline-flex;
+}
+
+.auth-small-button:hover {
+  background: #04809f49;
+}
+
+.auth-head-top-margin {
+  margin-top: 20px;
+  margin-bottom: 10px !important;
+}
+
+.nav-tabs .nav-link {
+  border: 0;
+  color: #000;
+}
+
+.nav-tabs .nav-link.active {
+  border: 0;
+  border-bottom: 2px solid #04809F !important;
+  color: #04809F;
+}
+
+.nav-link:hover {
+  color: #04809F;
+}
+
+.error-border {
+  border-color: #FD7972 !important;
+}
+
+.notify-auth-error {
+  margin-top: 15px;
+  background: #FD7972;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+/* For adaptive design */
+@media (max-width: 1200px) {
+  .auth-vertical-center {
+    display: block;
+  }
+
+  .content-auth {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}

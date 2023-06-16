@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Poppins";
+  font-size: 16px;
+  background-color: #F8F8F8;
+}
+
+ol, ul {
+  padding-left: 30px;
+}
+
+.container {
+  max-width: 100%;
+  padding: 0;
+}
+
+.full-screen {
+  height: 95vh;
+}
+
+.flex-inline {
+  display: inline-flex;
+}
+
+.header {
+  display: inline-flex;
+}
+
+.dropdown-menu[data-bs-popper] {
+  left: auto;
+  right: 0;
+}
+
+.container-fluid {
+  padding: 0 30px;
+}
+
+.inline {
+  display: flow-root;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.content {
+  padding: 30px;
+  padding-right: 15px;
+}
+
+.heading {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 42px;
+  align-items: center;
+  color: #3F434A;
+}
+
+.statistic-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.zero-margin {
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.margin-card {
+  margin-bottom: 15px;
+}
+
+.heading-margin {
+  margin-bottom: 35px;
+}
+
+.rating-margin {
+  margin-bottom: 25px;
+}
+
+.top-margin {
+  margin-top: 15px;
+}
+
+.alert-icon-margin {
+  margin-top:5px;
+}
+
+.tooltip.show {
+  margin-top: 3px;
+}
+
+.progress {
+  --bs-progress-height: 0.4rem;
+}
+
+.sort-button {
+  background-color: #fff!important;
+  color: rgba(63, 67, 74, 1)!important;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  border: 0px;
+  border-radius: 15px;
+  padding: 10px 15px;
+}
+
+.online-status {
+  width: 10px;
+  height: 10px;
+  background-color: #49C96D;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0px;
+  right: 7px; 
+  border: 2px solid white;
+}
+
+/* For adaptive design */
+@media (max-width: 1200px) {
+
+  /* Hide sidebar in Small Devices */
+  .col-xl-2 {
+    display: none;
+  }
+
+  .content {
+    padding-left: 0px;
+  }
+}
+
+/* For big devices */
+@media (max-width: 1200px) {
+  .content {
+    padding-left: 30px;
+  }
+}

@@ -1,0 +1,134 @@
+.error-background {
+    background: no-repeat center center fixed;
+    min-height: 100vh;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.error-block {
+    text-align: center;
+    padding-top: 20vh
+}
+
+.error-title {
+    font-size: 12em;
+    color: #04809F;
+}
+
+.error-description {
+    font-style: normal;
+    font-size: 2.5em;
+    color: #3F434A;
+}
+
+.error-button {
+    background-color: #04809F;
+    padding: 10px 20px;
+    border: 1px solid #DCDBDD;
+    border-radius: 12px;
+    margin-top: 30px;
+}
+
+.error-button:hover {
+    background-color: #026f8b;
+}
+
+.error-button-text {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    color: #fff;
+    margin-right: 20px;
+    display: inline-flex;
+}
+
+.error-button-icon {
+    display: inline-flex;
+    margin-right: 30px;
+}
+
+.ball-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.ball {
+    position: absolute;
+    border-radius: 50%;
+    animation: moveBall 3s ease-in-out infinite;
+    background-color: #04809F;
+}
+
+.ball-small {
+    width: 20px;
+    height: 20px;
+    background-color: #04809F;
+    animation-duration: 4s;
+}
+
+.ball-medium {
+    width: 40px;
+    height: 40px;
+    background-color: #04809F;
+    animation-duration: 6s;
+}
+
+.ball-large {
+    width: 60px;
+    height: 60px;
+    background-color: #04809F;
+    animation-duration: 8s;
+}
+
+/* @keyframes moveBall {
+    0% {
+        transform: translate(0vh, 0vh);
+    }
+
+    25% {
+        transform: translate(90vh, -100vh);
+    }
+
+    50% {
+        transform: translate(160vh, 0);
+    }
+
+    75% {
+        transform: translate(90vh, 100vh);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+} */
+
+@keyframes moveBall {
+    0% {
+      transform: translate(0, 0);
+    }
+  
+    25% {
+      transform: translate(50vw, 100vh);
+    }
+  
+    50% {
+      transform: translate(100vw, 0);
+    }
+  
+    75% {
+      transform: translate(50vw, 100vh);
+    }
+  
+    100% {
+      transform: translate(0, 0);
+    }
+  }

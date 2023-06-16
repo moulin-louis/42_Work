@@ -1,0 +1,59 @@
+.card-achievements {
+    background: #fff;
+    padding: 15px 25px;
+    border-radius: 20px;
+}
+
+.heading-achievements {
+    font-size: 18px;
+    font-weight: 700;
+    color: #8A9099;
+}
+
+.description-achievements {
+    font-size: 15px;
+    margin-top: 10px;
+    color: #3F434A;
+}
+
+.boost-achievements {
+    font-size: 15px;
+    color: #49C96D;
+}
+
+.width-text {
+    width: 65%;
+}
+
+.inline-achievements {
+    display: flex;
+    align-items: center;
+}
+
+.margin-circle {
+    margin-left: auto;
+}
+
+.margin-boost {
+    margin: auto;
+}
+
+/* For adaptive design */
+@media (max-width: 600px) {
+
+    /* Hide sidebar in Small Devices */
+    .width-text {
+        min-width: 100%;
+    }
+    .inline-achievements {
+        display: grid;
+    }
+    .margin-boost {
+        margin-top: 25px;
+        margin-bottom: 25px;
+        margin-left: 0;
+    }
+    .margin-circle {
+        margin: 0px;
+    }
+}

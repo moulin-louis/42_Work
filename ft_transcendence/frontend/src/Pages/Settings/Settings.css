@@ -1,0 +1,176 @@
+.card-settings {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.heading-settings {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 42px;
+    display: flex;
+    align-items: center;
+    color: #3F434A;
+}
+
+.heading-settings-profile {
+    margin-bottom: 32px;
+}
+
+.img-container-settings {
+    position: relative;
+    display: inline-block;
+    width: 160px;
+}
+
+.description-achievements {
+    font-size: 15px;
+    margin-top: 10px;
+    color: #3F434A;
+}
+
+.boost-achievements {
+    font-size: 15px;
+    color: #49C96D;
+}
+
+.width-text {
+    width: 65%;
+}
+
+.inline-achievements {
+    display: flex;
+    align-items: center;
+}
+
+.profile-inline {
+    display: flex;
+    align-items: flex-start;
+}
+
+.margin-circle {
+    margin-left: auto;
+}
+
+.margin-img {
+    margin: auto;
+    margin-left: 0;
+}
+
+.edit-img {
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    border: 1px solid #C6C9CC;
+    display: flex;
+    cursor: pointer;
+}
+
+.avatar-border {
+    padding: 10px;
+    border: 1px rgba(198, 201, 204, 1);
+    border-radius: 150px;
+    border-style: dashed;
+    height: 160px!important;
+    width: 160px!important;
+    object-fit: cover;
+    object-position: center;
+}
+
+.width-inputs {
+    width: 60%;
+}
+
+.edit-img-icon {
+    width: 16px;
+    height: 16px;
+    margin: auto;
+}
+
+.settings-margin-heading-input {
+    margin-top: 20px;
+    /* margin-bottom: 20px; */
+}
+
+.settings-margin-input {
+    margin-top: 35px;
+    /* margin-bottom: 20px; */
+}
+
+.settings-margin-google-input {
+    margin-top: 20px;
+    margin-bottom: 20px!important;
+}
+
+.disable-input {
+    color: #C6C6C6;
+    pointer-events: none;
+}
+
+.full-width {
+    min-width: 100%;
+}
+
+.text-in-center {
+    text-align: center!important;
+    display: block!important;
+}
+
+.qr-margin {
+    margin-top: auto;
+}
+
+.inline-settings {
+    display: grid;
+    align-items: center;
+}
+
+.margin-profile-head {
+    margin-top: 0px;
+}
+
+/* For adaptive design */
+@media (max-width: 600px) {
+
+    /* Hide sidebar in Small Devices */
+    .width-text {
+        min-width: 100%;
+    }
+    .inline-achievements {
+        display: grid;
+    }
+    .margin-boost {
+        margin-top: 25px;
+        margin-bottom: 25px;
+        margin-left: 0;
+    }
+    .margin-circle {
+        margin: 0px;
+    }
+    .full-width-mob {
+        min-width: 100%;
+    }
+    .margin-mob {
+        margin-top: 25px!important;
+    }
+    .align-settings-mob {
+        display: grid!important;
+        width: 100%;
+    }
+    .buttons-settings-mob {
+        margin-bottom: 20px;
+        padding: 15px 21px!important;
+    }
+    .profile-inline {
+        display: block;
+    }
+    .margin-profile-head {
+        margin-top: 30px;
+    }
+}

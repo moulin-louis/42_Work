@@ -1,0 +1,5 @@
+- ft_strlen:
+    - optimize by reading 32 bits by 32 bits using memory allignement
+- use SSE2 for strlen, cmp
+- make a lot of test for each function
+- compare libasm with libft at a perf level

@@ -1,0 +1,75 @@
+.help-page .nav-tabs .nav-link.active {
+    background: #fff0;
+}
+
+.help-page .nav-tabs .nav-link {
+    padding-left: 0;
+    padding-right: 0;
+    margin-right: 25px;
+}
+
+.heading-help-types {
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.numbers-help-types {
+    list-style-type: auto;
+    padding-left: 20px;
+}
+
+.numbers-help-types li {
+    padding-left: 10px;
+}
+
+.dots-help-types {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.dots-help-types li {
+    padding-left: 10px;
+}
+
+.empty-space {
+    margin-top: 30px!important;
+}
+
+.small-empty-space {
+    margin-top: 15px!important;
+}
+
+.center-align {
+    text-align: center;
+    margin: auto;
+}
+
+.mini-badge-team {
+    padding: 5px 10px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    margin-left: 10px;
+    color: #49C96D;
+    font-size: 12px;
+    width: fit-content;
+    margin: auto;
+}
+
+.h-line-full {
+    border-bottom: 1px solid #E8E9EB;
+}
+
+.additional-info {
+    color: rgba(138, 144, 153, 1);
+    text-align: right;
+}
+
+.team-avatar-border {
+    padding: 10px;
+    border: 1px rgba(198, 201, 204, 1);
+    border-radius: 150px;
+    border-style: dashed;
+    object-fit: cover;
+    object-position: center;
+}

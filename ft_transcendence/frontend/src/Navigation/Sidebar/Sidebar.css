@@ -1,0 +1,160 @@
+.sidebar {
+    position: inherit;
+    top: 0px;
+    left: 0;
+    background-color: #fff;
+}
+
+.sidebar__logo {
+    display: grid;
+    place-items: center;
+    height: 76px;
+}
+
+
+.sidebar__menu {
+    position: relative;
+}
+
+.sidebar__menu__item {
+    display: flex;
+    align-items: center;
+    place-content: flex-start;
+    padding: 1rem 2rem;
+    font-size: 15px;
+    font-weight: 400;
+    color: #555555;
+    transition: color 0.3s ease-in-out;
+}
+
+.sidebar__menu__item.active {
+    background-color: #F8F8F8;
+}
+
+.sidebar__menu__item__icon {
+    margin-right: 1rem;
+}
+
+.sidebar__menu__item__i {
+    font-size: 1.75rem;
+}
+
+.play-button {
+    background-color: #04809F !important;
+    color: #fff !important;
+    padding: 1.05rem 2rem;
+    padding-right: 0;
+}
+
+.friend-margin {
+    margin-bottom: 10px;
+}
+
+.friends-block {
+    padding: 45px 0px 60px 2rem;
+}
+
+.friends-heading {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    align-items: center;
+    text-transform: uppercase;
+    color: #3F434A;
+    margin-bottom: 20px;
+}
+
+.padding-zero {
+    padding: 0;
+}
+
+.friend-margin-center {
+    margin-right: -10px;
+    margin-left: 10px;
+}
+
+.friend-nickname {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #3F434A;
+}
+
+.friend-level {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #8A9099;
+}
+
+.flex-friend {
+    display: flex;
+}
+
+.sidebar-global {
+    padding-right: 0;
+    background: #fff;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+}
+
+.online-status {
+    width: 10px;
+    height: 10px;
+    background-color: #49C96D;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0px;
+    right: 7px;
+    border: 2px solid white;
+}
+
+.sidebar-icon {
+    min-width: 20px;
+}
+
+input:focus {
+    outline: none;
+}
+
+@media (min-width: 1200px) {
+    .sidebar-global {
+        border-right: 1px solid #E8E9EB;
+        height: 940px;
+    }
+}
+
+
+@media (max-width: 1199px) {
+    .sidebar-global {
+        border-right: 1px solid #E8E9EB;
+        height: 940px;
+    }
+
+    .image-container {
+        width: 40px;
+    }
+
+    .sidebar__menu {
+        margin-bottom: 30px;
+    }
+    .sidebar__menu__item.active {
+        border-radius: 15px;
+    }
+    .play-button {
+        border-radius: 15px;
+    }
+    .sidebar__menu__item {
+        margin-bottom: 5px;
+    }
+}

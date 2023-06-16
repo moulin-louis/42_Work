@@ -1,0 +1,55 @@
+.heading-margin-history {
+    margin-bottom: 15px;
+}
+
+.time-badge {
+    background: rgba(248, 248, 248, 1);
+    border-radius: 8px;
+    color: #3F434A;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    width: fit-content;
+    padding: 4px 20px;
+    margin-bottom: 30px;
+}
+
+.game-avatar-empty {
+    background-color: #000;
+}
+
+.history-score {
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 63px;
+    text-align: center;
+    color: #595F69;
+}
+
+.score-margin {
+    margin: 10px 10px;
+}
+
+.game-type-box-history {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.history-inline-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+.history-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+@media screen and (max-width: 1400px) { 
+    .history-score {
+        font-size: 30px;
+    }
+}

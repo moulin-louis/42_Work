@@ -1,0 +1,58 @@
+version: "3.8"
+
+services:
+#  client:
+#   container_name: client
+#   build: ./frontend/
+#   depends_on:
+#    - server
+#   networks:
+#    - ft_transcendence
+#   volumes:
+#    - ./frontend/:/app/
+#   ports:
+#    - "4000:4000"
+  
+
+  # for development purpose we use node processes with npm run dev for react and npm run start for nestjs
+#  server:
+#   container_name: server
+#   build: ./backend/
+#   env_file: .env
+#   depends_on:
+#    - database
+#   networks:
+#    - ft_transcendence
+#   ports:
+#    - "3000:3000"
+#    - "9229:9229" # Memo For the debugger
+#   volumes:
+#      - ./backend/:/app/
+#   restart: always 
+
+ database:
+  container_name: database
+  image: postgres:latest
+  env_file: .env
+  networks:
+   - ft_transcendence
+  ports:
+   - "5432:5432" # to be removed in production
+  restart: always
+  volumes:
+   - /var/lib/postgresql/data
+  user: postgres
+
+ database_gui:
+  container_name: database_gui
+  depends_on:
+   - database
+  image: adminer
+  networks:
+   - ft_transcendence
+  ports:
+   - 8080:8080
+  restart: always
+
+networks:
+  ft_transcendence:

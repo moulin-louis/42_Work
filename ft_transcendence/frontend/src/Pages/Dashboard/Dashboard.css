@@ -1,0 +1,15 @@
+.blue {
+  --bs-progress-bar-bg: #304FFD;
+}
+
+.orange {
+  --bs-progress-bar-bg: #FF965D;
+}
+
+.yellow {
+  --bs-progress-bar-bg: #FFD240;
+}
+
+.green {
+  --bs-progress-bar-bg: #49C96D;
+}
