@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/02 17:58:34 by loumouli          #+#    #+#             */
-/*   Updated: 2022/05/06 17:17:08 by loumouli         ###   ########.fr       */
+/*   Created: 2022/05/09 14:37:06 by loumouli          #+#    #+#             */
+/*   Updated: 2022/05/11 15:15:31 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_tolower(int c)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (c >= 65 && c <= 90)
-		c = c + 32;
-	return (c);
+	if (lst)
+	{
+		del(lst->content);
+		free(lst);
+	}
 }

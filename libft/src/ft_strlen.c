@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toupper.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/02 17:51:06 by loumouli          #+#    #+#             */
-/*   Updated: 2022/05/02 17:58:15 by loumouli         ###   ########.fr       */
+/*   Created: 2022/05/02 13:19:29 by loumouli          #+#    #+#             */
+/*   Updated: 2022/05/02 18:09:28 by loumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_toupper(int c)
+size_t	ft_strlen(const char *s)
 {
-	if (c >= 97 && c <= 122)
-		c = c - 32;
-	return (c);
+	char *temp = (char *)s;
+	while(*temp)
+		temp++;
+	return (temp - s);
 }

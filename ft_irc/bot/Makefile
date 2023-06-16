@@ -86,13 +86,12 @@ BODY_WIDTH	=	$(shell printf "$$(($(HEAD_SIZE) - 1))")
 
 all:
 				$(info Running script.sh to install libcurl)
-				@sh ./script.sh
 				$(info Making bot)
 				@$(MAKE) -sk $(NAME)
 
 $(BUILDIR)/%.o:	%.cpp | $(DEPDIR)
-				@mkdir -p build/ $(addprefix build/, $(SRCS_DIR))
-				@mkdir -p build/.deps/ $(addprefix build/.deps/, $(SRCS_DIR))
+				mkdir -p build/ $(addprefix build/, $(SRCS_DIR))
+				mkdir -p build/.deps/ $(addprefix build/.deps/, $(SRCS_DIR))
 				@printf "$(YELLOW)Compiling $(BLUE)$@$(DEFAULT)$(YELLOW) and generating/checking make dependency file...$(DEFAULT)\n"
 				$(CXX) $(DEPFLAGS) $(CXXFLAGS) $(CPPFLAGS) -c $< -o $@
 				@printf '$(DELPREV)%-*s$(GREEN)$(CHECK)$(DEFAULT)\n' $(BODY_WIDTH) $(notdir $@)
