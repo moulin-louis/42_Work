@@ -29,41 +29,7 @@ int	init_fork(t_rules *rules)
 	x = -1;
 	while (++x < rules->nbr_philo)
 	{
-		if (pthread_mutex_init(&(rules->arr_fork[x].lock), NULL))
-		{
-			rules->nbr_fork = x;
-			return (printf("mutex init failed fork\n"), 1);
-		}
 		rules->arr_fork[x].taken = 0;
-	}
-	return (0);
-}
-/*Init all mutex needed and destroy then if one init failed*/
-
-int	mutex_init(t_rules *rules)
-{
-	if (pthread_mutex_init(&rules->lock_lastmeal, NULL))
-		return (printf("mutex last meal init failed\n"), 1);
-	if (pthread_mutex_init(&rules->print_mutex, NULL))
-		return (pthread_mutex_destroy(&rules->lock_lastmeal),
-			printf("mutex print init failed\n"), 1);
-	if (pthread_mutex_init(&rules->lock_nbr_meal, NULL))
-	{
-		pthread_mutex_destroy(&rules->print_mutex);
-		return (printf("mutex nbr meal init failed\n"), 1);
-	}
-	if (pthread_mutex_init(&rules->lock_stop_1, NULL))
-	{
-		pthread_mutex_destroy(&rules->print_mutex);
-		pthread_mutex_destroy(&rules->lock_nbr_meal);
-		return (printf("mutex print lock stop failed\n"), 1);
-	}
-	if (pthread_mutex_init(&rules->lock_nbr_thread, NULL))
-	{
-		pthread_mutex_destroy(&rules->print_mutex);
-		pthread_mutex_destroy(&rules->lock_nbr_meal);
-		pthread_mutex_destroy(&rules->lock_nbr_meal);
-		return (printf("mutex nbr thread launched init failed\n"), 1);
 	}
 	return (0);
 }
@@ -87,11 +53,6 @@ int	set_rules(t_rules *rules, char **av)
 	{
 		printf("Gib valid argument for philo pls\n");
 		exit (6);
-	}
-	if (mutex_init(rules))
-	{
-		clean_rules(rules, 0);
-		exit (5);
 	}
 	if (init_fork(rules))
 		return (1);

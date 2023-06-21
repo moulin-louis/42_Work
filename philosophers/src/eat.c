@@ -23,25 +23,18 @@ int	lock_all_fork(t_philo *philo, int id_1, int id_2)
 	if ((id_1 == id_2) || !check_stop(philo->rules))
 		return (0);
 	rules = philo->rules;
-	pthread_mutex_lock(&rules->arr_fork[id_1].lock);
 	if (rules->arr_fork[id_1].taken == 0)
 	{
-		pthread_mutex_lock(&rules->arr_fork[id_2].lock);
 		if (rules->arr_fork[id_2].taken == 0)
 		{
 			rules->arr_fork[id_1].taken = 1;
-			pthread_mutex_unlock(&rules->arr_fork[id_1].lock);
 			rules->arr_fork[id_2].taken = 1;
-			pthread_mutex_unlock(&rules->arr_fork[id_2].lock);
 			printf_mutex(rules, "has taken a fork", gettime(), philo->id);
 			printf_mutex(rules, "has taken a fork", gettime(), philo->id);
 			return (1);
 		}
-		pthread_mutex_unlock(&rules->arr_fork[id_2].lock);
-		pthread_mutex_unlock(&rules->arr_fork[id_1].lock);
 		return (0);
 	}
-	pthread_mutex_unlock(&rules->arr_fork[id_1].lock);
 	return (0);
 }
 
@@ -49,9 +42,7 @@ int	lock_all_fork(t_philo *philo, int id_1, int id_2)
 
 void	unlock_fork(t_philo *philo, int id)
 {
-	pthread_mutex_lock(&philo->rules->arr_fork[id].lock);
 	philo->rules->arr_fork[id].taken = 0;
-	pthread_mutex_unlock(&philo->rules->arr_fork[id].lock);
 }
 
 /*Will eat, update last meal and nbr meal
@@ -63,13 +54,9 @@ void	trigger_eat_n_unlock(t_philo *philo)
 
 	rules = philo->rules;
 	printf_mutex(rules, "is eating", gettime(), philo->id);
-	pthread_mutex_lock(&rules->lock_lastmeal);
 	philo->last_meal = gettime();
-	pthread_mutex_unlock(&rules->lock_lastmeal);
 	sleep_philo(rules->tte, rules);
-	pthread_mutex_lock(&rules->lock_nbr_meal);
 	philo->nbr_eat++;
-	pthread_mutex_unlock(&rules->lock_nbr_meal);
 	if (philo->id % 2)
 	{
 		unlock_fork(philo, philo->left_fork);

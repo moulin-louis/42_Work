@@ -18,10 +18,8 @@
 /*struc for fork, contain a mutex to lock the fork and a bool to tell
 if the fork is taken*/
 
-typedef struct s_fork
-{
-	pthread_mutex_t	lock;
-	int				taken;
+typedef struct s_fork {
+	_Atomic int				taken;
 }				t_fork;
 
 /*Conain the rules input by the user and an array of struct of fork*/
@@ -35,13 +33,8 @@ typedef struct s_rules
 	int				tts;
 	int				max_eat;
 	int				nbr_thread_launched;
-	int				trigger_stop;
+	_Atomic int				trigger_stop;
 	long int		start_timestamp;
-	pthread_mutex_t	lock_nbr_meal;
-	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	lock_stop_1;
-	pthread_mutex_t	lock_nbr_thread;
-	pthread_mutex_t	lock_lastmeal;
 	t_fork			*arr_fork;
 }				t_rules;
 
@@ -54,8 +47,8 @@ typedef struct s_philo
 	t_rules	*rules;
 	int		left_fork;
 	int		right_fork;
-	time_t	last_meal;
-	int		nbr_eat;
+	_Atomic time_t	last_meal;
+	_Atomic int		nbr_eat;
 }				t_philo;
 
 /*main struc, contain an array of philo struct and an array of thread id*/
@@ -92,5 +85,5 @@ void	printf_mutex(t_rules *rules, char *action, long int actuel_time,
 
 /*Clean*/
 void	clean_groups(t_group *groups);
-void	clean_rules(t_rules *rls, int code);
+void	clean_rules(t_rules *rls);
 #endif

@@ -21,17 +21,12 @@
 
 int	check_stop(t_rules *rules)
 {
-	pthread_mutex_lock(&rules->lock_nbr_thread);
 	if (rules->nbr_thread_launched == -1)
-		return (pthread_mutex_unlock(&rules->lock_nbr_thread), 0);
-	pthread_mutex_unlock(&rules->lock_nbr_thread);
-	pthread_mutex_lock(&rules->lock_stop_1);
+		return (0);
 	if (rules->trigger_stop == 1)
 	{
-		pthread_mutex_unlock(&rules->lock_stop_1);
 		return (0);
 	}
-	pthread_mutex_unlock(&rules->lock_stop_1);
 	return (1);
 }
 
