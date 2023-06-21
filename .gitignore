@@ -5,3 +5,5 @@ a.out
 *.txt
 *.log
 ./push_swap/push_swap_tester
+*/.idea
+*/*/.idea
