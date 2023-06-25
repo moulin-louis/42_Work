@@ -21,11 +21,8 @@ void	printf_mutex(t_rules *rules, char *action, long int actuel_time,
 {
 	if (check_stop(rules))
 	{
-		pthread_mutex_lock(&rules->print_mutex);
 		if (check_stop(rules))
-			printf("%ld %d %s\n", actuel_time - rules->start_timestamp,
-				id_philo, action);
-		pthread_mutex_unlock(&rules->print_mutex);
+			printf("%ld %d %s\n", actuel_time - rules->start_timestamp, id_philo, action);
 	}
 }
 

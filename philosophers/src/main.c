@@ -35,13 +35,10 @@ void	wait_start(t_rules *rules)
 {
 	while (1)
 	{
-		pthread_mutex_lock(&rules->lock_nbr_thread);
 		if (rules->nbr_thread_launched)
 		{
-			pthread_mutex_unlock(&rules->lock_nbr_thread);
 			return ;
 		}
-		pthread_mutex_unlock(&rules->lock_nbr_thread);
 	}
 }
 
@@ -85,9 +82,7 @@ void	start_philo(t_group *groups)
 		if (pthread_create(&groups->id_thread[x], NULL, &handle_philo,
 				&groups->philo_grp[x]))
 		{
-			pthread_mutex_lock(&groups->rules->lock_nbr_thread);
 			groups->rules->nbr_thread_launched = -1;
-			pthread_mutex_unlock(&groups->rules->lock_nbr_thread);
 			printf_mutex(groups->rules, "failed to start thread", gettime(), x);
 			break ;
 		}
@@ -113,11 +108,11 @@ int	main(int ac, char **av)
 		return (printf("Wrong numbers of arguements pls\n"), 2);
 	memset(&rules, 0, sizeof(t_rules));
 	if (set_rules(&rules, av))
-		return (clean_rules(&rules, 1), printf("failed to parse rules\n"), 1);
+		return (clean_rules(&rules), printf("failed to parse rules\n"), 1);
 	memset(&groups, 0, sizeof(t_group));
 	if (init_philo(&groups, &rules))
 	{
-		clean_rules(&rules, 1);
+		clean_rules(&rules);
 		printf("Failed to init philo struct\n");
 		return (3);
 	}
