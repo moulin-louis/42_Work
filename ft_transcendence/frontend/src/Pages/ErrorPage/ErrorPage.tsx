@@ -9,7 +9,7 @@ function ErrorPage() {
       id="error-page"
       className="error-background"
       style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL + Background})`,
+        backgroundImage: `url(${process.env.REACT_APP_PUBLIC_URL + Background})`,
       }}
     >
       <div className="error-block">

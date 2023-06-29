@@ -9,7 +9,7 @@ import Sidebar from "../../Navigation/Sidebar/Sidebar";
 import EaleaseImage from './team-images/ealease.jpg'
 import BmayerImage from './team-images/bmayer.jpg'
 import LmassonImage from './team-images/lmasson.jpg'
-import Llr19Img from "./../../Images/Avatar.jpg";
+import Llr19Img from "./team-images/loumouli.jpg";
 
 function GameModes() {
     return (
@@ -18,8 +18,6 @@ function GameModes() {
                 <div className='heading-help-types'>Game modes:</div>
                 <ol className='numbers-help-types'>
                     <li>Classic Mode: In this mode, players compete in normal ping pong with basic rules and settings.</li>
-                    <li>Speed Mode: In this mode, the speed of the ball constantly increases with each stroke, making the game of ping-pong more complex and faster.</li>
-                    <li>Power-up Mode: During the game, random boosters appear on the table, which can accelerate the ball, increase or decrease its size, as well as changing the properties of the players' rackets.</li>
                     <li>Timed Mode: In this mode, players compete to see who can score more goals in a certain amount of time.</li>
                 </ol>
             </div>
@@ -51,8 +49,8 @@ function GameDocumentation() {
                 <div className='heading-help-types empty-space'>How To Play</div>
                 <div>In order to control your paddle, use the following keys:</div>
                 <ul className='dots-help-types small-empty-space'>
-                    <li>W : Move the paddle up</li>
-                    <li>S : Move the paddle down</li>
+                    <li>Arrow_Up : Move the paddle up</li>
+                    <li>Arrow_Down : Move the paddle down</li>
                 </ul>
                 <div className='small-empty-space'>The aim of the game is to hit the ball back and forth by moving your paddle up and down. The player who fails to return the ball loses a point. The game continues until one player reaches the predetermined score limit.</div>
                 <div className='heading-help-types empty-space'>Conclusion</div>
@@ -158,7 +156,7 @@ function Llr19Card() {
                     className="team-avatar-border align-top center-align"
                     id="navbarScrollingDropdown"
                 />
-                <div className="center-align empty-space"><h2 className="heading-margin">Llr19</h2></div>
+                <div className="center-align empty-space"><h2 className="heading-margin">Loumouli</h2></div>
                 <div className='mini-badge-team'>Backend</div>
                 <div className='h-line-full empty-space'></div>
                 <div className='inline empty-space'>
@@ -167,7 +165,7 @@ function Llr19Card() {
                 </div>
                 <div className='inline small-empty-space'>
                     <div className="left">Tasks:</div>
-                    <div className='right additional-info'>Game</div>
+                    <div className='right additional-info'>Game<br></br>Backend</div>
                 </div>
             </div>
         </Col>

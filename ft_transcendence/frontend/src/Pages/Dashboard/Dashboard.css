@@ -13,3 +13,7 @@
 .green {
   --bs-progress-bar-bg: #49C96D;
 }
+
+.heading-all-games {
+  margin-bottom: 25px;
+}

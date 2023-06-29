@@ -4,11 +4,10 @@ import { Message } from './entities/Message';
 import { Match } from './entities/Match';
 import { User } from './entities/User';
 import { Read } from './entities/Read';
-import hostname from './main';
 
 const config: TypeOrmModuleOptions = {
   type: 'postgres',
-  host: hostname,
+  host: 'database',
   port: 5432,
   // TODO change to env variables
   username: 'my_user',

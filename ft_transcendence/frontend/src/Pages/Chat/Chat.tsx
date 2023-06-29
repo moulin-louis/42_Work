@@ -12,6 +12,7 @@ import "./Chat.css";
 import SendButtonImg from "./../../Images/send-chat.svg";
 import ChannelMembers from "./ChannelMembers";
 import ChannelManagement from "./ChannelManagement";
+import GameProposal from "./GameProposal";
 import ChannelPassword from "./ChannelPassword";
 import ChatIcon from "./../../Navigation/Sidebar/icons/Chat.svg";
 import PlusIcon from "./../../Images/Plus.svg";
@@ -25,9 +26,9 @@ import { ModalType } from "./ChatContainer";
 import { useAuth } from "../../Context/AuthContext";
 import { UsersContext } from "../../Context/UsersContext";
 import UserProfile from "./UserProfile";
-
-import PopupNewGame from "./GamePopup"
-
+import { useNavigate} from "react-router-dom";
+import PopupNewGame from "../Game/GamePopup"
+import {useGameState} from "../Game/Game"
 /**
  * Interface representing a single message
  */
@@ -71,22 +72,31 @@ function Chat({
     ? channels[toChannelId]
     : undefined;
   const users = useContext(UsersContext);
-  const toUser = users.find((u) => u.id === toUserId);
+
+  const [toUser, setToUser] = useState(users.find((u) => u.id === toUserId));
+  const { LaunchGame, waitingGame, startMatchmaking, setWaitingGame, handleGameOver } = useGameState();
+
+  const mm_chat = (mode:any) => {
+    socket?.emit('create_game_proposal', {
+      recipient: toUserId,
+      game_mode: mode.game_mode,
+      limit_max: mode.limit_max,
+    });
+  }
+  useEffect(() => {
+    setToUser(users.find((u) => u.id === toUserId));
+  }, [toUserId, users]);
 
   const socket = useContext(WebSocketContext);
-
-  const isAdminChannel = () => toChannel?.admins.includes(user?.id ?? "");
-
-  const isOwnerChannel = () => toChannel?.owner === user?.id ?? "";
-
-  const isBannedChannel = () => bans.includes(user?.id ?? "");
-
+  const isAdminChannel = () => toChannel?.admins?.includes(user?.id ?? "");
+  const isOwnerChannel = () => toChannel?.owner === (user?.id ?? "");
+  const isBannedChannel = () => toChannel?.bans?.includes(user?.id ?? "");
+  const isMutedChannel = () => toChannel?.mutes?.includes(user?.id ?? "");
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSetRead = useCallback(
     _.debounce((user, toUserId, toChannelId) => {
       if (toUserId || toChannelId)
@@ -98,11 +108,9 @@ function Chat({
     }, 1000),
     [socket]
   );
-
   const setRead = () => {
     debouncedSetRead(user, toUserId, toChannelId);
   };
-
   const leave = () => {
     socket?.emit("leavechannel", {
       userId: user?.id ?? "",
@@ -110,15 +118,12 @@ function Chat({
     });
     setDestination({ toUserId: undefined, toChannelId: undefined });
   };
-
   const members = toChannel?.members ?? [];
   const bans = toChannel?.bans ?? [];
   const membersNotBanned = members.filter((m) => !bans.includes(m));
-
   useEffect(() => {
     setModal(ModalType.NOTVISIBLE);
   }, [setModal, toChannelId]);
-
   useEffect(scrollToBottom, [messages]);
   useEffect(setRead, [
     socket,
@@ -128,9 +133,6 @@ function Chat({
     toChannelId,
     debouncedSetRead,
   ]);
-
-
-
   if (!selectedUser && !toChannelId) {
     return (
       <div className="chat-container choose-user-area">
@@ -149,7 +151,6 @@ function Chat({
       </div>
     );
   }
-
   return (
     <>
       <div className="chat-container">
@@ -202,7 +203,7 @@ function Chat({
                 />
               </button>
             )}
-            <Dropdown className="menu-toogle margin-panel-chat-settings">
+            {toChannel && <Dropdown className="menu-toogle margin-panel-chat-settings">
               <Dropdown.Toggle variant="" id="dropdown-basic">
                 <img
                   alt=""
@@ -254,7 +255,7 @@ function Chat({
                     </div>
                   </Dropdown.Item>
                 )}
-                <div className="border-top-chat"></div>
+                {(isAdminChannel() || isOwnerChannel()) && <div className="border-top-chat"></div>}
                 {toChannelId && (
                   <Dropdown.Item
                     onClick={leave}
@@ -275,7 +276,7 @@ function Chat({
                   </Dropdown.Item>
                 )}
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown>}
             {modal === ModalType.ADDMEMBERS && (
               <ModalOverlay onClose={() => setModal(ModalType.NOTVISIBLE)}>
                 <ChannelMembers
@@ -289,10 +290,10 @@ function Chat({
                 <ChannelManagement
                   onClose={() => setModal(ModalType.NOTVISIBLE)}
                   channel={toChannel}
+                  owner={isOwnerChannel()}
                 />
               </ModalOverlay>
             )}
-
             {modal === ModalType.CHANGEPASSWORD && (
               <ModalOverlay onClose={() => setModal(ModalType.NOTVISIBLE)}>
                 <ChannelPassword
@@ -300,15 +301,20 @@ function Chat({
                 />
               </ModalOverlay>
             )}
-
             {modal === ModalType.USERPROFILE && toUser && (
               <ModalOverlay onClose={() => setModal(ModalType.NOTVISIBLE)}>
                 <UserProfile
-                  onClose={() => setModal(ModalType.NOTVISIBLE)} user={toUser}
+                  onClose={() => setModal(ModalType.NOTVISIBLE)} friend={toUser}
                 />
               </ModalOverlay>
             )}
-
+            {modal === ModalType.GAMEPROPOSAL && toUser && (
+              <ModalOverlay onClose={() => setModal(ModalType.NOTVISIBLE)}>
+                <GameProposal
+                  onClose={() => setModal(ModalType.NOTVISIBLE)}
+                />
+              </ModalOverlay>
+            )}
           </div>
         </div>
         <div className="chat-history">
@@ -402,7 +408,9 @@ function Chat({
           from={user?.id ?? ""}
           toUserId={toUserId ?? ""}
           toChannelId={toChannelId ?? ""}
-          isBan={isBannedChannel()}
+          isBan={isBannedChannel() ?? false}
+          isMuted={isMutedChannel() ?? false}
+          startMatchmaking={mm_chat}
         />
       </div>
     </>
@@ -417,19 +425,23 @@ function Chat({
  * @param {boolean} prop.isBan - Whether the user is banned from the channel
  */
 function Input({
-  from,
-  toUserId,
-  toChannelId,
-  isBan,
-}: {
+    from,
+    toUserId,
+    toChannelId,
+    isBan,
+    isMuted,
+    startMatchmaking
+  }: {
   from: string;
   toUserId: string | undefined;
   toChannelId: string | undefined;
   isBan: boolean;
+  isMuted: boolean;
+  startMatchmaking: (mode:any ) => void;
 }) {
   const [message, setMessage] = useState<string>("");
   const socket = useContext(WebSocketContext);
-
+  const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -466,13 +478,12 @@ function Input({
     setShowChannelMembers(false);
   };
 
-
   return (
     <>
       <div className="chat-input col-xl-8 col-lg-12">
         <div className="col-xl-11 chat-input-mob">
           <div className="input-chat-with-button">
-            <img
+            {toUserId && <img
               alt=""
               src={InviteIcon}
               width="15"
@@ -480,10 +491,10 @@ function Input({
               onClick={handleAddFriendClick}
               className=""
               style={{ cursor: "pointer" }}
-            />
+            />}
             {showChannelMembers && (
               <ModalOverlay onClose={handleClose}>
-                <PopupNewGame onClose={handleClose} startMatchmaking={handleClose} />
+                <PopupNewGame onClose={handleClose} startMatchmaking={startMatchmaking} />
               </ModalOverlay>
             )}
             <input
@@ -494,7 +505,7 @@ function Input({
               placeholder="Type a message here..."
               className="input-message"
               ref={inputRef}
-              disabled={(!toUserId && !toChannelId) || isBan}
+              disabled={(!toUserId && !toChannelId) || isBan || isMuted}
             />
           </div>
         </div>

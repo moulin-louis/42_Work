@@ -37,7 +37,6 @@ const Signin: React.FC = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         window.location.href = data.redirectUrl;      }
       else {
         const errorData = await response.json();
@@ -49,7 +48,6 @@ const Signin: React.FC = () => {
         return;
       }
     } catch (error) {
-      console.error('Signup error:', error);
     }
   };
 

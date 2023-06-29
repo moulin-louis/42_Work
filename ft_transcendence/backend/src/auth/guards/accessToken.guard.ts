@@ -25,7 +25,7 @@ export class AccessTokenGuard implements CanActivate {
     try {
       const token = client.handshake.query.token;
       const userId = client.handshake.query.userId;
-      const user = this.jwt.verify(token, { secret: 'my_super_secret' }); //TODO: Move secret to a .env file
+      const user = this.jwt.verify(token, { secret: process.env.JWT_SECRET });
 
       return userId === user.sub;
     } catch (err) {

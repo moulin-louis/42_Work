@@ -70,7 +70,7 @@ function percentageProgression(progression: number | undefined, total: number) {
   return Math.trunc(100 * (progression ?? 0) / total);
 }
 
-export function AllAchievements({user}: {user: any}) {
+export function AchievementsMini({user}: {user: any}) {
   return (
     <>
       <Col xl={6} className="margin-card">
@@ -332,7 +332,7 @@ function Body() {
           <div className="content">
             <Row>
               <HeadingPage />
-              <AllAchievements user={userConnected}/>
+              <AchievementsMini user={userConnected}/>
             </Row>
           </div>
         </Col>
@@ -342,7 +342,7 @@ function Body() {
   );
 }
 
-function Achievements() {
+function AchievementsMin() {
   return (
     <>
       <Header />
@@ -351,4 +351,4 @@ function Achievements() {
   );
 }
 
-export default Achievements;
+export default AchievementsMin;

@@ -1,0 +1,113 @@
+.button-return {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #304FFD;
+    background: #304ffd1a;
+    border-radius: 10px;
+    padding: 10px 30px;
+    cursor: pointer;
+}
+
+.watchers {
+    display: flex;
+}
+
+.watchers-margin {
+    display: flex;
+    align-items: center;
+    flex: 1 1;
+    justify-content: center;
+}
+
+.background-pong {
+    background: #F4F7F7;
+    min-height: 100vh;
+}
+
+.game-area {
+    max-width: 70%;
+    margin: auto;
+}
+
+.type-game-pp {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+
+.paddle-left {
+    margin-left: 30px;
+    left: 0;
+}
+
+.paddle-right {
+    margin-right: 30px;
+    right: 0;
+}
+
+.score-left {
+    margin-left: 20%;
+    left: 0;
+}
+
+.score-right {
+    margin-right: 20%;
+    right: 0;
+}
+
+.line-div {
+    height: 400px;
+    position: absolute;
+    margin-left: 50%;
+}
+
+.line-pp {
+    border-left: 1px dashed #fff;
+    height: 100%;
+}
+
+.user-gamers-block {
+    background: #FBFCFC;
+    border-radius: 32px;
+    padding: 10px 30px;
+    align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+    .button-return {
+        padding: 15px 15px;
+        font-size: 14px;
+    }
+
+    .logo-ping-pong {
+        width: 135px;
+    }
+
+    .pong-header {
+        display: flex;
+    }
+
+    .button-margin {
+        margin-left: auto;
+    }
+    .game-area {
+        max-width: 100%;
+    }
+    .score-left {
+        margin-left: 20%;
+    }
+    .score-right {
+        margin-right: 20%;
+    }
+    .score {
+        font-size: 70px;
+        top: 35%;
+    }
+}

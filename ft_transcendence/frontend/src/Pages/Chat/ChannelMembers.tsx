@@ -29,8 +29,6 @@ function ChannelMembers({
       userId,
       channelId: channel?.id,
     });
-    // I think better, if after add to channel stay popup in open state
-    // onClose(); 
   };
 
   return (

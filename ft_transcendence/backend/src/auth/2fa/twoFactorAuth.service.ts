@@ -11,9 +11,18 @@ export class twoFactorAuthService{
         private readonly userService: UserService,
     ){}
     async generateTwoFactorAuthenticationSecret(username:string, res:Response){
-        const secret: string = authenticator.generateSecret();
+      const user = await this.userService.getByUsername(username);
+      let secret:string;
+      if (user && user.twoFactorAuthSecret)
+      {
+        secret = user.twoFactorAuthSecret;
+      }
+      else
+      {
+        secret = authenticator.generateSecret();
         await this.userService.switchTwoFactorAuth(secret, username);
-        const otpauthUrl = authenticator.keyuri(username, 'transcendance', secret); //TODO transcendance env.process etc
+      }
+        const otpauthUrl = authenticator.keyuri(username, 'transcendance', secret); 
         const QRCode = await qrCode.toDataURL(otpauthUrl);
         return res.status(201).send(QRCode);
       }

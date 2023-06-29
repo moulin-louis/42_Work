@@ -1,6 +1,5 @@
 import {
   WINDOWHEIGHT,
-  MIDDLE_WIN,
   DFSPEED,
   DFRADIUS,
   PADDLEHEIGHT,
@@ -18,9 +17,13 @@ class Ball {
 
   // This code creates a ball object that moves horizontally across the screen. The ball has a random horizontal velocity, and it moves at a constant vertical speed. The ball's position is represented by the center of the ball, and the ball's radius is 10 pixels.
   constructor() {
-    this.x = WINDOWHEIGHT / 2;
+    this.use_default();
+  }
+
+  use_default(): void {
+    this.x = WINDOWWIDTH / 2;
     this.vx = (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random());
-    this.y = MIDDLE_WIN;
+    this.y = WINDOWHEIGHT / 2;
     this.vy = (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random());
     this.speed = DFSPEED;
     this.radius = DFRADIUS;
@@ -41,7 +44,7 @@ class Ball {
       this.y - this.radius < player.y + PADDLEHEIGHT &&
       this.y + this.radius > player.y
     ) {
-      const hitLocation = (this.y - player.y) / PADDLEHEIGHT; // calculate where the ball hit the paddle
+      const hitLocation: number = (this.y - player.y) / PADDLEHEIGHT; // calculate where the ball hit the paddle
       this.vx < 0 ? (this.vx -= 0.5) : (this.vx += 0.5); // increase the speed of the ball
       this.vx = -this.vx;
       this.vy = 3 * hitLocation - 1; // deflect the ball's direction based on where it hit the paddle
@@ -54,19 +57,12 @@ class Ball {
   public bounceEdge(): boolean {
     if (this.y - this.radius < 0 || this.y + this.radius > WINDOWHEIGHT)
       this.vy = -this.vy;
-    if (this.x - this.radius < 0 || this.x + this.radius > WINDOWWIDTH)
-      return true;
-    return false;
+    return this.x - this.radius < 0 || this.x + this.radius > WINDOWWIDTH;
   }
 
   // This code resets the ball's position and velocity.
-  public reset() {
-    this.x = WINDOWHEIGHT / 2;
-    this.vx = (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random());
-    this.y = MIDDLE_WIN;
-    this.vy = (Math.random() > 0.5 ? 1 : -1) * (1 + Math.random());
-    this.speed = DFSPEED;
-    this.radius = DFRADIUS;
+  public reset(): void {
+    this.use_default();
   }
 }
 

@@ -19,26 +19,18 @@ import { UnreadContext, UnreadStore } from "../../Context/UnreadContext";
 import { UsersContext } from "../../Context/UsersContext";
 import { UserStatus, User } from "../../Context/AuthContext";
 
-// Avatar of user
-const avatarUsername = (
-  <img
+function Avatar(avatar: string | undefined): any {
+ return <img
     alt=""
-    src={AvatarImg}
+    src={avatar ?? AvatarImg}
     width="40"
     height="40"
-    className="d-inline-block align-top"
+    className="d-inline-block align-top image-avatar-img"
     id="navbarScrollingDropdown"
   />
-);
+};
 
-function Friend({ key, user }: {key:string, user: User}) {
-  function handleClick() {
-    if (user.status === UserStatus.PLAYING) {
-      alert("Jump to the game page");
-    } else {
-      alert("Jump to a friend's page");
-    }
-  }
+function Friend({ user }: {user: User}) {
 
   function statusCircle(isPlayNow: boolean) {
     if (isPlayNow) {
@@ -55,7 +47,7 @@ function Friend({ key, user }: {key:string, user: User}) {
     if (isOnline) {
       return (
         <>
-          <div className="online-status" />
+          <div className="online-status-sidebar" />
         </>
       );
     }
@@ -64,12 +56,11 @@ function Friend({ key, user }: {key:string, user: User}) {
   return (
     <div
       className="friend-margin"
-      onClick={handleClick}
       style={{ cursor: "pointer" }}
     >
       <div className="flex-friend items-center">
         <Col lg={12} xl={3} className="padding-zero image-container">
-          {user.avatar ?? avatarUsername}
+          {Avatar(user.avatar)}
           {checkOnline(user.status === UserStatus.ONLINE)}
         </Col>
         <Col lg={12} xl={6} className="padding-zero friend-margin-center">
@@ -197,12 +188,7 @@ const sidebarNavItems = [
     to: "/help",
     section: "help",
   },
-  // {
-  //   display: "Auth",
-  //   icon: <i className="bx bx-star"></i>,
-  //   to: "/auth",
-  //   section: "started",
-  // },
+ 
 ];
 
 export function FullMenu() {
@@ -253,7 +239,7 @@ function Sidebar() {
         <FullMenu />
         <div className="friends-block">
           <div className="friends-heading">Your friends</div>
-          {_(friends).sortBy("status").reverse().map((user) => (
+          {_(friends).sortBy("status").filter(f => !(f.hasBanned || f.isBanned)).reverse().map((user) => (
             <Friend key={user.id} user={user} />
           )).value()}
         </div>

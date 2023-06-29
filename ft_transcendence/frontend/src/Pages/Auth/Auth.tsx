@@ -69,7 +69,7 @@ class RightAuth extends Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      currentForm: 'login' // login, signup, signin
+      currentForm: 'login'
     };
   }
 

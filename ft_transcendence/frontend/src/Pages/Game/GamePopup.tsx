@@ -1,5 +1,4 @@
-import { useContext, useState } from "react";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import { useState } from "react";
 import "./Game.css";
 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -19,10 +18,8 @@ function AlertInfo(alertMessage: string) {
                     <Tooltip id={`tooltip-${'left'}`}>
                         <div style={{ textAlign: "left" }}>
                             Modes:<br></br>
-                            1) Classic: Standard ping pong rules.<br></br>
-                            2) Speed: Ball speed increases each stroke, making the game faster and more complex.<br></br>
-                            3) Power-up: Random boosters appear, affecting ball speed, size and racket properties.<br></br>
-                            4) Timed: Players aim to score as many goals as possible within a time limit.<br></br>
+                            1) Speed: Ball speed increases each stroke, making the game faster and more complex.<br></br>
+                            2) Timed: Players aim to score as many goals as possible within a time limit.<br></br>
                         </div>
                     </Tooltip>
                 }
@@ -51,27 +48,29 @@ function PopupNewGame({
     startMatchmaking,
 }: {
     onClose: () => void;
-    startMatchmaking: () => void;
+    startMatchmaking: (mode: any) => void;
 }) {
-    const socket = useContext(WebSocketContext);
+    // const socket = useContext(WebSocketContext);
 
-    const handleAdd = (userId: string) => {
-        socket?.emit("addtofriends", {});
+    // const handleAdd = (userId: string) => {
+    //     socket?.emit("addtofriends", {});
+    //     onClose();
+    // };
+    const handle_crt_game = (mode: any): void => {
         onClose();
+        startMatchmaking(mode);
     };
 
-    const [name, setName] = useState<string>("");
-    const [secret, setSecret] = useState<boolean>(false);
-    const [password, setPassword] = useState<string>("");
-    const [checkboxClass, setCheckboxClass] = useState<string>(
-        "chat-popup-checkbox"
-    );
+    // const [name, setName] = useState<string>("");
+    // const [secret, setSecret] = useState<boolean>(false);
+    // const [password, setPassword] = useState<string>("");
+    // const [checkboxClass, setCheckboxClass] = useState<string>(
+    //     "chat-popup-checkbox"
+    // );
 
     // Define game modes
     const gameModes = [
-        { id: 'classic', name: 'Classic mode' },
         { id: 'speed', name: 'Speed mode' },
-        { id: 'power', name: 'Power-Up mode' },
         { id: 'timed', name: 'Timed mode' },
     ];
 
@@ -83,9 +82,13 @@ function PopupNewGame({
     ];
 
     // Define wins options
+    // const winsOptions = [
+    //     { id: '3', name: 'Up to 3 wins/30s' },
+    //     { id: '11', name: 'Up to 11 wins/110s' },
+    // ];
     const winsOptions = [
-        { id: 'up_to_3_wins', name: 'Up to 3 wins' },
-        { id: 'up_to_11_wins', name: 'Up to 11 wins' },
+        { id: '3', winName: 'Up to 3 wins', timeName: '30 seconds' },
+        { id: '11', winName: 'Up to 11 wins', timeName: '110 seconds' },
     ];
 
     // State for tracking the selected game mode with first mode as default
@@ -130,7 +133,7 @@ function PopupNewGame({
                     <div className="chat-popup-head chat-popup-new-game">
                         <div>Choose a game mode:</div>
                         <div className="tooltip-popup">
-                            {AlertInfo("Modes:\nClassic Mode: In this mode, players compete in normal ping pong with basic rules and settings.<br></br>Speed Mode: In this mode, the speed of the ball constantly increases with each stroke, making the game of ping-pong more complex and faster.<br></br>Power-up Mode: During the game, random boosters appear on the table, which can accelerate the ball, increase or decrease its size, as well as changing the properties of the players' rackets.<br></br>Timed Mode: In this mode, players compete to see who can score more goals in a certain amount of time.")}
+                            {AlertInfo("Modes:\n<br></br>Speed Mode: In this mode, the speed of the ball constantly increases with each stroke, making the game of ping-pong more complex and faster.<br><br></br>Timed Mode: In this mode, players compete to see who can score more goals in a certain amount of time.")}
                         </div>
                     </div>
                     <div className="game-inline-card">
@@ -144,6 +147,7 @@ function PopupNewGame({
                                         <input
                                             type="checkbox"
                                             checked={selectedMode === mode.id}
+                                            onChange={() => {}}
                                             style={{ marginRight: "15px" }}
                                         />
                                         {mode.name}
@@ -168,6 +172,7 @@ function PopupNewGame({
                                         <input
                                             type="checkbox"
                                             checked={selectedSkin === skin.id}
+                                            onChange={() => {}}
                                             style={{ marginRight: "15px" }}
                                         />
                                         {skin.name}
@@ -179,7 +184,7 @@ function PopupNewGame({
                 </div>
                 <div className="chat-full-width">
                     <div className="chat-popup-head chat-popup-new-game">
-                        <div>How many wins to play:</div>
+                        <div>{selectedMode === 'speed' ? 'How many wins to play:' : 'Set the time limit:'}</div>
                     </div>
                     <div className="game-inline-card">
                         <Row className="g-2 full-width-cards">
@@ -192,9 +197,10 @@ function PopupNewGame({
                                         <input
                                             type="checkbox"
                                             checked={selectedWins === winsOption.id}
+                                            onChange={() => {}}
                                             style={{ marginRight: "15px" }}
                                         />
-                                        {winsOption.name}
+                                        {selectedMode === 'speed' ? winsOption.winName : winsOption.timeName}
                                     </div>
                                 </Col>
                             ))}
@@ -203,7 +209,7 @@ function PopupNewGame({
                 </div>
                 <div>
                     <div style={{ marginTop: "45px", display: "flex" }}>
-                        <button className="chat-popup-button-blue" onClick={() => { startMatchmaking(); onClose(); }}>
+                        <button className="chat-popup-button-blue" onClick={() => { handle_crt_game({ game_mode: selectedMode, limit_max: selectedWins }) }}>
                             Create game
                         </button>
                         <button

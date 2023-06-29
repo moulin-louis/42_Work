@@ -32,15 +32,14 @@ function WebSocketProvider({
   const [socket, setSocket] = useState<Socket | undefined>(undefined);
 
   useEffect(() => {
-    if (user && accessToken) {
+    if (user?.id && accessToken) {
       const socketIOClient = io(`http://localhost:3000`, {
         query: { userId: user?.id, token: accessToken },
       });
       setSocket(socketIOClient);
 
       socketIOClient.on("connect", () => {
-        console.log("Connected to WebSocket server");
-        socketIOClient.emit("saveusersocket", user.id);
+        socketIOClient.emit("saveusersocket", user?.id);
       });
 
       socketIOClient.on("notification", (notification: Notification) => {
@@ -55,10 +54,9 @@ function WebSocketProvider({
 
       return () => {
         socketIOClient.disconnect();
-        console.log("Disconnected from WebSocket server");
       };
     }
-  }, [user, accessToken]);
+  }, [user?.id, accessToken]);
 
   const value = useMemo(() => socket, [socket]);
 

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom";
 import _ from "lodash";
 import "./Chat.css";
 import Header from "../../Navigation/Header/Header";
@@ -16,6 +17,8 @@ import AddChatImg from "./../../Images/add-chat.svg";
 import SearchChatIcon from "./../../Images/search-channel.svg";
 import { User, useAuth } from "../../Context/AuthContext";
 import { UsersContext } from "../../Context/UsersContext";
+import { WebSocketContext } from "../../Context/WebSocketContext";
+
 
 /**
  * ModalType enum for handling different types of modals in the chat container.
@@ -29,6 +32,7 @@ export enum ModalType {
   CHANGEPASSWORD,
   ADDMODAL,
   USERPROFILE,
+  GAMEPROPOSAL,
 }
 
 /**
@@ -47,9 +51,29 @@ function ChatContainer() {
   const [selectedId, setSelectedId] = useState<string>("");
   const messageStore: MessageStore = useContext(MessagesContext);
   const [modal, setModal] = useState<ModalType>(ModalType.NOTVISIBLE);
-
+  const socket = useContext(WebSocketContext);
+  const navigate = useNavigate();
   // For mobile version
   const [isChatSelected] = useState(false);
+
+  useEffect(() => {
+    socket?.on('update_modal', (payload: ModalType) => {
+      setModal(payload);
+    });
+    return () => {
+      socket?.off('update_modal');
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    socket?.on('launch_game_proposal', (payload: any) => {
+      socket.emit('matchmaking', {game_mode: payload.game_mode, limit_max: payload.limit_max});
+      navigate('/play', {state: { mode: true }});
+    });
+    return (): void => {
+      socket?.off('launch_game_proposal');
+    };
+  }, [socket, navigate]);
 
   useEffect(() => {
     const key = destination?.toUserId
@@ -89,7 +113,7 @@ function ChatContainer() {
               <button
               onClick={() => {
                 setSelectedId("");
-                setDestination({ toUserId: undefined, toChannelId: undefined }); 
+                setDestination({ toUserId: undefined, toChannelId: undefined });
               }}
                 className="return-button">
                 ← Back to all chats
@@ -242,7 +266,6 @@ function ChannelDisplay({
   const messsageCountByChannel =
     useContext<UnreadStore>(UnreadContext)?.countByChannels;
   const { user } = useAuth();
-
   const getLastMessage = (name: string): React.JSX.Element => {
     const messages = _.get(messageStore, `channels.${name}`, []);
     const lastMessage = messages[messages.length - 1];
@@ -382,7 +405,7 @@ function UsersDisplay({
 
   return (
     <div>
-      {users.filter(u => u.id !== user?.id).map(({ id, username, avatar }) => (
+      {users.filter(u => u.id !== user?.id && !u.isBanned && !u.hasBanned).map(({ id, username, avatar }) => (
         <div
           key={id}
           onClick={() => {

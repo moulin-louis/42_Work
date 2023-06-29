@@ -152,6 +152,7 @@
     }
     .margin-circle {
         margin: 0px;
+        margin-top: 20px;
     }
     .full-width-mob {
         min-width: 100%;

@@ -3,74 +3,106 @@ import { Logger } from '@nestjs/common';
 import { SubscribeMessage, WebSocketGateway } from '@nestjs/websockets';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { SocketsService } from 'src/sockets.service';
 import { User } from '../entities/User';
+import { Match } from '../entities/Match';
 
 @WebSocketGateway()
 export class HistoryGateway {
   constructor(
     @InjectDataSource()
     private dataSource: DataSource,
-    private socketService: SocketsService,
   ) {}
 
-  @SubscribeMessage('get_win_history')
-  async handleWinHistory(client: Socket): Promise<void> {
-    Logger.log('get_win_history');
+  return_win_match = async (client_id: string): Promise<any[]> => {
+    const user: {
+      wonMatches: Match[];
+    } = await this.dataSource.manager.findOne(User, {
+      where: { id: client_id },
+      relations: ['wonMatches', 'wonMatches.winner', 'wonMatches.loser'],
+    });
+    if (!user) {
+      Logger.error('handleWinHistory: user not found');
+      return;
+    }
+    const result: any[] = [];
+    user.wonMatches.forEach((match: Match): void => {
+      result.push({
+        id: match.id,
+        winner: match.winner.username,
+        loser: match.loser.username,
+        draw: match.draw,
+        winnerScore: match.winnerScore,
+        loserScore: match.loserScore,
+        createdAt: match.createdAt.toString(),
+      });
+    });
+    return result;
+  };
+
+  return_lost_match = async (client_id: string): Promise<any[]> => {
+    const user: { lostMatches: Match[] } =
+      await this.dataSource.manager.findOne(User, {
+        where: { id: client_id },
+        relations: ['lostMatches', 'lostMatches.winner', 'lostMatches.loser'],
+      });
+    if (!user) {
+      Logger.error('handleLostHistory: user not found');
+      return;
+    }
+    const result: any[] = [];
+    user.lostMatches.forEach((match: Match): void => {
+      result.push({
+        id: match.id,
+        winner: match.winner.username,
+        loser: match.loser.username,
+        draw: match.draw,
+        winnerScore: match.winnerScore,
+        loserScore: match.loserScore,
+        createdAt: match.createdAt.toString(),
+      });
+    });
+    return result;
+  };
+
+  @SubscribeMessage('get_win_history_id')
+  async handleWinHistoryID(client: Socket, payload: string): Promise<void> {
+    Logger.log('get_win_history_id');
     try {
-      const user = await this.dataSource.manager.findOne(User, {
-        where: { id: this.socketService.getUserId(client) },
-        relations: ['wonMatches', 'wonMatches.winner', 'wonMatches.loser'],
-      });
-      if (!user) {
-        Logger.error('handleWinHistory: user not found');
-        client.emit('get_win_history', { error: 'user not found' });
-        return;
-      }
-      const result = [];
-      user.wonMatches.forEach((match) => {
-        result.push({
-          id: match.id,
-          winer: match.winner.username,
-          loser: match.loser.username,
-          winnerScore: match.winnerScore,
-          loserScore: match.loserScore,
-          createdAt: match.createdAt.toString(),
-        });
-      });
-      client.emit('get_win_history', result);
+      const result: any[] = await this.return_win_match(payload);
+      client.emit('get_win_history_id', result);
     } catch (e) {
-      Logger.error('handleWinHistory: ' + e);
+      Logger.error('get_win_history_id: ' + e);
     }
   }
 
-  @SubscribeMessage('get_lost_history')
-  async handleLostHistory(client: Socket): Promise<void> {
-    Logger.log('get_lost_history');
+  @SubscribeMessage('get_lost_history_id')
+  async handleLostHistoryid(client: Socket, payload: string): Promise<void> {
+    Logger.log('get_lost_history_id from ');
     try {
-      const user = await this.dataSource.manager.findOne(User, {
-        where: { id: this.socketService.getUserId(client) },
-        relations: ['lostMatches', 'lostMatches.winner', 'lostMatches.loser'],
-      });
-      if (!user) {
-        Logger.error('handleLostHistory: user not found');
-        client.emit('get_lost_history', { error: 'user not found' });
-        return;
-      }
-      const result = [];
-      user.lostMatches.forEach((match) => {
-        result.push({
-          id: match.id,
-          winer: match.winner.username,
-          loser: match.loser.username,
-          winnerScore: match.winnerScore,
-          loserScore: match.loserScore,
-          createdAt: match.createdAt.toString(),
-        });
-      });
-      client.emit('get_lost_history', result);
+      const result: any[] = await this.return_lost_match(payload);
+      client.emit('get_lost_history_id', result);
     } catch (e) {
-      Logger.error('handleLostHistory: ' + e);
+      Logger.error('get_lost_history_id: ' + e);
+    }
+  }
+
+  @SubscribeMessage('get_draw_history_id')
+  async handleDrawHistoryId(client: Socket, payload: string): Promise<void> {
+    Logger.log('get_draw_history_id');
+    try {
+      let result: any[] = await this.return_win_match(payload);
+      const tmp: any[] = await this.return_lost_match(payload);
+      result = result.concat(tmp);
+      const match_to_del: any[] = [];
+      for (const match of result) {
+        if (!match.draw) match_to_del.push(match);
+      }
+      for (const match of match_to_del) {
+        result.splice(result.indexOf(match), 1);
+      }
+      client.emit('get_draw_history_id', result);
+    } catch (e) {
+      Logger.error('get_draw_history_id: ' + e);
     }
   }
 }

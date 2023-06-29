@@ -96,18 +96,18 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 70px;
+  max-width: 90px;
 }
 
 .online-status-message {
-  width: 10px;
-  height: 10px;
-  background-color: #49C96D;
+  background-color: #49c96d;
+  border: 2px solid #fff;
   border-radius: 50%;
+  bottom: 4px;
+  height: 10px;
   position: absolute;
-  bottom: 3px;
-  right: 6px;
-  border: 2px solid white;
+  right: 8px;
+  width: 10px;
 }
 
 .selected-user-info {
@@ -370,6 +370,9 @@
   border-radius: 30px;
   width: 500px;
   position: fixed;
+
+  max-height: 90%;
+  overflow: auto;
 }
 
 .chat-popup-big-head {
@@ -680,7 +683,73 @@
   font-size: 16px;
 }
 
+.chat-popup-profile-info {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  color: #3F434A;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.chat-popup-space-profile {
+  margin-top: 30px;
+}
+
+.user-popup-info-align {
+  margin: auto;
+}
+
+.margin-right-popup-button {
+  margin-right: 0px;
+}
+
+.chat-popup-profile-window {
+  width: 90% !important;
+  background-color: #F8F8F8 !important;
+  padding: 50px;
+}
+
+.chat-popup-usercard {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.chat-popup-history {
+  width: 100%;
+}
+
+.chat-popup-usercard-text {
+  align-items: center;
+  color: #3f434a;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.chat-popup-usercard-text-user {
+  font-size: 24px;
+  margin-top: 30px;
+}
+
+
 @media screen and (max-width: 1200px) {
+  .user-popup-info-align {
+    margin-top: 30px;
+  }
+
+  .chat-popup-profile-info {
+    font-size: 16px;
+  }
+
   .chat-input-mob {
     width: -webkit-fill-available;
   }
@@ -744,14 +813,17 @@
   }
 
   .chat-hide-mob {
-     display: none!important;
+    display: none !important;
   }
+
   .chat-popup-inline {
     display: block;
   }
+
   .chat-popup-button-margin {
     padding-bottom: 5px;
   }
+
   .mini-button-settings {
     margin-left: 0px;
     margin-right: 3px;

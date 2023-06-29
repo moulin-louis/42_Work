@@ -28,18 +28,18 @@ function UserProvider({
   useEffect(() => {
     socket?.on("allusers", (users: User[]) => setUserStore(users));
     socket?.on("updateuser", (userId: string, userUpdated: User) => {
-      console.log("updateuser", userId, userUpdated);
       setUserStore((store) =>
         store.map((user) =>
           user.id === userId ? {...user, ...userUpdated} : user
         )
       );
     });
-    if (user) socket?.emit("allusers", user.id);
+    if (user?.id) socket?.emit("allusers", user.id);
     return () => {
       socket?.off("allusers");
+      socket?.off("updateuser");
     };
-  }, [socket, setUserStore, user]);
+  }, [socket, setUserStore, user?.id]);
 
   const value = useMemo(() => userStore, [userStore]);
 

@@ -109,7 +109,6 @@ function CheckPassword({
     }, 1000);
 
     socket?.on("checkchannelpassword", (isCorrect) => {
-      console.log({ isCorrect });
       clearTimeout(timerId);
       if (isCorrect) {
         socket?.emit("joinchannel", { userId, channelId: channel.id });

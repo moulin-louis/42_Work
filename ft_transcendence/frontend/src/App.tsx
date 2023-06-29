@@ -9,6 +9,7 @@ import Friends from "./Pages/Friends/Friends";
 import Play from "./Pages/Game/Game";
 import Achievements from "./Pages/Achievements/Achievements";
 import Help from "./Pages/Help/Help";
+import PingPong from "./Pages/PingPong/PingPong"
 
 import WebSocketProvider from "./Context/WebSocketContext";
 import MessagesProvider from "./Context/ChatContext";
@@ -19,6 +20,7 @@ import ChannelProvider from "./Context/ChannelContext";
 import Settings from "./Pages/Settings/Settings";
 import UserProvider from "./Context/UsersContext";
 import SigninTwoFactor from "./Pages/Auth/SigninTwoFactor";
+import CurrentUserProfile from "./Pages/Profile/CurrentUserProfile";
 
 function AppRoutes() {
   const { accessToken } = useAuth();
@@ -35,6 +37,8 @@ function AppRoutes() {
       <Route path="/history" element={!accessToken ? <Auth /> : <History />} />
       <Route path="/play" element={!accessToken ? <Auth /> : <Play />} />
       <Route path="/help" element={!accessToken ? <Auth /> : <Help />} />
+      <Route path="/profile" element={!accessToken ? <Auth /> : <CurrentUserProfile /> } />
+
       <Route
         path="/achievements"
         element={!accessToken ? <Auth /> : <Achievements />}
@@ -45,7 +49,11 @@ function AppRoutes() {
       />
       <Route
         path="/2fa"
-        element={!accessToken ? <Auth /> : <SigninTwoFactor />}
+        element={<SigninTwoFactor />}
+      />
+      <Route
+        path="/pingpong"
+        element={!accessToken ? <Auth /> : <PingPong />} 
       />
     </Routes>
   );

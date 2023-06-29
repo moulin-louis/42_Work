@@ -6,7 +6,7 @@
 }
 
 .friends-table {
-    margin-top: 20px ;
+    margin-top: 20px;
 }
 
 .table-grid {
@@ -75,15 +75,42 @@
     border: 1px rgba(198, 201, 204, 1);
     border-radius: 40px;
     border-style: dashed;
-    height: 40px!important;
-    width: 40px!important;
+    height: 40px !important;
+    width: 40px !important;
     object-fit: cover;
     object-position: center;
+}
+
+.game-avatar-mini {
+    border-radius: 100px;
+    height: 60px;
+    object-fit: cover;
+    object-position: center;
+    width: 60px;
+}
+
+.online-status-friends-page {
+    background-color: #49c96d;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    bottom: 0px;
+    height: 10px;
+    position: absolute;
+    right: 8px;
+    width: 10px;
+}
+
+.friends-container-img {
+    height: 40px;
 }
 
 .friends-inline-user {
     display: flex;
     align-items: center;
+}
+
+.friends-margin-10 {
+    margin: 0 10px;
 }
 
 .username-margin {
@@ -93,6 +120,46 @@
 .user-row-bottom {
     background: #ebf1f369;
     border-radius: 10px;
-    padding: 5px 0px;
+    padding: 10px;
     margin: 10px 0px;
+}
+
+.col-tight-al {
+    text-align: right;
+}
+
+.achievements-full-width {
+    width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .table-mob {
+        display: none;
+    }
+
+    .friends-inline-user {
+        display: block !important;
+    }
+
+    .friends-mob-user {
+        display: flex !important;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .friends-mob-card {
+        padding: 20px 15px;
+    }
+
+    .friends-avatar-mob {
+        border-radius: 70px;
+        height: 70px !important;
+        width: 70px !important;
+    }
+    .friends-nickname-mob {
+        font-size: 18px;
+        margin-left: 20px;
+        text-transform: capitalize;
+        font-weight: 700;
+    }
 }

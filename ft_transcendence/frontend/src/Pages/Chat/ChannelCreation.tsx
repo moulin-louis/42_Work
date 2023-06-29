@@ -114,6 +114,7 @@ function ChannelCreation({
             <input
               type="checkbox"
               checked={secret}
+              onChange={() => {}}
               style={{ marginRight: "15px" }}
             />
             Invite only

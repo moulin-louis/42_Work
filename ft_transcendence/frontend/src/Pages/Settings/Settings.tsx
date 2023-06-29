@@ -1,5 +1,4 @@
-import React, { Dispatch, useEffect, useMemo, useReducer, useRef } from 'react';
-import { useContext, useState } from "react";
+import React, { Dispatch, useEffect, useMemo, useRef, useContext, useState } from 'react';
 import './../../index.css';
 import './Settings.css';
 import Header from '../../Navigation/Header/Header';
@@ -34,7 +33,7 @@ export interface TwoFactorAuthProps {
 
 
 
-const InstructionsGoogle = React.forwardRef(function Dialog({ }, ref) {
+const InstructionsGoogle = React.forwardRef(function Dialog({}, ref) {
   return (
     <div>
       <div>Dialog content....</div>
@@ -71,40 +70,7 @@ function GoogleInfo() {
   );
 }
 
-// Avatar of user
 
-
-// It's place for qr image
-// var qrImage = (
-// <img
-//   alt=""
-//   src={QrIcon}
-//   width="100"
-//   height="100"
-//   className="margin-circle"
-//   id="navbarScrollingDropdown"
-// />
-// );
-
-// async function desactivateTwoFactorAuth({ checkboxValue, qrCode, setCheckboxValue, setQrCode }: TwoFactorAuthProps){
-//   const {user, accessToken} = useAuth();
-//   console.log("desactivate");
-//   try{
-//   const response = await fetch(`http://${hostname}:3000/2fa/desactivate`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${accessToken}` // Assuming you have an access token in the user object
-//     },
-//     body: JSON.stringify({ username: user?.username }),
-//     credentials: 'include',
-//   });
-//   setQrCode('');
-
-// }catch(error){
-//   //TODO handle error
-// }
-// }
 
 function QrImage({ qrCode }: { qrCode: string }) {
   return (
@@ -126,7 +92,6 @@ function QrImage({ qrCode }: { qrCode: string }) {
 function QrImageContainer({ checkboxValue, qrCode, setCheckboxValue, setQrCode, secret, setSecret }: TwoFactorAuthProps) {
   const { user, accessToken } = useAuth();
   const hostname = useMemo(() => window.location.hostname, []);
-  console.log(accessToken);
 
   async function generateQrIcon() {
     try {
@@ -140,21 +105,16 @@ function QrImageContainer({ checkboxValue, qrCode, setCheckboxValue, setQrCode, 
         credentials: 'include',
       });
       const qrCode = await response.text();
-      console.log(qrCode);
       setQrCode(qrCode);
       localStorage.setItem('enable', 'true');
       localStorage.setItem('qrCode', qrCode);
       setCheckboxValue(true);
-      // Handle the response here
-      // You can check response.ok to see if the request was successful
 
     } catch (error) {
-      // Handle any errors that occurred during the fetch request
     }
   }
 
   async function desactivateTwoFactorAuth() {
-    console.log("desactivate");
     try {
       const response = await fetch(`http://${hostname}:3000/2fa/desactivate`, {
         method: 'POST',
@@ -172,7 +132,6 @@ function QrImageContainer({ checkboxValue, qrCode, setCheckboxValue, setQrCode, 
 
 
     } catch (error) {
-      //TODO handle error
     }
 
   }
@@ -180,7 +139,8 @@ function QrImageContainer({ checkboxValue, qrCode, setCheckboxValue, setQrCode, 
     const fetchData = async () => {
       if (checkboxValue === true) {
         await generateQrIcon();
-      } else {
+      }
+      else {
         await desactivateTwoFactorAuth();
       }
     };
@@ -211,7 +171,6 @@ let isOnline = true
 
 function MainSettings() {
   const { user } = useAuth();
-  console.log("main setting ", user);
   const [username, setUsername] = useState<string>('');
   const [avatar, setAvatar] = useState({});
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -236,7 +195,6 @@ function MainSettings() {
   }
 
   const handleAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Handle avatar");
     e.preventDefault();
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
@@ -261,9 +219,6 @@ function MainSettings() {
     }
   };
 
-  // socket?.on('newimage', (dataUrl: string) => {
-  //   setUploadedImage(dataUrl);
-  // })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -357,7 +312,6 @@ function MainSettings() {
 }
 
 function SecuritySettings() {
-  //const [secret, setSecret] = useState<boolean>(false);
   const [checkboxClass, setCheckboxClass] = useState<string>("chat-popup-checkbox");
   const hostname = useMemo(() => (window.location.hostname), []);
   const { user, updateCurrentUser, accessToken } = useAuth();
@@ -365,40 +319,36 @@ function SecuritySettings() {
     const storedValue = localStorage.getItem('enable');
     return storedValue === 'true';
   });
-  console.log(user);
   const [qrCode, setQrCode] = useState('');
-  // const [qrCode, setQrCode] = useState(() =>{
-  //   const qr = localStorage.getItem('qrCode');
-  //   if (qr){
-  //     return qr;
-  //   } else {
-  //     return '';
-  //   }
-  // });
   const [secret, setSecret] = useState('');
+  const [errorState, setErrorState] = useState('');
+  const [fieldStyle, setFieldStyle] = useState('');
+  const [messageStyle, setMessageStyle] = useState('');
+  const [twoFAActivated, setTwoFAActivated] = useState(false);
 
   useEffect(() => {
-    if (accessToken) {
-      updateCurrentUser(accessToken);
+    async function fetchUser2FA() {
+      if (accessToken) {
+        try {
+          await updateCurrentUser(accessToken);
+        } catch (error) { }
+      }
+      if (user?.authEnable) {
+        setCheckboxValue(true);
+        setTwoFAActivated(true);
+        localStorage.setItem('enable', 'true');
+      } else {
+        localStorage.setItem('enable', 'false');
+        setCheckboxValue(false);
+      }
     }
-
-    if (user?.authEnable) {
-      setCheckboxValue(true);
-      localStorage.setItem('enable', 'true');
-    } else {
-      localStorage.setItem('enable', 'false');
-      setCheckboxValue(false);
-    }
-  }, [accessToken, user]);
+    fetchUser2FA();
+  }, [accessToken, updateCurrentUser, user]);
 
 
 
   const activateTwoFactorAuth = async (code: string) => {
-    console.log("frontend");
-    console.log(typeof secret);
     if (user) {
-      console.log("there is a user set");
-      console.log(user.id);
 
       try {
         const id = user.id;
@@ -411,14 +361,22 @@ function SecuritySettings() {
           body: JSON.stringify({ twoFactorAuthenticationCode: secret, id: id }),
           credentials: 'include',
         });
-        console.log(response);
+        const message = await response.json();
+        if (response.ok) {
+          setErrorState(message.message || 'You have activated the two factors authentication');
+          setFieldStyle(message.message ? 'success-border' : '');
+          setMessageStyle(message.message ? 'notify-auth-success' : '');
+          setTwoFAActivated(true);
+        } else {
+          setErrorState(message.error || 'Your code is expired or not valid');
+          setFieldStyle(message.error ? 'error-border' : '');
+          setMessageStyle(message.error ? 'notify-auth-error' : '');
+
+        }
       } catch (error) {
-        console.debug("ERROR");
-        // TODOHandle the error
       }
     }
 
-    console.log(secret);
   };
 
 
@@ -440,6 +398,11 @@ function SecuritySettings() {
                   <div className="settings-margin-google-input chat-popup-head">Click to connect 2-factor authorization</div>
                   <div className={checkboxClass} onClick={() => {
                     setCheckboxValue(prevState => !prevState);
+                    setTwoFAActivated(false);
+                    setErrorState('');
+                    setFieldStyle('');
+                    setMessageStyle('');
+                    setSecret('');
                     checkboxClass === "chat-popup-checkbox"
                       ? setCheckboxClass("chat-popup-checkbox-changed")
                       : setCheckboxClass("chat-popup-checkbox");
@@ -447,14 +410,14 @@ function SecuritySettings() {
                     <input
                       type="checkbox"
                       checked={checkboxValue}
-                      //onChange={handleChange}
+                      onChange={() => {}}
                       style={{ marginRight: "15px" }}
                     />
                     Enable Google Auth
                   </div>
                 </div>
               </div>
-              <div className='margin-circle full-width-mob margin-mob qr-margin'>
+              {!twoFAActivated && <div className='margin-circle full-width-mob margin-mob qr-margin'>
                 <div className="">
                   <div className="flex-friend items-center">
                     <Col lg={12} xl={3} className="padding-zero img-container-settings">
@@ -469,19 +432,17 @@ function SecuritySettings() {
                     </Col>
                   </div>
                 </div>
-              </div>
+              </div>}
             </div>
-            {qrCode && (
+            {qrCode && !twoFAActivated && (
               <div className="chat-full-width">
                 <div className="chat-popup-head chat-popup-top-margin">Verification code</div>
                 <input
                   type="number"
                   maxLength={6}
                   value={secret}
-                  // value={}
-                  className="chat-popup-input-text"
+                  className={`chat-popup-input-text ${fieldStyle}`}
                   onChange={(e) => setSecret(e.target.value)}
-                // onChange={(e) => setPassword(e.target.value)}
                 />
                 <div style={{ marginTop: "26px", display: "flex" }} className="align-settings-mob">
                   <button onClick={() => activateTwoFactorAuth(secret)} className="chat-popup-button-blue full-width-mob buttons-settings-mob" type="submit">
@@ -491,14 +452,7 @@ function SecuritySettings() {
               </div>
 
             )}
-            {/* <div style={{ marginTop: "25px", display: "flex" }} className="align-settings-mob">
-                <button className="chat-popup-button-blue full-width-mob buttons-settings-mob" type="submit">
-                  Save changes
-                </button>
-                <button className="chat-popup-button-white full-width-mob buttons-settings-mob" type="button">
-                  Reset
-                </button>
-              </div> */}
+            {errorState && <div className={`${messageStyle}`}>{errorState}</div>}
           </div>
         </div>
       </Col>
@@ -515,7 +469,6 @@ function PasswordSettings() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Handle submit password");
     if (user) {
       socket?.emit("updatepassword", {
         userId: user.id,
@@ -530,8 +483,8 @@ function PasswordSettings() {
 
   return (
     <>
-      <Col xl={6} className="margin-card" style={{ marginBottom: "30px" }}>
-        {!user?.login && (
+      {!user?.login && (
+        <Col xl={6} className="margin-card" style={{ marginBottom: "30px" }}>
           <div className='card-settings inline inline-achievements auth-shadow'>
             <div className='left full-width'>
               <div className="heading-settings">
@@ -564,8 +517,8 @@ function PasswordSettings() {
               </form>
             </div>
           </div>
-        )}
-      </Col>
+        </Col>
+      )}
     </>
   )
 }

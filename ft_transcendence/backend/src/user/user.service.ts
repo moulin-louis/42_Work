@@ -13,11 +13,8 @@ export class UserService {
       ) {}
 
       async getByUsername(username: string): Promise<User | undefined>{
-        console.log(username);
-        console.log(typeof username);
   
         const user = await this.usersRepository.findOne({where:{username: Equal(username)} });
-        console.log(user);
         return user;
       }
 
@@ -27,13 +24,11 @@ export class UserService {
       }
 
       async getById(id: string): Promise<User | undefined>{
-        console.log("getById method ", id);
         const user: User = await this.usersRepository.findOne({where:{id:Equal(id)}});
         return user;
       }
 
       async getAllUsers(): Promise <User[]> | null{
-        console.log('getAllUser');
         return (await this.usersRepository.find());
       }
 
@@ -73,10 +68,8 @@ export class UserService {
         if (!userData.username || !userData.password)
             throw new HttpException("You must enter a valid password and/or username", HttpStatus.FORBIDDEN);
         const user: User = await this.getByUsername(userData.username);
-        console.log(user);
         if (user)
         {
-          console.log("error");
             throw new HttpException('Username not availaible', HttpStatus.FORBIDDEN);
         }
         const newUser: User = await this.usersRepository.create(userData);
@@ -122,12 +115,8 @@ export class UserService {
       }
 
       async switchTwoFactorAuth(secret: string, username:string){
-        console.log("switch service");
-        console.log(username);
         const user = await this.getByUsername(username);
-        console.log(user);
         if (user){
-          console.log("secret ", secret);
           user.twoFactorAuthSecret = secret;
           user.twoFactorAuthActivated = false;
           user.authEnable = false;
@@ -139,7 +128,6 @@ export class UserService {
       }
 
       async activateTwoFactorAuth(username:string){
-        console.log("username",username);
         const user = await this.getByUsername(username);
         if (user){
           user.twoFactorAuthActivated = true;

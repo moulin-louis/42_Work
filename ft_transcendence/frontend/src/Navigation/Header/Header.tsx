@@ -95,9 +95,8 @@ function UserProfile() {
   const token = accessToken;
 
   const handleLogout = async () => {
-    console.log('Logging out...');
     await logout();
-    window.location.href = 'http://localhost:4000/auth' //TODO mettre dans le .env process.env
+    window.location.href = `http://localhost:3000/auth` //TODO mettre dans le .env process.env
   };
 
 
@@ -132,7 +131,7 @@ function UserProfile() {
           <div className="username-header-text">
             <b>{user?.username}</b>
             <br></br>
-            Nickname 42
+            {user?.login}
           </div>
         </div>
         <NavDropdown.Divider />

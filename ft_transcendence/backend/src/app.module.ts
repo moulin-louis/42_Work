@@ -15,7 +15,6 @@ import { HistoryGateway } from './history/history.gateway';
 
 @Module({
   imports: [
-    //ConfigModule.forRoot({}), //TODO config
     TypeOrmModule.forRoot(config),
     TypeOrmModule.forFeature([User]),
     ServeStaticModule.forRoot({

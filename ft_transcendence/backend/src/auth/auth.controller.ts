@@ -21,9 +21,7 @@ export class AuthController {
 
     @Get('me')
     async findMe(@Query('token') token: string){
-      console.log("me");
       const decodedToken = this.jwt.decode(token);
-      console.log("decoded Token ", decodedToken.sub);
       const id = decodedToken?.sub;
       const user: User = await this.usersRepository.findOne({ where: { id: id } });
       return user;
@@ -31,7 +29,6 @@ export class AuthController {
 
     @Get('callback')
     async login(@Req() req, @Res() res: any) {
-      console.debug("callback");
       const user = await this.authService.login(req.query.code);
       if (!user)
         throw new UnauthorizedException();
@@ -40,13 +37,13 @@ export class AuthController {
       let temporaryTokenCookie = this.authService.getCookieWithTemporaryToken(token);
       if (user.twoFactorAuthActivated){
         accessTokenCookie = this.authService.getCookieWithJwtLogout();
-        res.setHeader('Set-Cookie', [accessTokenCookie, temporaryTokenCookie]).redirect('http://localhost:4000/2fa');
+        res.setHeader('Set-Cookie', [accessTokenCookie, temporaryTokenCookie]).redirect(`http://localhost:${process.env.PORT}/2fa`);
       }else{
         user.token = token;
         await this.usersRepository.save(user);
         temporaryTokenCookie = this.authService.getCookieWithTemporaryErase();
         res.setHeader('Set-Cookie', [accessTokenCookie, temporaryTokenCookie]);
-        res.redirect('http://localhost:4000/'); // Redirect with the accessToken as a query parameter
+        res.redirect(`http://localhost:${process.env.PORT}/settings`); // Redirect with the accessToken as a query parameter
       }
     }
 
@@ -67,33 +64,27 @@ export class AuthController {
     const token = await this.authService.signToken(user.id, user.username);
     let accessTokenCookie = this.authService.getCookieWithJwtAccessToken(token);
     let temporaryTokenCookie = this.authService.getCookieWithTemporaryToken(token);
-  
+
     if (user.twoFactorAuthActivated) {
-      console.log("TWOFACTOR ACTIVATED");
       accessTokenCookie = this.authService.getCookieWithJwtLogout();
       res.setHeader('Set-Cookie', [accessTokenCookie, temporaryTokenCookie]);
-      res.status(200).json({ redirectUrl: 'http://localhost:4000/2fa' });
+      res.status(200).json({ redirectUrl: `http://localhost:${process.env.PORT}/2fa` });
     } else {
       temporaryTokenCookie = this.authService.getCookieWithTemporaryErase();
       res.setHeader('Set-Cookie', [accessTokenCookie, temporaryTokenCookie]);
-      res.status(200).json({ redirectUrl: `http://localhost:4000/?accessToken=${accessTokenCookie}` });
+      res.status(200).json({ redirectUrl: `http://localhost:${process.env.PORT}/settings?accessToken=${accessTokenCookie}` });
     }
   }
-  
 
-  @UseGuards(AccessTokenGuard)
   @Get('logout')
   @HttpCode(HttpStatus.OK)
   async logout(@Res() res, @Req() req) {
     const accessToken = req.headers.authorization.split(' ')[1];
     const decodedToken = this.jwt.decode(accessToken);
-    console.log("backend logout");
     await this.authService.logout(decodedToken.sub);
     const user = await this.userService.getById(decodedToken.sub);
-    console.log(user);
     const cookie = this.authService.getCookieWithJwtLogout();
-    console.log(cookie);
     res.setHeader('Set-Cookie', [cookie]);
-    res.sendStatus(200);
+    res.status(200).send();
   }
 }

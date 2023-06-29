@@ -10,12 +10,6 @@ import { JwtPayload } from 'src/auth/strategies';
 export class UserController {
     constructor(private readonly userService: UserService,
       private readonly jwt: JwtService,){}
-    @Post('work')
-    print(){
-      return console.log('work');
-    }
-
-
 
     @Get('all')
     async findAll(): Promise<User[] | undefined>{
@@ -36,9 +30,5 @@ export class UserController {
   async findBlockedUsers(@Req() req, @Res() res){
       res.send(req.user.blocked);
   }
-//TODO method update username
-//TODO method update token
-//TODO method delete
-//all method must be protected @UseGuards(AccessTokenGuard)
 
 }

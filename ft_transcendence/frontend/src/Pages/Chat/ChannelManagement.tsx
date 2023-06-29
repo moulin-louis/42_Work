@@ -6,12 +6,25 @@ import { Channel } from "../../Context/ChannelContext";
 import { UsersContext } from "../../Context/UsersContext";
 import { User } from "../../Context/AuthContext";
 
+/**
+ * A React component for managing the members of a channel.
+ * This includes functionalities such as muting, banning, unbanning, and making a user admin.
+ *
+ * @param {Object} props - The properties passed to the component
+ * @param {Function} props.onClose - Function to close the management window
+ * @param {Channel} [props.channel] - The channel currently being managed
+ * @param {boolean} props.owner - If the current user is the owner of the channel
+ *
+ * @returns {JSX.Element} The rendered ChannelManagement component
+ */
 function ChannelManagement({
   onClose,
   channel,
+  owner,
 }: {
   onClose: () => void;
   channel?: Channel;
+  owner: boolean;
 }) {
   const socket = useContext<Socket | undefined>(WebSocketContext);
   const users = useContext(UsersContext);
@@ -19,22 +32,22 @@ function ChannelManagement({
 
   const muteMember = (userId: string, channelId?: string) => {
     socket?.emit("mutefromchannel", { userId, channelId });
-    // onClose();
   };
 
   const banMember = (userId: string, channelId?: string) => {
     socket?.emit("banfromchannel", { userId, channelId });
-    // onClose();
   };
 
   const unbanMember = (userId: string, channelId?: string) => {
     socket?.emit("unbanfromchannel", { userId, channelId });
-    // onClose();
   };
 
   const makeAdmin = (userId: string, channelId?: string) => {
     socket?.emit("addadmintochannel", { userId, channelId });
-    // onClose();
+  };
+
+  const removeAdmin = (userId: string, channelId?: string) => {
+    socket?.emit("removeadminfromchannel", { userId, channelId });
   };
 
   const members = channel?.members ?? [];
@@ -95,6 +108,14 @@ function ChannelManagement({
                     onClick={() => makeAdmin(m.id, channel?.id)}
                   >
                     Make Admin
+                  </button>
+                )}
+                {isAdmin(m.id) && owner && !isOwner(m.id) && (
+                  <button
+                    className="mini-button-settings"
+                    onClick={() => removeAdmin(m.id, channel?.id)}
+                  >
+                    Remove Admin
                   </button>
                 )}
               </div>

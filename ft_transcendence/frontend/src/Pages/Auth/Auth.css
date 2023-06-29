@@ -169,9 +169,22 @@
   border-color: #FD7972 !important;
 }
 
+.success-border {
+  border-color: #93bf85 !important;
+}
+
 .notify-auth-error {
   margin-top: 15px;
   background: #FD7972;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+.notify-auth-success {
+  margin-top: 15px;
+  background: #93bf85;
   color: white;
   padding: 10px 25px;
   border-radius: 15px;

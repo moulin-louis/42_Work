@@ -36,7 +36,7 @@ const Signup: React.FC = () => {
         credentials: 'include',
       });
       if (response.ok) {
-        window.location.href = `http://${hostname}:4000/`
+        window.location.href = `http://${hostname}:3000/settings`
       }
       else {
         const errorData = await response.json();
@@ -48,7 +48,6 @@ const Signup: React.FC = () => {
         return;
       }
     } catch (error) {
-      console.error('Signup error:', error);
     }
   };
 

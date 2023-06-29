@@ -1,11 +1,11 @@
 import * as _ from 'lodash';
 import * as argon from 'argon2';
-import { Logger } from '@nestjs/common';
 import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
+import { Logger } from '@nestjs/common';
 import { Server, Socket } from 'socket.io';
 import { User } from 'src/entities/User';
 import { Message } from 'src/entities/Message';
@@ -17,6 +17,13 @@ import { Channel } from 'src/entities/Channel';
 import { promisify } from 'util';
 
 const wait = promisify(setTimeout);
+
+interface GameProposal {
+  sender: string;
+  recipient: string;
+  game_mode: string;
+  limit_max: string;
+}
 
 /**
  * A WebSocket Gateway class that facilitates chat operations.
@@ -37,9 +44,14 @@ export class ChatGateway {
   @WebSocketServer()
   server: Server;
 
- 
+  game_proposals: Set<GameProposal> = new Set();
 
-
+  handleDisconnect(socket: Socket) {
+    for (const game_p of this.game_proposals) {
+      if (game_p.sender == this.socketService.getUserId(socket))
+        if (this.game_proposals.delete(game_p)) return;
+    }
+  }
   /**
    * Asynchronously handles the 'allmessages' WebSocket event.
    * It finds all messages related to the provided username and emits them in a structured format.
@@ -52,7 +64,6 @@ export class ChatGateway {
     socket: Socket,
     { userId }: { userId: string },
   ): Promise<boolean> {
-    Logger.log('allmessages', { userId });
     const userMessages: Message[] = await this.dataSource.manager.find(
       Message,
       {
@@ -119,7 +130,6 @@ export class ChatGateway {
       toChannelId: string | undefined;
     },
   ): Promise<Message> {
-    Logger.log('newmessage', { message, from, toUserId, toChannelId });
     const date = new Date();
     const newMessage = new Message();
     newMessage.from = await this.dataSource.manager.findOneBy(User, {
@@ -172,7 +182,6 @@ export class ChatGateway {
       toChannelId: string | undefined;
     },
   ): Promise<boolean> {
-    Logger.log('setread', { from, toUserId, toChannelId });
     const getConditions = () => {
       if (toUserId) return { from: { id: from }, toUser: { id: toUserId } };
       if (toChannelId)
@@ -216,7 +225,6 @@ export class ChatGateway {
     socket: Socket,
     { userId }: { userId: string },
   ): Promise<boolean> {
-    Logger.log('allread', { userId });
     const allRead: Read[] = await this.dataSource.manager.find(Read, {
       where: { from: { id: userId } },
       relations: ['from', 'toUser', 'toChannel'],
@@ -229,7 +237,6 @@ export class ChatGateway {
         date: r.date,
       }))
       .value();
-    Logger.log('formattedAllRead', JSON.stringify(formattedAllRead, null, 4));
     return socket.emit('allread', formattedAllRead);
   }
 
@@ -277,7 +284,13 @@ export class ChatGateway {
       ownerId: string;
     },
   ): Promise<boolean> {
-    Logger.log('newchannel', { name, secret, password, ownerId });
+    if (name === '') {
+      socket.emit('notification', {
+        type: NotificationType.Error,
+        message: 'Channel name cannot be empty',
+      });
+      return false;
+    }
     const newChannel = new Channel();
     newChannel.name = name;
     if (secret) newChannel.secret = true;
@@ -292,6 +305,10 @@ export class ChatGateway {
     newChannel.admins = [user];
     newChannel.members = [user];
     await this.dataSource.manager.save(Channel, newChannel);
+    socket.emit('notification', {
+      type: NotificationType.Success,
+      message: `Channel #${name} created successfully`,
+    });
     return this.server.emit('channel', this.formatChannel(newChannel));
   }
 
@@ -303,18 +320,10 @@ export class ChatGateway {
    * @returns A promise representing the completion of the event handling.
    */
   @SubscribeMessage('allchannels')
-  async allChannels(
-    socket: Socket,
-    { userId }: { userId: string },
-  ): Promise<boolean> {
-    Logger.log('allchannels', { userId });
+  async allChannels(socket: Socket): Promise<boolean> {
     const allChannels: Channel[] = await this.dataSource.manager.find(Channel, {
       relations: ['admins', 'bans', 'members', 'mutes', 'owner'],
     });
-    Logger.log(
-      'allchannels',
-      JSON.stringify(allChannels.map(this.formatChannel), null, 4),
-    );
     return socket.emit('allchannels', allChannels.map(this.formatChannel));
   }
 
@@ -337,7 +346,6 @@ export class ChatGateway {
       channelId: string;
     },
   ): Promise<boolean> {
-    Logger.log('joinchannel', { userId, channelId });
     const user = await this.dataSource.manager.findOneBy(User, {
       id: userId,
     });
@@ -349,7 +357,6 @@ export class ChatGateway {
     await this.dataSource.manager.save(Channel, channel);
     await this.socketService.getSocket(userId)?.emit('notification', {
       type: NotificationType.Success,
-      title: 'Channel joined',
       message: `You have joined #${channel.name}`,
     });
     return this.server.emit('channel', this.formatChannel(channel));
@@ -367,16 +374,11 @@ export class ChatGateway {
     socket: Socket,
     { userId, channelId }: { userId: string; channelId: string },
   ): Promise<boolean> {
-    Logger.log('leavechannel', { userId, channelId });
     const channel = await this.dataSource.manager.findOne(Channel, {
       where: { id: channelId },
       relations: ['admins', 'bans', 'members', 'mutes', 'owner'],
     });
     channel.members = channel.members.filter((m) => m.id !== userId);
-    await socket.emit('notification', {
-      type: NotificationType.Info,
-      message: `You have left channel #${channel.name}`,
-    });
     if (!channel.members.length) {
       const id = channel.id;
       await this.dataSource.manager.remove(Channel, channel);
@@ -390,6 +392,10 @@ export class ChatGateway {
       channel.owner = channel.admins[0];
     }
     await this.dataSource.manager.save(Channel, channel);
+    await socket.emit('notification', {
+      type: NotificationType.Info,
+      message: `You have left channel #${channel.name}`,
+    });
     return this.server.emit('channel', this.formatChannel(channel));
   }
 
@@ -408,14 +414,12 @@ export class ChatGateway {
     {
       userId,
       channelId,
-      duration = 1,
     }: {
       userId: string;
       channelId: string;
       duration: number;
     },
   ): Promise<boolean> {
-    Logger.log('banfromchannel', { userId, channelId, duration });
     const channel = await this.dataSource.manager.findOne(Channel, {
       where: { id: channelId },
       relations: ['admins', 'bans', 'members', 'mutes', 'owner'],
@@ -425,7 +429,7 @@ export class ChatGateway {
     });
     channel.bans = channel.bans ? [...channel.bans, user] : [user];
     await this.dataSource.manager.save(Channel, channel);
-    await this.socketService.getSocket(userId)?.emit('notification', {
+    this.socketService.getSocket(userId)?.emit('notification', {
       type: NotificationType.Error,
       message: `You have been banned from channel #${channel.name}`,
     });
@@ -447,21 +451,19 @@ export class ChatGateway {
     {
       userId,
       channelId,
-      duration = 1,
     }: {
       userId: string;
       channelId: string;
       duration: number;
     },
   ): Promise<boolean> {
-    Logger.log('banfromchannel', { userId, channelId, duration });
     const channel = await this.dataSource.manager.findOne(Channel, {
       where: { id: channelId },
       relations: ['admins', 'bans', 'members', 'mutes', 'owner'],
     });
     channel.bans = channel.bans.filter((b) => b.id !== userId);
     await this.dataSource.manager.save(Channel, channel);
-    await this.socketService.getSocket(userId)?.emit('notification', {
+    this.socketService.getSocket(userId)?.emit('notification', {
       type: NotificationType.Success,
       message: `You have been unbanned from channel #${channel.name}`,
     });
@@ -490,7 +492,6 @@ export class ChatGateway {
       duration: number;
     },
   ): Promise<boolean> {
-    Logger.log('mutefromchannel', { userId, channelId });
     const channel = await this.dataSource.manager.findOne(Channel, {
       where: { id: channelId },
       relations: ['admins', 'bans', 'members', 'mutes', 'owner'],
@@ -500,11 +501,19 @@ export class ChatGateway {
     });
     channel.mutes = channel.mutes ? [...channel.mutes, user] : [user];
     await this.dataSource.manager.save(Channel, channel);
-    await this.server.emit('channel', this.formatChannel(channel));
+    this.server.emit('channel', this.formatChannel(channel));
     if (!duration) return;
+    this.socketService.getSocket(userId)?.emit('notification', {
+      type: NotificationType.Error,
+      message: `You have been muted from channel #${channel.name} for ${duration} minute`,
+    });
     await wait(duration * 60000);
     channel.mutes = channel.mutes.filter((b) => b.id !== userId);
     await this.dataSource.manager.save(Channel, channel);
+    this.socketService.getSocket(userId)?.emit('notification', {
+      type: NotificationType.Success,
+      message: `You have been unmuted from channel #${channel.name}`,
+    });
     return this.server.emit('channel', this.formatChannel(channel));
   }
 
@@ -527,7 +536,6 @@ export class ChatGateway {
       password: string;
     },
   ): Promise<boolean> {
-    Logger.log('changechannelpassword', { name, password });
     const channel = await this.dataSource.manager.findOne(Channel, {
       where: { id },
       relations: ['admins', 'bans', 'members', 'mutes', 'owner'],
@@ -562,7 +570,6 @@ export class ChatGateway {
       password: string;
     },
   ): Promise<boolean> {
-    Logger.log('checkchannelpassword', { id, password });
     const channel = await this.dataSource.manager.findOneBy(Channel, {
       id,
     });
@@ -591,7 +598,6 @@ export class ChatGateway {
       channelId: string;
     },
   ): Promise<boolean> {
-    Logger.log('addadmintochannel', { userId, channelId });
     const channel = await this.dataSource.manager.findOne(Channel, {
       where: { id: channelId },
       relations: ['admins', 'bans', 'members', 'mutes', 'owner'],
@@ -601,6 +607,138 @@ export class ChatGateway {
     });
     channel.admins.push(user);
     await this.dataSource.manager.save(Channel, channel);
+    this.socketService.getSocket(userId)?.emit('notification', {
+      type: NotificationType.Success,
+      message: `You have been added as an admin to channel #${channel.name}`,
+    });
     return this.server.emit('channel', this.formatChannel(channel));
+  }
+
+  /**
+   * Handles the 'removeadminfromchannel' WebSocket event.
+   * It removes a user from the admin role of a channel and emits the updated channel details.
+   * @param socket - The socket that initiated the 'removeadminfromchannel' event.
+   * @param username - The username of the user to remove from admin role.
+   * @param channelname - The name of the channel.
+   * @returns A promise representing the completion of the event handling.
+   */
+  @SubscribeMessage('removeadminfromchannel')
+  async removeAdminFromChannel(
+    socket: Socket,
+    {
+      userId,
+      channelId,
+    }: {
+      userId: string;
+      channelId: string;
+    },
+  ): Promise<boolean> {
+    const channel = await this.dataSource.manager.findOne(Channel, {
+      where: { id: channelId },
+      relations: ['admins', 'bans', 'members', 'mutes', 'owner'],
+    });
+    const user = await this.dataSource.manager.findOneBy(User, {
+      id: userId,
+    });
+    channel.admins = channel.admins.filter((a) => a.id !== user.id);
+    await this.dataSource.manager.save(Channel, channel);
+    this.socketService.getSocket(userId)?.emit('notification', {
+      type: NotificationType.Error,
+      message: `You have been removed from admin role of channel #${channel.name}`,
+    });
+    return this.server.emit('channel', this.formatChannel(channel));
+  }
+  async updateModal(
+    socket: Socket,
+    payload: { username: string; modal: any },
+  ): Promise<void> {
+    const socket_dest = this.socketService.getSocket(payload.username);
+    if (socket_dest) {
+      socket_dest.emit('update_modal', payload.modal);
+    } else {
+      Logger.error(
+        `update_modal: ${payload.username} ${payload.modal} not sent, socket not found`,
+      );
+    }
+  }
+
+  @SubscribeMessage('create_game_proposal')
+  async createGameProposal(socket: Socket, payload: any): Promise<void> {
+    Logger.log('create_game_proposal');
+    this.game_proposals.add({
+      sender: this.socketService.getUserId(socket),
+      recipient: payload.recipient,
+      game_mode: payload.game_mode,
+      limit_max: payload.limit_max,
+    });
+    await this.updateModal(socket, {
+      username: payload.recipient,
+      modal: 8,
+    });
+  }
+
+  @SubscribeMessage('accept_game_proposal')
+  async acceptGameProposal(socket: Socket): Promise<void> {
+    let game_p = null;
+    for (const game_p_tmp of this.game_proposals) {
+      if (game_p_tmp.recipient == this.socketService.getUserId(socket)) {
+        game_p = game_p_tmp;
+        break;
+      }
+    }
+    if (!game_p) {
+      Logger.error(
+        `accept_game_proposal: ${this.socketService.getUserId(
+          socket,
+        )} game proposal not found`,
+      );
+      return;
+    }
+    socket.emit('launch_game_proposal', {
+      game_mode: game_p.game_mode,
+      limit_max: game_p.limit_max,
+    });
+    this.socketService.getSocket(game_p.sender)?.emit('launch_game_proposal', {
+      game_mode: game_p.game_mode,
+      limit_max: game_p.limit_max,
+    });
+    this.game_proposals.delete(game_p);
+  }
+
+  @SubscribeMessage('refuse_game_proposal')
+  async refuseGameProposal(socket: Socket): Promise<void> {
+    Logger.log('refuse_game_proposal');
+    let game_p = null;
+    for (const game_p_tmp of this.game_proposals) {
+      if (game_p_tmp.recipient == this.socketService.getUserId(socket)) {
+        game_p = game_p_tmp;
+        break;
+      }
+    }
+    if (!game_p) {
+      Logger.error('refuse_game_proposal: game proposal not found');
+      return;
+    }
+    this.game_proposals.delete(game_p);
+  }
+
+  @SubscribeMessage('get_game_proposal')
+  async getGameProposal(socket: Socket): Promise<void> {
+    Logger.log('get_game_proposal');
+    let game_p = null;
+    for (const game_p_tmp of this.game_proposals) {
+      if (game_p_tmp.recipient == this.socketService.getUserId(socket)) {
+        game_p = game_p_tmp;
+        break;
+      }
+    }
+    if (!game_p) {
+      Logger.error('get_game_proposal: game proposal not found');
+      return;
+    }
+    socket.emit('get_game_proposal', {
+      game_mode: game_p.game_mode,
+      limit_max: game_p.limit_max,
+    });
   }
 }

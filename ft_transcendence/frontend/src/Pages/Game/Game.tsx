@@ -1,11 +1,12 @@
-import { useState, useEffect, useContext, useRef } from "react";
-import { WebSocketContext } from "../../Context/WebSocketContext";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { useLocation } from "react-router-dom";
 import { Socket } from "socket.io-client";
+import { WebSocketContext } from "../../Context/WebSocketContext";
 import Header from "./../../Navigation/Header/Header";
 import Sidebar from "./../../Navigation/Sidebar/Sidebar";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import "./Game.css";
 import PlayIcon from "./../../Navigation/Sidebar/icons/Cart.svg";
 import PlusIcon from "./icons/PlusBlue.svg";
@@ -17,31 +18,28 @@ interface IPosition {
   y: number;
 }
 
-interface FuncProps {
-  changeWaitingGame(new_state: boolean): void;
-}
-
 enum GameState {
   WIN,
   LOSE,
-};
-
+}
 // this function is used to handle socket events
-const useSocketEvent = (socket: Socket | undefined, event: string, handler: any) => {
+const useSocketEvent = (socket: Socket | undefined, event: string, handler: any): void => {
   useEffect(() => {
     socket?.on(event, handler);
-    return () => {
+    return (): void => {
       socket?.off(event);
     };
   }, [socket, event, handler]);
 }
 
 // This code creates a paddle that is updated when the server sends a new position.
-const usePaddle: any = (eventKey: any, color: string, className: string) => {
+const usePaddle: any = (eventKey: any, color: string, className: string, width_div: number, height_div: number) => {
   const socket = useContext(WebSocketContext);
+  const scale_x: number = width_div / 1552;
+  const scale_y: number = height_div / 400;
   const [position, setPosition] = useState<IPosition>({ x: 0, y: 0 });
-  useSocketEvent(socket, eventKey, (payload: IPosition) => {
-    setPosition(payload)
+  useSocketEvent(socket, eventKey, (payload: IPosition): void => {
+    setPosition({ x: payload.x * scale_x, y: payload.y * scale_y });
   });
   const style = {
     position: "absolute",
@@ -56,27 +54,27 @@ const usePaddle: any = (eventKey: any, color: string, className: string) => {
 // It uses the WebSocketContext to handle communication with the server.
 // The player's position is stored in the state variable "position".
 // The "position" variable is updated when the "Player_Position" event is received.
-// The "Move" event is emitted when the w or s keys are pressed.
-const PlayerBar = () => {
-  const paddleProps = usePaddle("Player_Position", "green", "paddle left");
+// The "Move" event is emitted when the player press w or s keys
+const PlayerBar = ({ width_div, height_div }: { width_div: number, height_div: number }) => {
+  const paddleProps = usePaddle("Player_Position", "green", "paddle left", width_div, height_div);
   const socket = useContext(WebSocketContext);
   const keysRef = useRef(new Set());
   useEffect(() => {
-    const handleKeyDown = (event: any) => {
+    const handleKeyDown = (event: any): void => {
       keysRef.current.add(event.key);
     };
-    const handleKeyUp = (event: any) => {
+    const handleKeyUp = (event: any): void => {
       keysRef.current.delete(event.key);
     };
     document.body.addEventListener('keydown', handleKeyDown);
     document.body.addEventListener('keyup', handleKeyUp);
-    return () => {
+    return (): void => {
       document.body.removeEventListener('keydown', handleKeyDown);
       document.body.removeEventListener('keyup', handleKeyUp);
     };
   }, []);
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    const intervalId: NodeJS.Timer = setInterval((): void => {
       if (keysRef.current.has('ArrowUp')) socket?.emit('Move', 'ArrowUp');
       if (keysRef.current.has('ArrowDown')) socket?.emit('Move', 'ArrowDown');
     }, 30);  // adjust interval as needed
@@ -90,8 +88,8 @@ const PlayerBar = () => {
 
 
 // This code gets the position of the enemy paddle from the server and sets it to the correct position
-const EnemyBar = () => {
-  const paddleProps = usePaddle("EnemyPos", "red", "paddle right");
+const EnemyBar = ({ width_div, height_div }: { width_div: number, height_div: number }) => {
+  const paddleProps = usePaddle("EnemyPos", "red", "paddle right", width_div, height_div);
   return (
     <div {...paddleProps}></div>
   );
@@ -103,7 +101,7 @@ const PlayerScore = () => {
   const [score, setScore] = useState<number>(0);
 
   useSocketEvent(socket, "PlayerScore", (payload: number) => setScore(payload));
-  return <div className="score left">{score}</div>;
+  return <div className="score score-left">{score}</div>;
 };
 
 // This code gets the score of the enemy from the server and sets it to the correct score
@@ -112,36 +110,49 @@ const EnemyScore = () => {
   const [score, setScore] = useState<number>(0);
 
   useSocketEvent(socket, "EnemyScore", (payload: number) => setScore(payload));
-  return <div className="score right">{score}</div>;
+  return <div className="score score-right">{score}</div>;
 };
 
 // This code gets the position of the ball from the server and sets it to the correct position
-const Ball = () => {
+const Ball = ({ width_div, height_div }: { width_div: number, height_div: number }) => {
   const socket = useContext(WebSocketContext);
   const [position, setPosition] = useState<IPosition>({ x: 180, y: 300 });
-
-  useSocketEvent(socket, "GetPositionBall", (payload: IPosition) => setPosition(payload));
+  const scale_x: number = width_div / 1552;
+  const scale_y: number = height_div / 400;
+  useSocketEvent(socket, "GetPositionBall", (payload: IPosition) => setPosition({ x: payload.x * scale_x, y: payload.y * scale_y }));
   return (
-    <svg width={600} height={400}>
-      <circle cx={position.x} cy={position.y} r="10" fill="black" />
+    <svg height={400} width={1552}>
+      <circle cx={position.x} cy={position.y} r="10" fill="white" />
     </svg>
   );
 };
 
-const GameOver = ({ status }: any) => {
+const GameOver = ({ status, handleGameOver }: any) => {
+  const close_game = (): void => {
+    handleGameOver(false);
+  }
   return (
-    <div className="game-over">
-      {status === GameState.WIN ? (<h1> You win !</h1>) : (<h1> You lose !</h1>)}
+    <div className="game-over-back">
+      <div className="game-over">
+        {status === GameState.WIN ? (<h1 className="game-over-head heading-margin">🎉 You win!</h1>) : (<h1 className="game-over-head heading-margin">😵 You lose!</h1>)}
+        <button onClick={close_game}
+          className="AuthMargin heading-button">
+          <div className="play-button-text">
+            Back to the games page
+          </div>
+        </button>
+      </div>
     </div>
   )
 }
 
 // This code creates the game board
-const PongGame = () => {
+export const PongGame = ({ handleGameOver }: any) => {
   const [game_state, setGameState] = useState<GameState | null>(null);
   const [game_ended, setGameEnded] = useState<boolean>(false);
   const socket = useContext(WebSocketContext);
-  useSocketEvent(socket, "GameOver", (payload: any) => {
+
+  useSocketEvent(socket, "GameOver", (payload: { winner: string }): void => {
     if (payload.winner === 'you') {
       setGameEnded(true);
       setGameState(GameState.WIN);
@@ -150,56 +161,80 @@ const PongGame = () => {
       setGameState(GameState.LOSE);
     }
   });
+
+  const divRef = useRef<HTMLDivElement>(null);
+  const [width_div, setWidthDiv] = useState<number>(0);
+  const [height_div, setHeightDiv] = useState<number>(0);
+  useEffect(() => {
+    const handleResize = (): void => {
+      const { current }: { current: HTMLDivElement | null } = divRef;
+      if (current) {
+        const { width, height }: { width: number, height: number } = current.getBoundingClientRect();
+        setHeightDiv(height);
+        setWidthDiv(width);
+      }
+    }
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [divRef]);
   return (
-    <div className="game-board">
-      {game_ended ? <GameOver status={game_state} /> : (
-        <div>
-          <PlayerBar />
-          <EnemyBar />
-          <PlayerScore />
-          <EnemyScore />
-          <Ball />
-        </div>
-      )
+    <div className="game-board" ref={divRef}>
+      {
+        game_ended ? <GameOver status={game_state} handleGameOver={handleGameOver} />
+          : (<div>
+            <PlayerBar width_div={width_div} height_div={height_div} />
+            <EnemyBar width_div={width_div} height_div={height_div} />
+            <PlayerScore />
+            <EnemyScore />
+            <SeparatorLine />
+            <Ball width_div={width_div} height_div={height_div} />
+          </div>)
       }
     </div>
   );
 };
 
 // This code creates the game lobby, waiting in matchmaking room for a player
-const Lobby: React.FC<FuncProps> = ({ changeWaitingGame }: FuncProps) => {
+const Lobby = ({ changeWaitingGame, handle_GO }: any) => {
   const socket = useContext(WebSocketContext);
-  useSocketEvent(socket, "matchmaking", (payload: boolean) => { if (payload) changeWaitingGame(false); });
+  useSocketEvent(socket, "matchmaking", (payload: boolean): void => { if (payload) changeWaitingGame(false); });
   return (
-    <div className="lobby">
-      <h1>Waiting for a player to join...</h1>
-    </div>
+    <Row>
+      <NewGameCard status="waiting" handleClose={handle_GO} />
+      {/* <NewGameCard status="disabled" /> */}
+      {/* <NewGameCard status="default" /> */}
+    </Row>
   );
 };
 
 // This function is used to handle the game state of the user.
 // It is used to start the matchmaking process, and to handle when the game is over.
 // It also handles the waiting state of the user, when the user is waiting for an opponent.
-const useGameState = () => {
+export const useGameState = () => {
   const [LaunchGame, setLaunchGame] = useState(false);
   const [waitingGame, setWaitingGame] = useState<boolean>(true);
   const socket = useContext(WebSocketContext);
+  const handleGameOver = (): void => {
+    setLaunchGame(false);
+    setWaitingGame(true);
+  }
   useEffect(() => {
-    const handleGameOver = (payload: any) => {
-      setLaunchGame(false);
-      setWaitingGame(true);
-    }
-    const handleMatchmaking = (payload: boolean) => {
-      if (payload === true) setWaitingGame(false);
+    const handleMatchmaking = (payload: boolean): void => {
+      if (payload) setWaitingGame(false);
     }
     socket?.on("GameOver", handleGameOver);
     socket?.on("matchmaking", handleMatchmaking);
+    return () => {
+      socket?.off("GameOver", handleGameOver);
+      socket?.off("matchmaking", handleMatchmaking);
+    }
   }, [socket]);
-  const startMatchmaking = () => {
-    socket?.emit("matchmaking");
+  const startMatchmaking = (mode: any): void => {
+    socket?.emit("matchmaking", mode);
     setLaunchGame(true);
   }
-  return { LaunchGame, waitingGame, startMatchmaking, setWaitingGame };
+  return { LaunchGame, waitingGame, startMatchmaking, setWaitingGame, handleGameOver, setLaunchGame };
 }
 
 interface ModalOverlayProps {
@@ -215,15 +250,29 @@ function ModalOverlay({ onClose, children }: ModalOverlayProps) {
   );
 }
 
-const Body = () => {
-  const { LaunchGame, waitingGame, startMatchmaking, setWaitingGame } = useGameState();
-  const [showChannelMembers, setShowChannelMembers] = useState(false);
+function SeparatorLine() {
+  return (
+    <div className="line-div">
+      <div className="line-pp"></div>
+    </div>
+  )
+}
 
-  const handleAddFriendClick = () => {
+const Body = () => {
+  const { LaunchGame, waitingGame, startMatchmaking, setWaitingGame, handleGameOver, setLaunchGame } = useGameState();
+  const [showChannelMembers, setShowChannelMembers] = useState(false);
+  const location = useLocation();
+  useEffect((): void => {
+    if (location?.state) {
+      setWaitingGame(false);
+      setLaunchGame(true);
+    }
+  }, [setWaitingGame, setLaunchGame, location]);
+  const handleAddFriendClick = (): void => {
     setShowChannelMembers(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setShowChannelMembers(false);
   };
 
@@ -257,18 +306,13 @@ const Body = () => {
                   <div className="text-without-games">
                     There are no games yet, be the first
                   </div>
-                  <button className="AuthMargin heading-button start-button" onClick={startMatchmaking}>
-                    <img className="play-button-icon" src={PlusIcon} alt="" />
-                    <div className="newgame-text">Join a Game</div>
-                  </button>
+                  {/*<button className="AuthMargin heading-button start-button" onClick={handleAddFriendClick}>*/}
+                  {/*  <img className="play-button-icon" src={PlusIcon} alt="" />*/}
+                  {/*  <div className="newgame-text">Join a Game</div>*/}
+                  {/*</button>*/}
                 </div>
-              ) : (waitingGame ? (<Lobby changeWaitingGame={setWaitingGame} />) : (<PongGame />))
+              ) : (waitingGame ? (<Lobby changeWaitingGame={setWaitingGame} handle_GO={handleGameOver} />) : (<PongGame handleGameOver={handleGameOver} />))
               }
-            </Row>
-            <Row style={{ marginTop: "45px" }}>
-              <NewGameCard status="waiting" />
-              <NewGameCard status="disabled" />
-              <NewGameCard status="default" />
             </Row>
           </div>
         </Col>

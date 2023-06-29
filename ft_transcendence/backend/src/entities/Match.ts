@@ -24,6 +24,9 @@ export class Match {
   @Column()
   loserScore: number;
 
+  @Column()
+  draw: number;
+
   @CreateDateColumn()
   createdAt: Date;
 }

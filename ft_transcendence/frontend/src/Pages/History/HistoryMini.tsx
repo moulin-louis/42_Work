@@ -1,6 +1,6 @@
-import Header from "./../../Navigation/Header/Header";
+import Header from "../../Navigation/Header/Header";
 import Container from "react-bootstrap/Container";
-import Sidebar from "./../../Navigation/Sidebar/Sidebar";
+import Sidebar from "../../Navigation/Sidebar/Sidebar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { WebSocketContext } from "../../Context/WebSocketContext";
@@ -66,7 +66,7 @@ const WinnerInfo = ({ match_info }: any) => {
           <img
             alt=""
             src={match_info.winner?.avatar}
-            className="game-auto-margin game-avatar game-avatar-empty"
+            className="game-auto-margin game-avatar-mini game-avatar-empty"
           />
           <div className="game-nickname-card">{match_info.winner}</div>
         </Col>
@@ -83,7 +83,7 @@ const LoserInfo = ({ match_info }: any) => {
           <img
             alt=""
             src={match_info.loser?.avatar}
-            className="game-auto-margin game-avatar game-avatar-empty"
+            className="game-auto-margin game-avatar-mini game-avatar-empty"
           />
           <div className="game-nickname-card">{match_info.loser}</div>
         </Col>
@@ -97,14 +97,14 @@ const MatchHistory = ({ match_info }: any) => {
     <div>
       <div className="time-badge">{moment(match_info.createdAt).fromNow()}</div>
       <div className="history-inline-card">
-        <Col sm={4}>
+        <Col sm={3}>
           <WinnerInfo match_info={match_info} />
         </Col>
-        <Col sm={4}>
+        <Col sm={6}>
           <div className="history-score score-margin">{match_info.winnerScore} : {match_info.loserScore}</div>
           {match_info.draw ? <div className="score-margin">Draw</div>: <div></div>}
         </Col>
-        <Col sm={4}>
+        <Col sm={3}>
           <LoserInfo match_info={match_info} />
         </Col>
       </div>
@@ -146,7 +146,7 @@ const UserDrawHistory = ({ match_draw }: any) => {
           (<h1>No draw match</h1>) :
           (match_draw.map((match_info: IMatchInfo) => (
             <>
-              <Col key={match_info.id} xl={4} className="margin-card">
+              <Col key={match_info.id} xl={6} className="margin-card">
                 <div className='history-card auth-shadow'>
                   <div className='inline '>
                     <MatchHistory match_info={match_info} />
@@ -168,7 +168,7 @@ const UserWonHistory = ({ match_won }: any) => {
           (<h1>No match won</h1>) :
           (match_won.map((match_info: IMatchInfo) => (
             <>
-              <Col key={match_info.id} xl={4} className="margin-card">
+              <Col key={match_info.id} xl={6} className="margin-card">
                 <div className='history-card auth-shadow'>
                   <div className='inline '>
                     <MatchHistory match_info={match_info} />
@@ -190,7 +190,7 @@ const UserLostHistory = ({ match_lost }: any) => {
           (<h1>No match lost</h1>) :
           (match_lost.map((match_info: IMatchInfo) => (
             <>
-              <Col key={match_info.id} xl={4} className="margin-card">
+              <Col key={match_info.id} xl={6} className="margin-card">
                 <div className='history-card auth-shadow'>
                   <div className='inline '>
                     <MatchHistory match_info={match_info} />
@@ -213,7 +213,7 @@ const UserAllHistory = ({ match_won, match_lost, match_draw }: any) => {
             allGames.length === 0 ?
               (<h1>No games played</h1>) :
               (allGames.map((match_info: IMatchInfo) => (
-                <Col key={match_info.id} xl={4} className="margin-card">
+                <Col key={match_info.id} xl={6} className="margin-card">
                   <div className='history-card auth-shadow'>
                     <div className='inline '>
                       <MatchHistory match_info={match_info} />
@@ -227,7 +227,7 @@ const UserAllHistory = ({ match_won, match_lost, match_draw }: any) => {
     );
 }
 
-export function HistoryBlock({id}: {id: string}) {
+export function HistoryMini({id}: {id: string}) {
   const { match_won, match_lost, match_draw } = useGameHistory(id);
   const totalGames = match_won.length + match_lost.length + match_draw.length;
   return (
@@ -303,7 +303,7 @@ export const BodyHistory = () => {
           <div className="content">
             <Row>
               <HeadingPage />
-              <HistoryBlock id={userConnected.id}  />
+              <HistoryMini id={userConnected.id}  />
             </Row>
           </div>
         </Col>
@@ -316,7 +316,7 @@ export const BodyHistory = () => {
 };
 
 
-const History = () => {
+const HistoryMin = () => {
   return (
     <>
       <Header />
@@ -325,4 +325,4 @@ const History = () => {
   );
 }
 
-export default History;
+export default HistoryMin;

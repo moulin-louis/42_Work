@@ -22,10 +22,12 @@ export interface User {
   friendRequest: string[];
   status: UserStatus;
   twoFactorAuthEnabled: boolean;
+  twoFactorAuthSecret:string;
   authEnable: boolean;
   matches: any[];
   matchesPlayed: number;
   matchesWon: number;
+  matchesLost: number;
   messagesReceived: number;
   messagesSent: number;
   logTimeInMinutes: number;
@@ -48,19 +50,19 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [accessToken, setAccessToken] = useState<string | null>(() => {
     const storedToken = sessionStorage.getItem('accessToken');
-    return storedToken || null;
+    return storedToken ?? null;
   });
   const [user, setUser] = useState<User | null>(null);
   const hostname = useMemo(() => window.location.hostname, []);
 
-  const clearCookie = () => {
+  const clearCookie = useCallback(() => {
     document.cookie = 'Authentication=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-  };
+  }, []);
 
-  const clearAccessToken = () => {
+  const clearAccessToken = useCallback(() => {
     sessionStorage.removeItem('accessToken');
     setAccessToken(null);
-  };
+  }, []);
 
   const updateCurrentUser = useCallback(async (token: string): Promise<User> => {
     try {
@@ -76,68 +78,56 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [hostname]);
 
-  const logout = async () => {
-    try {
-      await fetch('http://localhost:3000/auth/logout', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-        credentials: 'include',
-      });
-
-      sessionStorage.removeItem('accessToken');
-      localStorage.removeItem('qrCode');
-      localStorage.removeItem('enable');
-      document.cookie = 'Authentication=; path=/;';
-
-      setAccessToken(null);
-      setUser(null);
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  };
+  const logout = useCallback(() => {
+    sessionStorage.removeItem('accessToken');
+    localStorage.removeItem('qrCode');
+    localStorage.removeItem('enable');
+    document.cookie = 'Authentication=; path=/;';
+    setAccessToken(null);
+    setUser(null);
+    fetch(`http://localhost:${process.env.REACT_APP_PORT}/auth/logout`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      credentials: 'include',
+    })
+    .then(() => {
+      window.location.href = `http://localhost:${process.env.REACT_APP_PORT}/auth`;
+    })
+    .catch((error) => {});
+  }, [accessToken]);
 
   useEffect(() => {
-    console.log(document.cookie);
     const storedToken = sessionStorage.getItem('accessToken');
     const cookies = document.cookie.split(';');
     let token = null;
 
     for (const element of cookies) {
-      console.log("split cookie");
       const cookie = element.trim();
       if (cookie.startsWith('Authentication=')) {
         token = cookie.split('=')[1];
-        console.log("size ", token.length);
-        console.log(token);
         break;
       }
     }
 
     if (token) {
-      console.log(token?.length);
-      console.log("enter");
       setAccessToken(token);
       sessionStorage.setItem('accessToken', token);
       clearCookie();
     } else if (storedToken) {
       setAccessToken(storedToken);
     }
-  }, []);
+  }, [clearCookie]);
 
   useEffect(() => {
-    console.log("access token  ",accessToken);
     if (accessToken) {
-      console.log('second useEffect');
       updateCurrentUser(accessToken)
         .then((userData: User) => {
-          console.log('userData', userData);
           setUser(userData);
         })
         .catch((error) => {
-          console.error(error);
         });
     }
   }, [accessToken, setUser, updateCurrentUser]);
@@ -156,8 +146,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [user]);
 
+  const value = useMemo(() => ({
+    accessToken,
+    setAccessToken,
+    user,
+    setUser,
+    clearAccessToken,
+    logout,
+    updateCurrentUser
+  }), [accessToken, setAccessToken, user, setUser, clearAccessToken, logout, updateCurrentUser]);
+
+
   return (
-    <AuthContext.Provider value={{ accessToken, setAccessToken, user, setUser, clearAccessToken, logout, updateCurrentUser }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
