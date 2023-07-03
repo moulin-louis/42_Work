@@ -655,10 +655,6 @@ export class ChatGateway {
     const socket_dest = this.socketService.getSocket(payload.username);
     if (socket_dest) {
       socket_dest.emit('update_modal', payload.modal);
-    } else {
-      Logger.error(
-        `update_modal: ${payload.username} ${payload.modal} not sent, socket not found`,
-      );
     }
   }
 
@@ -687,11 +683,11 @@ export class ChatGateway {
       }
     }
     if (!game_p) {
-      Logger.error(
-        `accept_game_proposal: ${this.socketService.getUserId(
-          socket,
-        )} game proposal not found`,
-      );
+      // Logger.error(
+        // `accept_game_proposal: ${this.socketService.getUserId(
+          // socket,
+        // )} game proposal not found`,
+      // );
       return;
     }
     socket.emit('launch_game_proposal', {
@@ -715,10 +711,6 @@ export class ChatGateway {
         break;
       }
     }
-    if (!game_p) {
-      Logger.error('refuse_game_proposal: game proposal not found');
-      return;
-    }
     this.game_proposals.delete(game_p);
   }
 
@@ -731,10 +723,6 @@ export class ChatGateway {
         game_p = game_p_tmp;
         break;
       }
-    }
-    if (!game_p) {
-      Logger.error('get_game_proposal: game proposal not found');
-      return;
     }
     socket.emit('get_game_proposal', {
       game_mode: game_p.game_mode,

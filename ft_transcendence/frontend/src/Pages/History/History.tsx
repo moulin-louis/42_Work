@@ -62,7 +62,7 @@ const WinnerInfo = ({ match_info }: any) => {
   return (
     <>
       <div className="game-inline-card">
-        <Col lg={12} xl={12} className="padding-zero">
+        <Col lg={12} xl={12} className="padding-zero margin-auto-history">
           <img
             alt=""
             src={match_info.winner?.avatar}
@@ -79,7 +79,7 @@ const LoserInfo = ({ match_info }: any) => {
   return (
     <>
       <div className="game-inline-card">
-        <Col lg={12} xl={12} className="padding-zero">
+        <Col lg={12} xl={12} className="padding-zero margin-auto-history">
           <img
             alt=""
             src={match_info.loser?.avatar}

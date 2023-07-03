@@ -16,10 +16,11 @@ import AlertIcon from './../../Images/Alert.svg';
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useAuth } from '../../Context/AuthContext';
-import {UsersContext} from '../../Context/UsersContext';
+import { UsersContext } from '../../Context/UsersContext';
 import { HistoryMini } from '../History/HistoryMini';
+import { AchievementsMini } from "../Achievements/AchievementsMini";
 
-function AlertInfo(alertMessage : string) {
+function AlertInfo(alertMessage: string) {
   return (
     <>
       <OverlayTrigger
@@ -80,7 +81,7 @@ function YourRating(parameter: string, nowCount: number, maxCount: number, color
 }
 
 function Widget1() {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const users = useContext(UsersContext);
   const userConnected = users?.find(u => u.id === user?.id);
   return (
@@ -101,43 +102,67 @@ function Widget1() {
 }
 
 
-function Widget2({id}: {id: string}) {
-
+function Widget2({ id }: { id: string }) {
   return (
     <Col xl={8} className="margin-card">
       <div className='statistic-card margin-card auth-shadow'>
         <h2 className='heading-all-games'>All Games</h2>
-        <HistoryMini id={id}/>
+        <HistoryMini id={id} />
+        <div>
+          <a className="chat-popup-button-blue full-width-mob buttons-settings-mob dashboard-button-more" href="/history">
+            See all games →
+          </a>
+        </div>
       </div>
     </Col>
   )
 }
 
+function Widget3() {
+  const { user } = useAuth();
+  const users = useContext(UsersContext);
+  const userConnected = users?.find(u => u.id === user?.id);
+  return (
+    <Col xl={12} className="margin-card">
+      <div className='statistic-card margin-card auth-shadow row ach-margin-zero'>
+        <h2 className='heading-all-games'>Your Achievements</h2>
+        <AchievementsMini user={userConnected} />
+        <div>
+          <a className="chat-popup-button-blue full-width-mob buttons-settings-mob dashboard-button-more" href="/achievements">
+            See all achievements →
+          </a>
+        </div>
+      </div>
+    </Col >
+  )
+}
+
 function Body() {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const users = useContext(UsersContext);
   const userConnected = users?.find(u => u.id === user?.id);
   return (
     <>
-    { userConnected && (
-  <Container>
-    <Row className="zero-margin">
-      <Col lg={12} xl={2} className='sidebar-global'>
-        <Sidebar />
-      </Col>
-      <Col lg={12} xl={10}>
-        <div className='content'>
-          <Row>
-            <HeadingPage />
-            <Widget1 />
-            <Widget2 id={userConnected.id} />
+      {userConnected && (
+        <Container>
+          <Row className="zero-margin">
+            <Col lg={12} xl={2} className='sidebar-global'>
+              <Sidebar />
+            </Col>
+            <Col lg={12} xl={10}>
+              <div className='content'>
+                <Row>
+                  <HeadingPage />
+                  <Widget1 />
+                  <Widget2 id={userConnected.id} />
+                  <Widget3 />
+                </Row>
+              </div>
+            </Col>
           </Row>
-        </div>
-      </Col>
-    </Row>
-  </Container>
-)}
-  </>)
+        </Container>
+      )}
+    </>)
 }
 
 function Dashboard() {

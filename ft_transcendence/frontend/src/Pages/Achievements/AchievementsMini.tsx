@@ -22,7 +22,7 @@ import { UsersContext } from "../../Context/UsersContext";
 const CircularProgressBar = (input: { percentage: number }) => {
   if (input.percentage > 99) {
     return (
-      <div style={{ width: "90px" }}>
+      <div style={{ width: "50px" }}>
         <CircularProgressbarWithChildren
           value={100}
           strokeWidth={5}
@@ -30,13 +30,13 @@ const CircularProgressBar = (input: { percentage: number }) => {
             pathColor: "#49C96D",
           })}
         >
-          <img style={{ width: 40 }} src={Done} alt="Trophy" />
+          <img style={{ width: 20 }} src={Done} alt="Trophy" />
         </CircularProgressbarWithChildren>
       </div>
     );
   } else {
     return (
-      <div style={{ width: "90px" }}>
+      <div style={{ width: "50px" }}>
         <CircularProgressbar
           value={input.percentage}
           strokeWidth={5}
@@ -73,13 +73,10 @@ function percentageProgression(progression: number | undefined, total: number) {
 export function AchievementsMini({user}: {user: any}) {
   return (
     <>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
+      <Col xl={4} className="margin-card">
+        <div className="small-card-achievements inline inline-achievements auth-shadow">
           <div className="left width-text">
-            <div className="heading-achievements">Starting Strike</div>
-            <div className="description-achievements">
-              Win your first match in an online ping-pong game.
-            </div>
+            <div className="heading-achievements-small">Starting Strike</div>
           </div>
           <div className="right margin-circle">
             <CircularProgressBar
@@ -88,13 +85,10 @@ export function AchievementsMini({user}: {user: any}) {
           </div>
         </div>
       </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
+      <Col xl={4} className="margin-card">
+        <div className="small-card-achievements inline inline-achievements auth-shadow">
           <div className="left width-text">
-            <div className="heading-achievements">5 Wins</div>
-            <div className="description-achievements">
-              Win 5 games in an online ping-pong game in any mode.
-            </div>
+            <div className="heading-achievements-small">5 Wins</div>
           </div>
           <div className="right margin-circle">
             <CircularProgressBar
@@ -103,13 +97,10 @@ export function AchievementsMini({user}: {user: any}) {
           </div>
         </div>
       </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
+      <Col xl={4} className="margin-card">
+        <div className="small-card-achievements inline inline-achievements auth-shadow">
           <div className="left width-text">
-            <div className="heading-achievements">10 Wins</div>
-            <div className="description-achievements">
-              Win 10 games in an online ping-pong game in any mode.
-            </div>
+            <div className="heading-achievements-small">10 Wins</div>
           </div>
           <div className="right margin-circle">
             <CircularProgressBar
@@ -118,13 +109,10 @@ export function AchievementsMini({user}: {user: any}) {
           </div>
         </div>
       </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
+      <Col xl={4} className="margin-card">
+        <div className="small-card-achievements inline inline-achievements auth-shadow">
           <div className="left width-text">
-            <div className="heading-achievements">100 Wins</div>
-            <div className="description-achievements">
-              Win 100 games in an online ping-pong game in any mode.{" "}
-            </div>
+            <div className="heading-achievements-small">100 Wins</div>
           </div>
           <div className="right margin-circle">
             <CircularProgressBar
@@ -133,13 +121,10 @@ export function AchievementsMini({user}: {user: any}) {
           </div>
         </div>
       </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
+      <Col xl={4} className="margin-card">
+        <div className="small-card-achievements inline inline-achievements auth-shadow">
           <div className="left width-text">
-            <div className="heading-achievements">Shy person</div>
-            <div className="description-achievements">
-              You have one friend, keep going!
-            </div>
+            <div className="heading-achievements-small">Shy person</div>
           </div>
           <div className="right margin-circle">
             <CircularProgressBar
@@ -151,163 +136,16 @@ export function AchievementsMini({user}: {user: any}) {
           </div>
         </div>
       </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
+      <Col xl={4} className="margin-card">
+        <div className="small-card-achievements inline inline-achievements auth-shadow">
           <div className="left width-text">
-            <div className="heading-achievements">Band leader</div>
-            <div className="description-achievements">
-              You have five friends, nice!
-            </div>
+            <div className="heading-achievements-small">Band leader</div>
           </div>
           <div className="right margin-circle">
             <CircularProgressBar
               percentage={percentageProgression(
                 user?.friends.length,
                 5
-              )}
-            />
-          </div>
-        </div>
-      </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
-          <div className="left width-text">
-            <div className="heading-achievements">Football team leader</div>
-            <div className="description-achievements">
-              You have ten friends, fantastic!
-            </div>
-          </div>
-          <div className="right margin-circle">
-            <CircularProgressBar
-              percentage={percentageProgression(
-                user?.friends.length,
-                10
-              )}
-            />
-          </div>
-        </div>
-      </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
-          <div className="left width-text">
-            <div className="heading-achievements">Social beast</div>
-            <div className="description-achievements">
-              You have one hundred friends, amazing!
-            </div>
-          </div>
-          <div className="right margin-circle">
-            <CircularProgressBar
-              percentage={percentageProgression(
-                user?.friends.length,
-                100
-              )}
-            />
-          </div>
-        </div>
-      </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
-          <div className="left width-text">
-            <div className="heading-achievements">Baby punisher</div>
-            <div className="description-achievements">
-              You have one person banned.
-            </div>
-          </div>
-          <div className="right margin-circle">
-            <CircularProgressBar
-              percentage={percentageProgression(
-                user?.blocked.length,
-                1
-              )}
-            />
-          </div>
-        </div>
-      </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
-          <div className="left width-text">
-            <div className="heading-achievements">Angry</div>
-            <div className="description-achievements">
-              You have five people banned.
-            </div>
-          </div>
-          <div className="right margin-circle">
-            <CircularProgressBar
-              percentage={percentageProgression(
-                user?.blocked.length,
-                5
-              )}
-            />
-          </div>
-        </div>
-      </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
-          <div className="left width-text">
-            <div className="heading-achievements">Serial punisher</div>
-            <div className="description-achievements">
-              You have ten people banned.
-            </div>
-          </div>
-          <div className="right margin-circle">
-            <CircularProgressBar
-              percentage={percentageProgression(
-                user?.blocked.length,
-                10
-              )}
-            />
-          </div>
-        </div>
-      </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
-          <div className="left width-text">
-            <div className="heading-achievements">Dictactor</div>
-            <div className="description-achievements">
-              You have hundred people banned.
-            </div>
-          </div>
-          <div className="right margin-circle">
-            <CircularProgressBar
-              percentage={percentageProgression(
-                user?.blocked.length,
-                100
-              )}
-            />
-          </div>
-        </div>
-      </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
-          <div className="left width-text">
-            <div className="heading-achievements">Rookie</div>
-            <div className="description-achievements">
-              You have been online for five minutes !
-            </div>
-          </div>
-          <div className="right margin-circle">
-            <CircularProgressBar
-              percentage={percentageProgression(
-                user?.logTimeInMinutes,
-                5
-              )}
-            />
-          </div>
-        </div>
-      </Col>
-      <Col xl={6} className="margin-card">
-        <div className="card-achievements inline inline-achievements auth-shadow">
-          <div className="left width-text">
-            <div className="heading-achievements">Master</div>
-            <div className="description-achievements">
-              Get a life. You have been online for one hour !
-            </div>
-          </div>
-          <div className="right margin-circle">
-            <CircularProgressBar
-              percentage={percentageProgression(
-                user?.logTimeInMinutes,
-                60
               )}
             />
           </div>

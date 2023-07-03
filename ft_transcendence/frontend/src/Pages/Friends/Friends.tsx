@@ -16,7 +16,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 import MoreIcon from "./../../Images/More.svg";
 
-type FilterType = "all" | "friends" | "online" | "banned" | "invitation";
+type FilterType = "all" | "friends" | "online" | "playing" | "banned" | "invitation";
 
 function checkOnline(isOnline: boolean) {
   if (isOnline) {
@@ -200,7 +200,8 @@ function FriendsBlock() {
   const filterFunctions = useMemo(() => ({
     all: (u: User) => true,
     friends: (u: User) => u.isFriend,
-    online: (u: User) => u.status === UserStatus.ONLINE || u.status === UserStatus.PLAYING,
+    online: (u: User) => u.status === UserStatus.ONLINE,
+    playing: (u: User) => u.status === UserStatus.PLAYING,
     banned: (u: User) => u.isBanned,
     invitation: (u: User) => u.friendshipRequestReceived,
   }), []);
@@ -236,7 +237,18 @@ function FriendsBlock() {
       });
     }
   };
-
+  <Tab
+  eventKey="online"
+  title={
+    <>
+      Online
+      <div className="mini-badge-friends">
+        {counts["online"].count}
+      </div>
+    </>
+  }
+  className="friends-table"
+></Tab>
   const handleBan = (recipientId: string) => {
     if (user) {
       socket?.emit("banuser", {
@@ -269,7 +281,18 @@ function FriendsBlock() {
       socket?.emit("acceptfriendrequest", {
         senderId: recipientId,
         recipientId: user.id,
-      });
+      });   <Tab
+      eventKey="online"
+      title={
+        <>
+          Online
+          <div className="mini-badge-friends">
+            {counts["online"].count}
+          </div>
+        </>
+      }
+      className="friends-table"
+    ></Tab>
     }
   };
 
@@ -306,6 +329,18 @@ function FriendsBlock() {
                   Online
                   <div className="mini-badge-friends">
                     {counts["online"].count}
+                  </div>
+                </>
+              }
+              className="friends-table"
+            ></Tab>
+               <Tab
+              eventKey="playing"
+              title={
+                <>
+                  Playing
+                  <div className="mini-badge-friends">
+                    {counts["playing"].count}
                   </div>
                 </>
               }

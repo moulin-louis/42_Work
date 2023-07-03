@@ -132,6 +132,10 @@
     width: 100%;
 }
 
+.red-button {
+    background-color: #FD7972!important;
+}
+
 @media screen and (max-width: 600px) {
     .table-mob {
         display: none;

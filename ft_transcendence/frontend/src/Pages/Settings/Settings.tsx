@@ -33,7 +33,7 @@ export interface TwoFactorAuthProps {
 
 
 
-const InstructionsGoogle = React.forwardRef(function Dialog({}, ref) {
+const InstructionsGoogle = React.forwardRef(function Dialog({ }, ref) {
   return (
     <div>
       <div>Dialog content....</div>
@@ -90,7 +90,7 @@ function QrImage({ qrCode }: { qrCode: string }) {
 }
 
 function QrImageContainer({ checkboxValue, qrCode, setCheckboxValue, setQrCode, secret, setSecret }: TwoFactorAuthProps) {
-  const { user, accessToken } = useAuth();
+  const { user, accessToken, updateCurrentUser } = useAuth();
   const hostname = useMemo(() => window.location.hostname, []);
 
   async function generateQrIcon() {
@@ -129,11 +129,9 @@ function QrImageContainer({ checkboxValue, qrCode, setCheckboxValue, setQrCode, 
       localStorage.setItem('enable', 'false');
       localStorage.setItem('qrCode', '');
       setCheckboxValue(false);
-
-
+      await updateCurrentUser(accessToken ?? '');
     } catch (error) {
     }
-
   }
   useEffect(() => {
     const fetchData = async () => {
@@ -170,13 +168,13 @@ function HeadingPage() {
 let isOnline = true
 
 function MainSettings() {
-  const { user } = useAuth();
+  const { user, accessToken, updateCurrentUser } = useAuth();
   const [username, setUsername] = useState<string>('');
-  const [avatar, setAvatar] = useState({});
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [login, setLogin] = useState<string>('');
   const socket = useContext<Socket | undefined>(WebSocketContext);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -186,18 +184,20 @@ function MainSettings() {
         setUploadedImage(user.avatar);
       }
     }
-  }, [user]);
+  }, [user?.username, user?.login, user?.avatar]);
 
-  const handleReset = () => {
+  const handleReset = async () => {
     if (user) {
+      await updateCurrentUser(accessToken ?? '');
       setUsername(user.username);
     }
   }
 
-  const handleAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const file = e.target.files ? e.target.files[0] : null;
-    if (file) {
+    const isImage = file?.type.startsWith('image/');
+    if (file && isImage) {
       Resizer.imageFileResizer(
         file,
         800,
@@ -216,17 +216,22 @@ function MainSettings() {
         200,
         200
       );
+      setErrorMessage('');
+      await updateCurrentUser(accessToken ?? '');
+    } else {
+      setErrorMessage('Invalid file format. Please choose an image.');
     }
   };
 
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (user) {
       socket?.emit("updateusername", {
         userId: user.id,
         username,
       })
+      await updateCurrentUser(accessToken ?? '');
     }
   }
 
@@ -244,6 +249,8 @@ function MainSettings() {
                   <div className="boost-achievements">
                     <div className="flex-friend items-center">
                       <Col lg={12} xl={3} className="padding-zero img-container-settings">
+                        {errorMessage && <div className="notify-auth-error">{errorMessage}</div>}
+
                         <img
                           alt=""
                           src={uploadedImage ?? AvatarImg}
@@ -297,10 +304,10 @@ function MainSettings() {
               </div>
               <div style={{ marginTop: "45px", display: "flex" }} className="align-settings-mob">
                 <button className="chat-popup-button-blue full-width-mob buttons-settings-mob" type="submit">
-                  Save changes
+                  Save new username
                 </button>
                 <button className="chat-popup-button-white full-width-mob buttons-settings-mob" type="button" onClick={handleReset}>
-                  Reset to default
+                  Reset
                 </button>
               </div>
             </form>
@@ -343,7 +350,7 @@ function SecuritySettings() {
       }
     }
     fetchUser2FA();
-  }, [accessToken, updateCurrentUser, user]);
+  }, [accessToken, updateCurrentUser, user?.authEnable]);
 
 
 
@@ -367,11 +374,11 @@ function SecuritySettings() {
           setFieldStyle(message.message ? 'success-border' : '');
           setMessageStyle(message.message ? 'notify-auth-success' : '');
           setTwoFAActivated(true);
+          await updateCurrentUser(accessToken ?? '');
         } else {
           setErrorState(message.error || 'Your code is expired or not valid');
           setFieldStyle(message.error ? 'error-border' : '');
           setMessageStyle(message.error ? 'notify-auth-error' : '');
-
         }
       } catch (error) {
       }
@@ -410,7 +417,7 @@ function SecuritySettings() {
                     <input
                       type="checkbox"
                       checked={checkboxValue}
-                      onChange={() => {}}
+                      onChange={() => { }}
                       style={{ marginRight: "15px" }}
                     />
                     Enable Google Auth

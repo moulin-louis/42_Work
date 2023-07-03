@@ -21,7 +21,7 @@ export class HistoryGateway {
       relations: ['wonMatches', 'wonMatches.winner', 'wonMatches.loser'],
     });
     if (!user) {
-      Logger.error('handleWinHistory: user not found');
+      // Logger.error('handleWinHistory: user not found');
       return;
     }
     const result: any[] = [];
@@ -46,7 +46,7 @@ export class HistoryGateway {
         relations: ['lostMatches', 'lostMatches.winner', 'lostMatches.loser'],
       });
     if (!user) {
-      Logger.error('handleLostHistory: user not found');
+      // Logger.error('handleLostHistory: user not found');
       return;
     }
     const result: any[] = [];
@@ -71,7 +71,7 @@ export class HistoryGateway {
       const result: any[] = await this.return_win_match(payload);
       client.emit('get_win_history_id', result);
     } catch (e) {
-      Logger.error('get_win_history_id: ' + e);
+      // Logger.error('get_win_history_id: ' + e);
     }
   }
 
@@ -82,7 +82,7 @@ export class HistoryGateway {
       const result: any[] = await this.return_lost_match(payload);
       client.emit('get_lost_history_id', result);
     } catch (e) {
-      Logger.error('get_lost_history_id: ' + e);
+      // Logger.error('get_lost_history_id: ' + e);
     }
   }
 
@@ -102,7 +102,7 @@ export class HistoryGateway {
       }
       client.emit('get_draw_history_id', result);
     } catch (e) {
-      Logger.error('get_draw_history_id: ' + e);
+      // Logger.error('get_draw_history_id: ' + e);
     }
   }
 }

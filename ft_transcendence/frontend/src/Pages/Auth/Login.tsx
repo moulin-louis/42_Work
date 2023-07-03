@@ -8,6 +8,7 @@ export interface IProps {
 const Login: React.FC<IProps> = ({ changeForm }) => {
   const hostname = useMemo(() => (window.location.hostname), []);
   const handleOAuthClick = () => {
+
     const uid = process.env.REACT_APP_INTRA42_UID;
     const uri = `http://localhost:${process.env.REACT_APP_PORT}/auth/callback`;
     const url = `https://api.intra.42.fr/oauth/authorize?client_id=${uid}&redirect_uri=${uri}&response_type=code&scope=public`;

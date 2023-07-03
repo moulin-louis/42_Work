@@ -1,6 +1,7 @@
 node_modules
 node_modules_f
 node_modules_b
+./frontend/build
 ./clean.sh
 ./unload_modules.sh
 ./load_modules.sh

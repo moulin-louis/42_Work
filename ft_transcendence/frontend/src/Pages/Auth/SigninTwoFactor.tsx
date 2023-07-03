@@ -23,9 +23,6 @@ function SigninTwoFactor() {
       const fetchUserData = async (token: string) => {
         try {
           const userData = await updateCurrentUser(token);
-          if (userData) {
-            setCurrentUser(userData);
-          }
         } catch (error) {
         }
       };

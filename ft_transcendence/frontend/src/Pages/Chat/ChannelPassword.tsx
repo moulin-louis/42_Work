@@ -19,12 +19,11 @@ function ChannelPassword({
 }): React.JSX.Element {
   const socket = useContext<Socket | undefined>(WebSocketContext);
   const [password, setPassword] = useState<string>("");
-
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    if (channel?.name)
+    if (channel?.id)
       socket?.emit("changechannelpassword", {
-        name: channel?.name,
+        id: channel?.id,
         password,
       });
     onClose();

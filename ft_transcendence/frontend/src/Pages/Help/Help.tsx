@@ -55,6 +55,12 @@ function GameDocumentation() {
                 <div className='small-empty-space'>The aim of the game is to hit the ball back and forth by moving your paddle up and down. The player who fails to return the ball loses a point. The game continues until one player reaches the predetermined score limit.</div>
                 <div className='heading-help-types empty-space'>Conclusion</div>
                 <div>Ping Pong 42 is a game of skill, precision, and quick reflexes. Each mode offers a different level of challenge, ensuring that the game remains exciting and engaging. Enjoy competing with your friends in this fast-paced, fun-filled online game! <br></br>Please refer back to this documentation for any queries regarding gameplay, controls, or rules. Happy gaming!</div>
+                <div className='heading-help-types'>Figma</div>
+                <div>
+                    <a className="chat-popup-button-blue full-width-mob buttons-settings-mob dashboard-button-more" href="https://www.figma.com/file/4Eu9kuVOIudkBXzcdd4KZE/FT_TRANSCENDENCE" target={"_blank"}>
+                        See Prototype in Figma →
+                    </a>
+                </div>
             </div>
         </>
     )

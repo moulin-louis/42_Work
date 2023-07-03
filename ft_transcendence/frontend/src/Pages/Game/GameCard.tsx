@@ -1,20 +1,38 @@
 import Col from "react-bootstrap/Col";
 import "./Game.css";
 import QuanityIcon from "./icons/Quanity.svg"
+
 import UpIcon from "./icons/Up.svg"
+import SpeedModeIcon from "./icons/ImageSpeedMode.svg"
+import TimedModeIcon from "./icons/ImageTimeMode.svg"
+
 import RetroIcon from "./icons/Retro.svg"
+import ArtIcon from "./icons/ImageArtStyle.svg"
+import NeonIcon from "./icons/ImageNeonStyle.svg"
+
 import PlusIcon from "./icons/Plus.svg"
 import WaitingIcon from "./icons/TimeIcon.svg"
 import CloseIcon from "./icons/Close.svg"
 import { useAuth } from "../../Context/AuthContext";
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { WebSocketContext } from "../../Context/WebSocketContext";
 
-const NewGameCard = ({ status = "default",  handleClose} : any) => {
+const gameModeIcons: Record<string, string> = {
+    'Time mode': TimedModeIcon,
+    'Speed mode': SpeedModeIcon,
+};
+
+const gameStyleIcons: Record<string, string> = {
+    'Art': ArtIcon,
+    'Retro Arcade': RetroIcon,
+    'Neon': NeonIcon,
+};
+
+const NewGameCard = ({ status = "default", handleClose }: any) => {
     const { user } = useAuth();
     const socket = useContext(WebSocketContext);
-    const [ game_limit, setGameLimit ] = useState("");
-    const [ game_mode, setGameMode ] = useState("");
+    const [game_limit, setGameLimit] = useState("");
+    const [game_mode, setGameMode] = useState("");
     const GameTypeBox: React.FC<{ icon: string, text: string }> = ({ icon, text }) => (
         <div className="game-type-box">
             <img style={{ width: 40, marginRight: 15 }} src={icon} alt="" />
@@ -56,7 +74,7 @@ const NewGameCard = ({ status = "default",  handleClose} : any) => {
                 <div className='left full-width game-vertical-align mobile-game-card'>
                     <Col xl={6}>
                         <GameTypeBox icon={QuanityIcon} text={game_limit} />
-                        <GameTypeBox icon={UpIcon} text={game_mode} />
+                        <GameTypeBox icon={gameModeIcons[game_mode]} text={game_mode} />
                         <GameTypeBox icon={RetroIcon} text="Retro Arcade" />
                     </Col>
                     <Col xl={6}>

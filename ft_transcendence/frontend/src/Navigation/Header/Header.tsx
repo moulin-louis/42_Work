@@ -199,7 +199,7 @@ function UserProfile() {
             <div className="dropdown-name-button">Settings</div>
           </div>
         </NavDropdown.Item>
-        <NavDropdown.Item className="chat-drop-menu-item" href="/blacklist">
+        <NavDropdown.Item className="chat-drop-menu-item" href="/friends">
           <div className="box-with-icon">
             <div>
               <img

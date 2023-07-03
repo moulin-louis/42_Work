@@ -89,7 +89,7 @@ const PlayerBar = ({ width_div, height_div }: { width_div: number, height_div: n
 
 // This code gets the position of the enemy paddle from the server and sets it to the correct position
 const EnemyBar = ({ width_div, height_div }: { width_div: number, height_div: number }) => {
-  const paddleProps = usePaddle("EnemyPos", "red", "paddle right", width_div, height_div);
+  const paddleProps = usePaddle("EnemyPos", "white", "paddle right", width_div, height_div);
   return (
     <div {...paddleProps}></div>
   );
@@ -277,7 +277,7 @@ const Body = () => {
   };
 
   return (
-    <Container>
+    <Container className="game-page-scroll">
       <Row className="zero-margin">
         <Col lg={12} xl={2} className="sidebar-global">
           <Sidebar />
@@ -287,12 +287,12 @@ const Body = () => {
             <Col xl={12}>
               <div className='inline '>
                 <div className="left"><h1 className="heading heading-margin">Waiting list</h1></div>
-                <div className="right">
+                {!LaunchGame && <div className="right">
                   <button className="AuthMargin heading-button" onClick={handleAddFriendClick}>
                     <img className="play-button-icon" src={PlayIcon} alt="" />
                     <div className="play-button-text">New game</div>
                   </button>
-                </div>
+                </div>}
               </div>
             </Col>
             {showChannelMembers && (
@@ -300,7 +300,7 @@ const Body = () => {
                 <PopupNewGame onClose={handleClose} startMatchmaking={startMatchmaking} />
               </ModalOverlay>
             )}
-            <Row>
+            <Row className="game-board-size-row">
               {!LaunchGame ? (
                 <div>
                   <div className="text-without-games">

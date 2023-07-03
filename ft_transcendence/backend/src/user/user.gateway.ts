@@ -167,7 +167,7 @@ export class UserGateway {
         type: NotificationType.Error,
         message: 'Passwords not matching',
       });
-    else if (password.length === 0)
+    else if (password.length === 0 || !password.replace(/\s/g, '').length)
       return socket.emit('notification', {
         type: NotificationType.Error,
         message: 'Password can not be empty',
@@ -217,13 +217,23 @@ export class UserGateway {
   async updateAvatar(socket: Socket, { userId, dataUrl }) {
     const user = await this.usersRepository.findOneBy({ id: userId });
     if (!user) return;
-    user.avatar = dataUrl;
-    await this.usersRepository.save(user);
-    await this.updateAllUsers();
-    return socket.emit('notification', {
-      type: NotificationType.Success,
-      message: 'Avatar updated',
-    });
+  
+    const mimeType = dataUrl.split(',')[0].split(':')[1].split(';')[0];
+    const isImage = /^image\//.test(mimeType);
+    if (isImage) {
+      user.avatar = dataUrl;
+      await this.usersRepository.save(user);
+      await this.updateAllUsers();
+      return socket.emit('notification', {
+        type: NotificationType.Success,
+        message: 'Avatar updated',
+      });
+    } else {
+      return socket.emit('notification', {
+        type: NotificationType.Error,
+        message: 'Invalid file format. Please choose an image.',
+      });
+    }
   }
 
   @SubscribeMessage('banuser')

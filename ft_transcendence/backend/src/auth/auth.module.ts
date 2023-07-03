@@ -12,7 +12,7 @@ import { twoFactorAuthService } from "./2fa/twoFactorAuth.service";
 
 @Module({
     imports: [UserModule, PassportModule, JwtModule.register({
-        secret: 'my_super_secret',
+        secret: process.env.JWT_SECRET,
         signOptions:{expiresIn: '15m'},
     }), TypeOrmModule.forFeature([User])],
     controllers: [AuthController, TwoFactorAuthController],

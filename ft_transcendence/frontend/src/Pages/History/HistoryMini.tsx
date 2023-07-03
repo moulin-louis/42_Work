@@ -13,7 +13,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import moment from 'moment';
 import { useAuth } from "../../Context/AuthContext";
-import {UsersContext} from "../../Context/UsersContext";
+import { UsersContext } from "../../Context/UsersContext";
 
 function GameType() {
   return (
@@ -101,8 +101,8 @@ const MatchHistory = ({ match_info }: any) => {
           <WinnerInfo match_info={match_info} />
         </Col>
         <Col sm={6}>
-          <div className="history-score score-margin">{match_info.winnerScore} : {match_info.loserScore}</div>
-          {match_info.draw ? <div className="score-margin">Draw</div>: <div></div>}
+          <div className="history-score score-margin history-mini-score">{match_info.winnerScore} : {match_info.loserScore}</div>
+          {match_info.draw ? <div className="score-margin">Draw</div> : <div></div>}
         </Col>
         <Col sm={3}>
           <LoserInfo match_info={match_info} />
@@ -127,7 +127,7 @@ const useGameHistory = (id: string) => {
     socket?.emit("get_draw_history_id", id);
     socket?.on("get_win_history_id", (payload: IMatchInfo[]) => setMatchWon(payload));
     socket?.on("get_lost_history_id", (payload: IMatchInfo[]) => setMatchLost(payload));
-    socket?.on("get_draw_history_id", (payload: IMatchInfo[]) => {setMatchDraw(payload)});
+    socket?.on("get_draw_history_id", (payload: IMatchInfo[]) => { setMatchDraw(payload) });
     return () => {
       socket?.off("get_win_history_id");
       socket?.off("get_lost_history_id");
@@ -139,66 +139,66 @@ const useGameHistory = (id: string) => {
 }
 
 const UserDrawHistory = ({ match_draw }: any) => {
+  const lastTwoDrawMatches = match_draw.slice(-2);
+
   return (
     <div className='row'>
       {
-        match_draw.length === 0 ?
+        lastTwoDrawMatches.length === 0 ?
           (<h1>No draw match</h1>) :
-          (match_draw.map((match_info: IMatchInfo) => (
-            <>
-              <Col key={match_info.id} xl={6} className="margin-card">
-                <div className='history-card auth-shadow'>
-                  <div className='inline '>
-                    <MatchHistory match_info={match_info} />
-                  </div>
+          (lastTwoDrawMatches.map((match_info: IMatchInfo) => (
+            <Col key={match_info.id} xl={6} className="margin-card">
+              <div className='history-card auth-shadow'>
+                <div className='inline'>
+                  <MatchHistory match_info={match_info} />
                 </div>
-              </Col>
-            </>)
-          ))
+              </div>
+            </Col>
+          )))
       }
     </div>
   );
 }
 
 const UserWonHistory = ({ match_won }: any) => {
+  const lastTwoMatches = match_won.slice(-2);
+
   return (
     <div className='row'>
       {
-        match_won.length === 0 ?
+        lastTwoMatches.length === 0 ?
           (<h1>No match won</h1>) :
-          (match_won.map((match_info: IMatchInfo) => (
-            <>
-              <Col key={match_info.id} xl={6} className="margin-card">
-                <div className='history-card auth-shadow'>
-                  <div className='inline '>
-                    <MatchHistory match_info={match_info} />
-                  </div>
+          (lastTwoMatches.map((match_info: IMatchInfo) => (
+            <Col key={match_info.id} xl={6} className="margin-card">
+              <div className='history-card auth-shadow'>
+                <div className='inline'>
+                  <MatchHistory match_info={match_info} />
                 </div>
-              </Col>
-            </>)
-          ))
+              </div>
+            </Col>
+          )))
       }
     </div>
   );
 }
 
 const UserLostHistory = ({ match_lost }: any) => {
+  const lastTwoLostMatches = match_lost.slice(-2);
+
   return (
     <div className='row'>
       {
-        match_lost.length === 0 ?
+        lastTwoLostMatches.length === 0 ?
           (<h1>No match lost</h1>) :
-          (match_lost.map((match_info: IMatchInfo) => (
-            <>
-              <Col key={match_info.id} xl={6} className="margin-card">
-                <div className='history-card auth-shadow'>
-                  <div className='inline '>
-                    <MatchHistory match_info={match_info} />
-                  </div>
+          (lastTwoLostMatches.map((match_info: IMatchInfo) => (
+            <Col key={match_info.id} xl={6} className="margin-card">
+              <div className='history-card auth-shadow'>
+                <div className='inline'>
+                  <MatchHistory match_info={match_info} />
                 </div>
-              </Col>
-            </>)
-          ))
+              </div>
+            </Col>
+          )))
       }
     </div>
   );
@@ -206,28 +206,30 @@ const UserLostHistory = ({ match_lost }: any) => {
 
 const UserAllHistory = ({ match_won, match_lost, match_draw }: any) => {
   let allGames: IMatchInfo[] = [...match_won, ...match_lost, ...match_draw];
+  const lastTwoGames = allGames.slice(-2);
+
   return (
-      <>
-        <div className='row'>
-          {
-            allGames.length === 0 ?
-              (<h1>No games played</h1>) :
-              (allGames.map((match_info: IMatchInfo) => (
-                <Col key={match_info.id} xl={6} className="margin-card">
-                  <div className='history-card auth-shadow'>
-                    <div className='inline '>
-                      <MatchHistory match_info={match_info} />
-                    </div>
+    <>
+      <div className='row'>
+        {
+          lastTwoGames.length === 0 ?
+            (<h1>No games played</h1>) :
+            (lastTwoGames.map((match_info: IMatchInfo) => (
+              <Col key={match_info.id} xl={6} className="margin-card">
+                <div className='history-card auth-shadow'>
+                  <div className='inline'>
+                    <MatchHistory match_info={match_info} />
                   </div>
-                </Col>
-              )))
-          }
-        </div>
-      </>
-    );
+                </div>
+              </Col>
+            )))
+        }
+      </div>
+    </>
+  );
 }
 
-export function HistoryMini({id}: {id: string}) {
+export function HistoryMini({ id }: { id: string }) {
   const { match_won, match_lost, match_draw } = useGameHistory(id);
   const totalGames = match_won.length + match_lost.length + match_draw.length;
   return (
@@ -244,7 +246,7 @@ export function HistoryMini({id}: {id: string}) {
               }
               className="friends-table"
             >
-              <UserAllHistory match_won={match_won} match_lost={match_lost} match_draw={match_draw}/>
+              <UserAllHistory match_won={match_won} match_lost={match_lost} match_draw={match_draw} />
             </Tab>
             <Tab eventKey="Winning"
               title={
@@ -269,13 +271,13 @@ export function HistoryMini({id}: {id: string}) {
               <UserLostHistory match_lost={match_lost} />
             </Tab>
             <Tab eventKey="Draw"
-                 title={
-                   <>
-                     Draw
-                     <div className="mini-badge-friends">{match_draw.length}</div>
-                   </>
-                 }
-                 className="friends-table"
+              title={
+                <>
+                  Draw
+                  <div className="mini-badge-friends">{match_draw.length}</div>
+                </>
+              }
+              className="friends-table"
             >
               <UserDrawHistory match_draw={match_draw} />
             </Tab>
@@ -288,30 +290,30 @@ export function HistoryMini({id}: {id: string}) {
 
 
 export const BodyHistory = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const users = useContext(UsersContext);
   const userConnected = users?.find(u => u.id === user?.id);
   return (
     <>
-    {userConnected && (
-    <Container>
-      <Row className="zero-margin">
-        <Col lg={12} xl={2} className="sidebar-global">
-          <Sidebar />
-        </Col>
-        <Col lg={12} xl={10}>
-          <div className="content">
-            <Row>
-              <HeadingPage />
-              <HistoryMini id={userConnected.id}  />
-            </Row>
-          </div>
-        </Col>
-      </Row>
-    </Container>
-    
-  )}
-  </>
+      {userConnected && (
+        <Container>
+          <Row className="zero-margin">
+            <Col lg={12} xl={2} className="sidebar-global">
+              <Sidebar />
+            </Col>
+            <Col lg={12} xl={10}>
+              <div className="content">
+                <Row>
+                  <HeadingPage />
+                  <HistoryMini id={userConnected.id} />
+                </Row>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+
+      )}
+    </>
   );
 };
 
@@ -320,7 +322,7 @@ const HistoryMin = () => {
   return (
     <>
       <Header />
-      <BodyHistory/>
+      <BodyHistory />
     </>
   );
 }

@@ -41,7 +41,7 @@ export interface AuthContextData {
   setUser: (user: User | null) => void;
   clearAccessToken: () => void;
   logout: () => void;
-  updateCurrentUser: (token: string) => Promise<User>;
+  updateCurrentUser: (token: string) => void;
 }
 
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -64,12 +64,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setAccessToken(null);
   }, []);
 
-  const updateCurrentUser = useCallback(async (token: string): Promise<User> => {
+  const updateCurrentUser = useCallback(async (token: string) => {
     try {
       const response = await fetch(`http://${hostname}:3000/auth/me?token=${token}`);
       if (response.ok) {
         const userData = await response.json();
-        return userData as User;
+        setUser(userData);
       } else {
         throw new Error('Something went wrong. Could not find the user.');
       }
@@ -124,9 +124,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     if (accessToken) {
       updateCurrentUser(accessToken)
-        .then((userData: User) => {
-          setUser(userData);
-        })
         .catch((error) => {
         });
     }

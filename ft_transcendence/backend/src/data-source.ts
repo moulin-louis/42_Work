@@ -7,12 +7,11 @@ import { Read } from './entities/Read';
 
 const config: TypeOrmModuleOptions = {
   type: 'postgres',
-  host: 'database',
-  port: 5432,
-  // TODO change to env variables
-  username: 'my_user',
-  password: 'my_password',
-  database: 'my_database',
+  host: process.env.POSTGRES_HOST,
+  port: Number(process.env.POSTGRES_PORT),
+  username: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DB,
   entities: [Channel, Match, Message, Read, User],
   synchronize: true,
 };

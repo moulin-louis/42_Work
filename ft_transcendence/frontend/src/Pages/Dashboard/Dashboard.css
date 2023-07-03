@@ -17,3 +17,16 @@
 .heading-all-games {
   margin-bottom: 25px;
 }
+
+.ach-margin-zero {
+  margin: 0px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.dashboard-button-more {
+  margin-right: 0px;
+  padding: 15px 30px;
+  width: fit-content;
+  margin-top: 15px;
+}

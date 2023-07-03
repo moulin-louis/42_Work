@@ -119,6 +119,11 @@
   margin-left: 10px;
 }
 
+.heading-profile-popup {
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
 .user-display.sidebar-box {
   display: flex;
   justify-content: space-between;
@@ -707,10 +712,32 @@
   margin-right: 0px;
 }
 
+.margin-top-bottom-popup {
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.profile-buttons-align-popup {
+  display: flex;
+  margin: auto;
+}
+
+.close-btn {
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.padding-pop-profile {
+  padding: 30px;
+  padding-bottom: 50px!important;
+}
+
 .chat-popup-profile-window {
   width: 90% !important;
   background-color: #F8F8F8 !important;
-  padding: 50px;
+  padding: 25px;
+  max-height: 80%;
 }
 
 .chat-popup-usercard {

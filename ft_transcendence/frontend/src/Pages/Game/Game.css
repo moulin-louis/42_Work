@@ -20,6 +20,7 @@
   width: 10px;
   height: 100px;
   background-color: rgb(77, 184, 77);
+  border-radius: 5px;
 }
 
 .left {
@@ -130,6 +131,11 @@
   text-align: center;
   color: #3F434A;
   margin-top: 10px;
+  text-align: center;
+}
+
+.history-mini-score {
+  font-size: 24px;
 }
 
 .cursor-pointer-game {
@@ -235,10 +241,16 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width: 1200px) {
-  .game-auto-margin {
-    margin: 0 10px;
-  }
+.margin-auto-history {
+  margin: auto!important;
+}
+
+.game-page-scroll {
+  overflow: hidden;
+}
+
+.game-board-size-row {
+  margin: 0;
 }
 
 @media screen and (max-width: 600px) {
@@ -248,13 +260,13 @@
   }
 
   .game-auto-margin {
-    margin-right: 20px !important;
+    margin-right: 0px !important;
     margin: 0;
   }
-
+/* 
   .game-nickname-card {
     margin-right: 20px;
-  }
+  } */
 
   .close-icon {
     position: absolute;

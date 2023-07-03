@@ -6,6 +6,7 @@ import { WebSocketContext } from "../../Context/WebSocketContext";
 import { Socket } from "socket.io-client";
 import { HistoryMini } from "../History/HistoryMini";
 import { AchievementsMini } from "../Achievements/AchievementsMini";
+import CloseImg from "./../../Images/Close.svg";
 
 
 /**
@@ -74,9 +75,18 @@ function UserProfile({
 
 
   return (
-    <div className="chat-popup-window chat-popup-profile-window">
+    <div className="chat-popup-window chat-popup-profile-window padding-pop-profile">
+      <img alt=""
+        src={CloseImg}
+        width="30"
+        height="30"
+        className="close-btn"
+        id="navbarScrollingDropdown"
+        onClick={onClose}
+      />
       <div className="row">
-        <div className="col-lg-4 col-md-12 chat-popup-usercard">
+        <div className="col-lg-1 col-md-12 d-flex flex-column align-items-center user-popup-info-align"></div>
+        <div className="col-lg-3 col-md-12 chat-popup-usercard">
           <img alt=""
             src={friend.avatar ?? AvatarImg}
             width="160"
@@ -87,59 +97,73 @@ function UserProfile({
           <h2 className="chat-popup-usercard-text chat-popup-usercard-text-user">{friend.username}</h2>
           <h2 className="chat-popup-usercard-text">{friend.email}</h2>
           <h2 className="chat-popup-usercard-text">
-            Win percentage: {friend.matchesPlayed !== 0 ? ((friend.matchesWon / friend.matchesPlayed * 100).toFixed(2) + '%') : 'N/A'}
+            Win percentage: {friend.matchesPlayed !== 0 ? ((friend.matchesWon / friend.matchesPlayed * 100).toFixed(2) + '%') : '0%'}
           </h2>
           {!friend.isFriend &&
             !friend.friendshipRequestSent &&
             !friend.isBanned &&
             !friend.hasBanned &&
             !friend.friendshipRequestReceived && (
-              <button className="chat-popup-button-blue margin-right-popup-button" type="button"
+              <button className="chat-popup-button-blue margin-right-popup-button margin-top-bottom-popup" type="button"
                 onClick={() => handleNewFriend(friend.id)}>
                 Add to Friends
               </button>)}
           {friend.friendshipRequestSent && (
-            <button className="chat-popup-button-blue margin-right-popup-button" type="button"
+            <button className="chat-popup-button-blue margin-right-popup-button margin-top-bottom-popup red-button" type="button"
               onClick={() => handleRemoveFriendRequest(friend.id)}>
               Cancel invitation
             </button>)}
           {friend.isFriend && (
-            <button className="chat-popup-button-blue margin-right-popup-button" type="button"
+            <button className="chat-popup-button-blue margin-right-popup-button margin-top-bottom-popup red-button" type="button"
               onClick={() => handleRemoveFriend(friend.id)}>
               Remove from friends
             </button>)}
           {friend.friendshipRequestReceived && (
-            <div>
-              <button className="chat-popup-button-blue margin-right-popup-button" type="button"
+            <div className="profile-buttons-align-popup ">
+              <button className="chat-popup-button-blue margin-right-popup-button margin-top-bottom-popup" type="button"
                 onClick={() => handleAcceptFriendRequest(friend.id)}>
                 Accept invitation
               </button>
-              <button className="chat-popup-button-blue margin-right-popup-button" type="button"
+              <button className="chat-popup-button-blue margin-right-popup-button margin-top-bottom-popup red-button" type="button"
                 onClick={() => handleRefuseFriendRequest(friend.id)}>
                 Refuse invitation
               </button>
             </div>
           )}
+          {/* <div>
+            <button
+              className="chat-popup-button-white chat-popup-space-profile margin-auto-history"
+              type="button"
+              onClick={onClose}
+            >
+              Close Popup
+            </button>
+          </div> */}
         </div>
         <div className="col-lg-1 col-md-12 d-flex flex-column align-items-center user-popup-info-align"></div>
-        <div className="col-lg-7 col-md-12 d-flex flex-column align-items-center user-popup-info-align">
-          Last games
+        <div className="col-lg-7 col-md-12 d-flex flex-column user-popup-info-align">
+          <div className="heading-profile-popup">
+            Last games
+          </div>
           <div className="chat-popup-history">
             <HistoryMini id={friend.id} />
           </div>
-          Last Achievements
+          <div>
+            <a className="chat-popup-button-blue full-width-mob buttons-settings-mob dashboard-button-more" href="/history">
+              See all games →
+            </a>
+          </div>
+          <div className="heading-profile-popup margin-small-achievements">
+            Achievements
+          </div>
           <div className="row">
             <AchievementsMini user={friend} />
           </div>
-        </div>
-        <div className="col-12 d-flex align-items-center chat-popup-space-profile justify-content-center">
-          <button
-            className="chat-popup-button-white"
-            type="button"
-            onClick={onClose}
-          >
-            Cancel
-          </button>
+          <div>
+            <a className="chat-popup-button-blue full-width-mob buttons-settings-mob dashboard-button-more" href="/achievements">
+              See all achievements →
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -5,6 +5,10 @@ import { HistoryBlock } from "../History/History";
 import { UsersContext } from "../../Context/UsersContext";
 import Header from "./../../Navigation/Header/Header";
 import { AllAchievements } from "../Achievements/Achievements";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Sidebar from './../../Navigation/Sidebar/Sidebar';
 
 
 /**
@@ -17,49 +21,103 @@ import { AllAchievements } from "../Achievements/Achievements";
  * @returns {React.JSX.Element} Rendered user profile
  */
 function UserProfile(): React.JSX.Element {
-    const {user} = useAuth();
-    const users = useContext(UsersContext);
-    const userConnected = users?.find(u => u.id === user?.id);
+  const { user } = useAuth();
+  const users = useContext(UsersContext);
+  const userConnected = users?.find(u => u.id === user?.id);
   return (
     <>
-    { userConnected && (
-    <div className="chat-popup-window">
-      <div className="row">
-        <div className="col-lg-6 col-md-12 d-flex justify-content-center">
-          <img alt=""
-            src={userConnected.avatar ?? AvatarImg}
-            width="160"
-            height="160"
-            className="avatar-border d-inline-block align-top"
-            id="navbarScrollingDropdown" />
-        </div>
-        <div className="col-lg-6 col-md-12 d-flex flex-column align-items-center user-popup-info-align">
-          <h2 className="chat-popup-profile-info">{userConnected.username}</h2>
-          <h2 className="chat-popup-profile-info">{userConnected.email}</h2>
-          <h2 className="chat-popup-profile-info">Matches play : {userConnected.matchesPlayed}</h2>
-          <h2 className="chat-popup-profile-info">Matches won : {userConnected.matchesWon}</h2>
-        </div>
+      {userConnected && (
         <div>
-          <HistoryBlock id={userConnected.id}/>
+          <div className="row">
+            <Col xl={4} className="margin-card">
+              <div className='statistic-card margin-card auth-shadow'>
+                <div className="chat-popup-usercard">
+                  <img alt=""
+                    src={userConnected.avatar ?? AvatarImg}
+                    width="160"
+                    height="160"
+                    className="avatar-border d-inline-block align-top"
+                    id="navbarScrollingDropdown" />
+
+                  <h2 className="chat-popup-usercard-text chat-popup-usercard-text-user">{userConnected.username}</h2>
+                  <h2 className="chat-popup-usercard-text">{userConnected.email}</h2>
+                  <h2 className="chat-popup-usercard-text">
+                    Win percentage: {userConnected.matchesPlayed !== 0 ? ((userConnected.matchesWon / userConnected.matchesPlayed * 100).toFixed(2) + '%') : '0%'}
+                  </h2>
+                </div>
+              </div>
+            </Col>
+            <Col xl={8} className="margin-card">
+              <div className='statistic-card margin-card auth-shadow'>
+                <div className="heading-profile-popup">
+                  Last games
+                </div>
+                <div>
+                  <HistoryBlock id={userConnected.id} />
+                </div>
+              </div>
+            </Col>
+            <Col xl={12} className="margin-card">
+              <div className='statistic-card margin-card auth-shadow'>
+                <div className="heading-profile-popup">
+                  Achievements
+                </div>
+                <Row>
+                  <AllAchievements user={userConnected} />
+                </Row>
+              </div>
+            </Col>
+          </div>
         </div>
-        <div>
-          <AllAchievements user={userConnected}/>
-        </div>
-      </div>
-    </div>
-    )}
+      )}
     </>
   );
 }
 
+function HeadingPage() {
+  return (
+    <Col xl={12}>
+      <div className='inline '>
+        <div className="left"><h1 className="heading heading-margin">My Profile</h1></div>
+      </div>
+    </Col>
+  )
+}
+
+function Body() {
+  const { user } = useAuth();
+  const users = useContext(UsersContext);
+  const userConnected = users?.find(u => u.id === user?.id);
+  return (
+    <>
+      {userConnected && (
+        <Container>
+          <Row className="zero-margin">
+            <Col lg={12} xl={2} className='sidebar-global'>
+              <Sidebar />
+            </Col>
+            <Col lg={12} xl={10}>
+              <div className='content'>
+                <Row>
+                  <HeadingPage />
+                  <UserProfile />
+                </Row>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      )}
+    </>)
+}
+
 const CurrentUserProfile = () => {
-    return (
-      <>
-        <Header />
-        <UserProfile/>
-      </>
-    );
-  }
-  
+  return (
+    <>
+      <Header />
+      <Body />
+    </>
+  );
+}
+
 
 export default CurrentUserProfile;

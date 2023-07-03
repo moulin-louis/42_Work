@@ -298,6 +298,7 @@ function Chat({
               <ModalOverlay onClose={() => setModal(ModalType.NOTVISIBLE)}>
                 <ChannelPassword
                   onClose={() => setModal(ModalType.NOTVISIBLE)}
+                  channel={toChannel}
                 />
               </ModalOverlay>
             )}
