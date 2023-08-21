@@ -1,47 +1,45 @@
 #include "libasm.h"
 
-void testing(int fd, const char *str, int size, int expected_errno, int expected_retval) {
+static void testing(int fd, const char *str, uint size, int expected_errno, long expected_retval) {
     static int x;
     bool result;
     errno = 0;
     char buff[100] = {0};
-    int retval = ft_read(fd, buff, size);
-    //first test
+    long retval = ft_read(fd, buff, size);
     result = (errno == expected_errno) ? true : false;
     handle_result(result, &x);
     char c = -1;
     read(fd, &c, 1);
     if (errno == 0) {
-        //second test
-        result = !memcmp(str, buff, size) ? true : false;
+        result = !memcmp(str, buff, size);
         cout << (result ? GREEN : RED);
-        cout << "Test " << x++ << ": " << (result ? "OK!" : "KO!") << " ";
-        //third test
-        result = (c == -1 || c == str[size]) ? true : false;
+		cout << "\tTest " << x++ << ": " << (result ? "OK!" : "KO!") << " ";
+        result = c == -1 || c == str[size];
         handle_result(result, &x);
     }
-        //4r test
-    result = (retval == expected_retval) ? true : false;
+    result = retval == expected_retval;
     handle_result(result, &x);
-    cout.flush();
+	cout.flush();
 }
 
 
 void test_read(void) {
-    cout << YELLOW << "Testing ft_read:" << RESET << endl;
+	char path_file[] = "./test_file";
+	char path_folder[] = "./src";
+	cout << YELLOW << "\tTesting ft_read:" << RESET << endl;
     signal(SIGPIPE, SIG_IGN);
-    int fd = open("./test_file", O_RDONLY);
-    testing(fd, "loumouli", 0, 0, 0); // test 0-1-2
+    int fd = open(path_file, O_RDONLY);
+    testing(fd, "loumouli", 0, 0, 0); //test 0,1,2,3
     close(fd);
-    fd = open("./test_file", O_RDONLY);
-    testing(fd, "loumouli", 3, 0, 3); // test 3-4-5
+    fd = open(path_file, O_RDONLY);
+    testing(fd, "loumouli", 3, 0, 3); //test 4,5,6,7
     close(fd);
-    fd = open("./test_file", O_RDONLY);
-    testing(fd, "loumouli", 8, 0, 8); // test 6-7-8
+    fd = open(path_file, O_RDONLY);
+    testing(fd, "loumouli", 8, 0, 8); //test 8,9,10,11
     close(fd);
-    testing(-1, "", 1, EBADF, -1); // test 9-10
-    fd = open("./libft", O_RDONLY);
-    testing(fd, "", 1, EISDIR, -1); //test11-12
+    testing(-1, "", 1, EBADF, -1); // test 12,13
+	fd = open(path_folder, O_RDONLY);
+    testing(fd, "", 1, EISDIR, -1); // test 14,15
     close(fd);
-    cout << endl;
+	cout << endl;
 }

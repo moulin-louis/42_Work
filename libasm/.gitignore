@@ -53,3 +53,7 @@ dkms.conf
 test_lib
 .vscode
 test_lib.S
+*/.idea
+.idea
+.nfs*
+test.c

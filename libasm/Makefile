@@ -4,8 +4,7 @@
 
 NAME		=	libasm.a
 NAME_TEST	=	test_lib
-## add library here (minilibx, ncurses, libft, ...)
-LIBDIR		=	
+LIBDIR		=
 INCLDIR		=	$(addsuffix /inc,$(LIBDIR) .)
 BUILDIR		=	build
 DEPDIR		=	$(BUILDIR)/.deps
@@ -35,21 +34,16 @@ DEP			=	$(SRC_ASM:%.s=$(DEPDIR)/%.d)
 
 ASM_COMP	=	nasm
 ASM_FLAGS	=	-f elf64 -wall -g -O0
-CXX			=	gcc
 CXXFLAGS	=	-g -O0 $(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MP -MF $(DEPDIR)/$*.d
 RM			=	/bin/rm -rf
 
 # FG COLORS
 DEFAULT		=	\033[0m
-BLACK		=	\033[1;30m
-RED			=	\033[1;31m
 GREEN		=	\033[1;32m
 YELLOW		=	\033[1;33m
 BLUE		=	\033[1;34m
-MAGENTA 	=	\033[1;35m
 CYAN 		=	\033[1;36m
-WHITE 		=	\033[1;107m
 
 # TERMCAPS
 UP			=	\033[1A
@@ -58,7 +52,6 @@ DELPREV		=	$(UP)$(DELETE)\r
 
 # EMOJI
 CHECK		=	\xE2\x9C\x94
-CROSS		=	\xE2\x9D\x8C
 
 # DISPLAY
 HEAD_SIZE	=	32
@@ -69,7 +62,7 @@ BODY_WIDTH	=	$(shell printf "$$(($(HEAD_SIZE) - 1))")
 ## Rules ##
 ###########
 
-.PHONY:			all bonus clean fclean header lib re verbose
+.PHONY:			all bonus clean fclean re debug
 
 all:
 				@$(MAKE) -s $(NAME)
@@ -106,6 +99,12 @@ fclean:			clean
 				@$(RM) $(BUILDIR) $(NAME)
 				@printf "$(DELPREV)Build directory and library deleted\n"
 				@$(MAKE) -C test_libasm --no-print-directory fclean
+
+debug:
+	@printf "$(YELLOW)Compiling libasm.a ...$(DEFAULT)\n"
+	@make libasm.a
+	@printf "$(YELLOW)Recompiling test_libasm ...$(DEFAULT)\n"
+	@make -C test_libasm -j6 re
 
 re:				fclean
 				@$(MAKE) -s all
