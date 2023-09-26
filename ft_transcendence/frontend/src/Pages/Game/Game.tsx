@@ -74,7 +74,7 @@ const PlayerBar = ({ width_div, height_div }: { width_div: number, height_div: n
     };
   }, []);
   useEffect(() => {
-    const intervalId: NodeJS.Timer = setInterval((): void => {
+    const intervalId = setInterval((): void => {
       if (keysRef.current.has('ArrowUp')) socket?.emit('Move', 'ArrowUp');
       if (keysRef.current.has('ArrowDown')) socket?.emit('Move', 'ArrowDown');
     }, 30);  // adjust interval as needed

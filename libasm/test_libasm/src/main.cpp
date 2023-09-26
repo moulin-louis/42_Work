@@ -1,5 +1,4 @@
 #include "libasm.h"
-#include <string.h>
 
 void handle_result(bool result, int *nbr_test) {
 	cout << (result ? GREEN : RED);
@@ -37,10 +36,10 @@ int main(int ac, char **av) {
 	if (bonus) {
 		cout << endl;
 		cout << "Bonus Part: " << endl;
-//		test_list_size();
-//		test_push_front();
-//		test_remove_if();
-//		test_list_sort();
+		test_list_size();
+		test_push_front();
+		test_remove_if();
+    test_list_sort();
 		test_atoi_base();
 	}
     if (!bonus && !mandatory)

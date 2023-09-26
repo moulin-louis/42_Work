@@ -2,10 +2,9 @@
 
 static void testing(int in, int out, char *src, uint size, int expected_errno, int expected_retval) {
     static int x;
-    bool result = true;
     errno = 0;
     long retval = ft_write(out, static_cast<char *>(src), size);
-    result = (errno == expected_errno) ? true : false;
+    bool result = errno == expected_errno;
     handle_result(result, &x);
     if (expected_errno == 0) {
         char dest[100];
@@ -24,7 +23,7 @@ static void testing(int in, int out, char *src, uint size, int expected_errno, i
     cout.flush();
 }
 
-void test_write(void) {
+void test_write() {
     cout << YELLOW << "\tTesting ft_write:" << RESET << endl;
 	char str_empty[] = "";
 	char str_test[] = "loumouli";

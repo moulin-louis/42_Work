@@ -7,9 +7,9 @@ static void testing(t_list *head, unsigned int expected_size) {
 	cout.flush();
 }
 
-void test_list_size(void) {
+void test_list_size() {
 	cout << YELLOW << "\tTesting ft_list_size:" << RESET << endl;
-    t_list *head = static_cast<t_list *>(calloc(sizeof(t_list), 1));
+    auto head = static_cast<t_list *>(calloc(sizeof(t_list), 1));
     testing(nullptr, 0); //Test 1
     testing(head, 1); // Test 2
     head->next = static_cast<t_list *>(calloc(sizeof(t_list), 1));

@@ -1,6 +1,6 @@
 #include "libasm.h"
 
-static void testing(string str1, string str2) {
+static void testing(const string& str1, const string& str2) {
     static int x;
 	bool result = false;
 	int of_result = strcmp(str1.c_str(), str2.c_str());
@@ -15,7 +15,7 @@ static void testing(string str1, string str2) {
     cout.flush();
 }
 
-void test_strcmp(void) {
+void test_strcmp() {
     cout << YELLOW << "\tTesting ft_strcmp:" << RESET << endl;
     // I just stole Tripouille test tbh
     testing("", ""); //test 0

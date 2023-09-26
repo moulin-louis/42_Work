@@ -15,7 +15,7 @@ using namespace std::chrono;
 
 typedef struct s_list
 {
-	void			*content;
+	uint64_t 		content;
 	struct s_list	*next;
 }					t_list;
 
@@ -28,29 +28,28 @@ extern "C" {
     unsigned long   ft_strlen(const char *ptr);
 	long			ft_write(int fd, char *buff, unsigned int size_buff);
     unsigned int    ft_list_size(t_list *head);
-    void            ft_list_push_front(t_list **head, void *data);
-	void			ft_remove_if(t_list **head, void *data_ref, int (*cmp)(void *, void *), void (*free_fct)(void *));
-	void			ft_list_sort(t_list **begin_list, int (*cmp)(void *, void *));
-	int 			ft_atoi_base(char *str, char *base);
+    void            ft_list_push_front(t_list **head, uint64_t data);
+	void			ft_list_remove_if(t_list **head, uint64_t data_ref, int (*cmp)(uint64_t, uint64_t), void (*free_fct)(uint64_t));
+	void			ft_list_sort(t_list **begin_list, int (*cmp)(uint64_t, uint64_t));
+	int 			ft_atoi_base(const char *str, const char *base);
 }
 
 // Test functions
-void            test_read(void);
-void            test_strlen(void);
-void			perf_strlen(void);
-void            test_strcmp(void);
-void            test_strcpy(void);
-void            test_strdup(void);
-void            test_write(void);
-void            test_list_size(void);
-void			test_push_front(void);
-void			test_remove_if(void);
-void			test_list_sort(void);
-void			test_atoi_base(void);
+void            test_read();
+void            test_strlen();
+void			perf_strlen();
+void            test_strcmp();
+void            test_strcpy();
+void            test_strdup();
+void            test_write();
+void            test_list_size();
+void			test_push_front();
+void			test_remove_if();
+void			test_list_sort();
+void			test_atoi_base();
 void            handle_result(bool result, int *);
-void			ft_push_back(t_list **head, void *data);
+void			ft_push_back(t_list **head, uint64_t data);
 
-#define        	get_time() duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()
 #define         RED "\033[0;31m"
 #define         GREEN "\033[0;32m"
 #define         YELLOW "\033[0;33m"

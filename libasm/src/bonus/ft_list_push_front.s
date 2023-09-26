@@ -11,8 +11,8 @@ ft_list_push_front: ;void	ft_list_push_front(t_list **beg_list($rdi), void *data
     push rsi
     mov edi, 0x10 ; load size with a value of 16
     call malloc wrt ..plt ; void *calloc(size_t nmenb, size_t size); alloc 1x16 so 16 octets
-    pop r8
-    pop r9
+    pop r8 ; r8 = old value of rsi
+    pop r9 ; r9 = old value of rdi
     mov QWORD [rax], r8 ; result->content = data;
     mov rdi, [r9] ; load the deref of head inside rdi
     mov QWORD [rax+8], rdi ; result->next = *head

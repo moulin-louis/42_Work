@@ -1,64 +1,73 @@
-;struct s_list {
-;   void    *content;
-;   s_list  *next;
-;} t_list;
-; sort the list based on the cmp function
 section .text
 	global ft_list_sort ;export ft_list_sort
 ft_list_sort: ; void ft_list_sort(t_list **head($rdi), int(*cmp)($rsi))
     push rbp ; save base stack pointer
     mov rbp, rsp ;update base pointer
-	sub rsp, 6 * 8 ; allocate space for 6 64 bits ptr
-	cmp rdi, 0x0
-	je .end_loop
-	mov QWORD [rsp], rdi ; store t_list **head
-	mov QWORD [rsp + 8], rsi ; store cmp fn
-	mov rdi, QWORD [rdi] ; deref head
-	mov QWORD [rsp + 16], rdi ; t_list *tmp = *head;
-	mov QWORD [rsp + 24], 0x0 ; t_list *node = NULL;
-	mov QWORD [rsp + 32], 0x0 ; void *data = 0;
+    sub rsp, 32 ; allocate 24 bytes for local variables
+    test rdi, rdi ; test if rdi is non-null
+	je	.end_fn ; jump if null
+    test rsi, rsi ; test if rsi is non-null
+	je	.end_fn ; jump if null
+    mov QWORD [rsp], rdi ;  t_list **save = head;
+    mov rdi, QWORD [rdi] ; deref head
+    test rdi, rdi
+    je .end_fn
+    mov QWORD [rsp + 8], rdi ; t_list *head_save = *head
+    mov QWORD [rsp + 16], 0x0 ; uint64_t data = 0
+    mov QWORD [rsp + 24], rsi ; save cmp into the stack
 .start_loop:
-    mov rax, QWORD [rsp+16] ; load tmp
-    cmp rax, 0x0 ; check if tmp if NULL
-    je .end_loop ; jump if its NULL
-    mov rax, QWORD [rsp+16] ; load tmp
-    mov rax, QWORD [rax+8] ; load tmp->next
-    mov QWORD [rsp+24], rax; node = tmp->next
-.start_2nd_loop:
-    mov rax, QWORD [rsp+24] ; load node
-    cmp rax, 0x0 ; compare node with NULL
-    je .end_2nd_loop ; jump if its NULL
-    mov rdi, QWORD [rsp+16] ; load tmp->content
-    mov rdi, QWORD [rdi] ; load value of tmp->content
-    mov rsi, QWORD [rsp+24] ; load node->content
-    mov rsi, QWORD [rsi] ; load value of node->content
-    call QWORD [rsp+8] ; call cmp fn
-    cmp rax, 0x0 ; compare return value with 0
-    jl .end_if
-    mov rax, QWORD [rsp+16] ; load tmp->content
-    mov rax, QWORD [rax] ; load value of tmp->content
-    mov QWORD [rsp+32], rax ; data = tmp->content
-
-    mov rax, QWORD [rsp+16] ; load tmp->content
-    mov rdi, QWORD [rsp+24] ; load node->content
-    mov rdi, QWORD [rdi] ; load value of node->content
-    mov [rax], rdi ; tmp->content = node->content
-
-    mov rax, QWORD [rsp+24] ; load node->content
-    mov rdi, QWORD [rsp+32] ; load data;
-    mov [rax], rdi; ; node->content = data;
-.end_if:
-    mov rax, QWORD [rsp+24] ; load node
-    mov rax, QWORD [rax+8] ; load value of node->next
-    mov QWORD [rsp+24], rax ; node = node->next
-    jmp .start_2nd_loop
-.end_2nd_loop:
-    mov rax, QWORD [rsp+16] ; load tmp
-    mov rax, QWORD [rax+8] ; load value of tmp->next
-    mov QWORD [rsp+16], rax ;tmp = tmp->next
-    jmp .start_loop
+    mov rdi, QWORD [rsp] ; load head
+    mov rdi, QWORD [rdi] ; deref head
+    mov rdi, QWORD [rdi + 8] ; load value of (*head)->next
+    cmp rdi, 0x0 ; check if null
+    jle .end_loop ; jump if null
+    mov rdi, QWORD [rsp] ; load head
+    mov rdi, QWORD [rdi] ; deref head
+    mov rdi, QWORD [rdi]
+    mov rsi, QWORD [rsp] ; load head
+    mov rsi, QWORD [rsi] ; deref head
+    mov rsi, QWORD [rsi + 8] ; load value of (*head)->next->value
+    mov rsi, QWORD [rsi]
+    call QWORD [rsp + 24] ; call cmp((*head)->data, (*head)->next->data)
+    cmp eax, 0 ; compare rax with 0
+    jg .swap_data ; jump if cmp return value above 0
+    mov rdi, QWORD [rsp] ; load head
+    mov rsi, QWORD [rsp] ; load head
+    mov rsi, QWORD [rsi]
+    mov rsi, QWORD [rsi+8]
+    mov QWORD [rdi], rsi ; *head = (*head)->next
+    jmp .start_loop ; start over the loop
+.swap_data:
+    ; 1/4
+    mov rdi, QWORD [rsp] ; load head
+    mov rdi, QWORD [rdi] ; deref head
+    mov rdi, QWORD [rdi] ; load value of (*head)->data
+    mov QWORD [rsp + 16], rdi ; data = (*head)->data
+    ; 2/4
+    mov rdi, QWORD [rsp] ; load head
+    mov rdi, QWORD [rdi] ; deref head
+    mov rsi, QWORD [rsp]
+    mov rsi, QWORD [rsi]
+    mov rsi, QWORD [rsi+8]
+    mov rsi, QWORD [rsi]
+    mov QWORD [rdi], rsi
+    ; 3/4
+    mov rdi, QWORD [rsp] ; load head
+    mov rdi, QWORD [rdi] ; deref head
+    mov rdi, QWORD [rdi+8]
+    mov rsi, QWORD [rsp + 16] ; load value of data
+    mov QWORD [rdi], rsi ; (*head)->next->data = data;
+    ; 4/4
+    mov rdi, QWORD [rsp] ; load head
+    mov rsi, QWORD [rsp + 8] ; load head_save
+    mov QWORD [rdi], rsi ; *head = head_save
+    jmp .start_loop ; start over the loop
 .end_loop:
-    add rsp, 6 * 8;clean the stackF
+    mov rdi, QWORD [rsp] ; load head
+    mov rsi, QWORD [rsp + 8] ; load head_save
+    mov QWORD [rdi], rsi ; *head = head_save
+.end_fn:
+    add rsp, 32 ; clean the stack
     pop rbp ;update base pointer to the old one saved
 	ret ; exiting the function
 

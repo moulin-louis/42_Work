@@ -25,7 +25,7 @@ SRC_ASM		=	$(addprefix src/,			\
 						ft_list_push_front.s\
 						ft_list_size.s		\
 						ft_list_sort.s		\
-						ft_remove_if.s		\
+						ft_list_remove_if.s		\
 					)						\
 				)
 
@@ -33,8 +33,8 @@ OBJ			=	$(SRC_ASM:%.s=$(BUILDIR)/%.o)
 DEP			=	$(SRC_ASM:%.s=$(DEPDIR)/%.d)
 
 ASM_COMP	=	nasm
-ASM_FLAGS	=	-f elf64 -wall -g -O0
-CXXFLAGS	=	-g -O0 $(addprefix -I, $(INCLDIR))
+ASM_FLAGS	=	-felf64 -wall -g -O0
+CXXFLAGS	=	-gdbg -O0 $(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MP -MF $(DEPDIR)/$*.d
 RM			=	/bin/rm -rf
 
@@ -62,7 +62,7 @@ BODY_WIDTH	=	$(shell printf "$$(($(HEAD_SIZE) - 1))")
 ## Rules ##
 ###########
 
-.PHONY:			all bonus clean fclean re debug
+.PHONY:			all bonus clean fclean header lib re verbose
 
 all:
 				@$(MAKE) -s $(NAME)
@@ -100,11 +100,7 @@ fclean:			clean
 				@printf "$(DELPREV)Build directory and library deleted\n"
 				@$(MAKE) -C test_libasm --no-print-directory fclean
 
-debug:
-	@printf "$(YELLOW)Compiling libasm.a ...$(DEFAULT)\n"
-	@make libasm.a
-	@printf "$(YELLOW)Recompiling test_libasm ...$(DEFAULT)\n"
-	@make -C test_libasm -j6 re
+bonus: all
 
 re:				fclean
 				@$(MAKE) -s all

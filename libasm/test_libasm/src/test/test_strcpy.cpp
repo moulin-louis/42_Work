@@ -1,6 +1,6 @@
 #include "libasm.h"
 
-static void testing(string src) {
+static void testing(const string& src) {
     static int x;
     bool result = true;
     char *dest = static_cast<char *>(malloc(ft_strlen(src.c_str()) + 10));
@@ -12,7 +12,7 @@ static void testing(string src) {
 	cout.flush();
 }
 
-void test_strcpy(void) {
+void test_strcpy() {
 	cout << YELLOW << "\tTesting ft_strcpy:" << RESET << endl;
     testing("Bonjour"); // Test 0
     testing("123"); // Test 1

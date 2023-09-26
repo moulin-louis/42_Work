@@ -1,6 +1,6 @@
 #include "libasm.h"
 
-static void testing(string src) {
+static void testing(const string& src) {
     static int x;
     char *dest = ft_strdup(src.c_str());
     if (!dest) {
@@ -13,7 +13,7 @@ static void testing(string src) {
     free(dest);
 }
 
-void test_strdup(void) {
+void test_strdup() {
 	cout << YELLOW << "\tTesting ft_strdup:" << RESET << endl;
     testing("Bonjour"); // Test 0
     testing("123"); // Test 1

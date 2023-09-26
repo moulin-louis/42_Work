@@ -27,7 +27,7 @@ SRC			=	$(addprefix src/,			\
 OBJ			=	$(SRC:%.cpp=$(BUILDIR)/%.o)
 DEP			=	$(SRC:%.cpp=$(DEPDIR)/%.d)
 CXX			=	clang++
-CXXFLAGS	=	-g -O0 -Wall -Werror -Wextra -stdlib=libc++ -pedantic -fsanitize=address -fsanitize=undefined
+CXXFLAGS	=	-O0 -g3 -Wall -Werror -Wextra -fsanitize=address
 CPPFLAGS	=	$(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 RM			=	/bin/rm -rf
@@ -90,5 +90,7 @@ fclean:			clean
 				@printf "$(DELPREV)Build directory and binary deleted\n"
 
 re:				fclean
+				make -C .. fclean
+				make -C .. libasm.a
 				@$(MAKE) -s all
 

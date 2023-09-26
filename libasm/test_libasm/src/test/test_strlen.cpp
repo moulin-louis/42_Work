@@ -1,6 +1,6 @@
 #include "libasm.h"
 
-static void testing(string str) {
+static void testing(const string& str) {
 	static int x;
 	bool result = strlen(str.c_str()) == ft_strlen(str.c_str());
 	handle_result(result, &x);
@@ -14,7 +14,7 @@ static long libft_ft_strlen(const char *ptr) {
 	return (ptr - start);
 }
 
-void perf_strlen(void) {
+void perf_strlen() {
 	char str[] = "Hello World!";
 	int i = 0;
 	clock_t start, end;
@@ -42,7 +42,7 @@ void perf_strlen(void) {
 	cout << "\t\tlibft_strlen took " << cpu_time_used << " seconds to execute \n";
 }
 
-void test_strlen(void) {
+void test_strlen() {
 	cout << YELLOW << "\tTesting ft_strlen:" << RESET << endl;
 	testing(""); //Test 0
 	testing("Salut tout le monde"); // Test 1

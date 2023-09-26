@@ -6,7 +6,7 @@ static void testing(int fd, const char *str, uint size, int expected_errno, long
     errno = 0;
     char buff[100] = {0};
     long retval = ft_read(fd, buff, size);
-    result = (errno == expected_errno) ? true : false;
+    result = errno == expected_errno;
     handle_result(result, &x);
     char c = -1;
     read(fd, &c, 1);
@@ -23,7 +23,7 @@ static void testing(int fd, const char *str, uint size, int expected_errno, long
 }
 
 
-void test_read(void) {
+void test_read() {
 	char path_file[] = "./test_file";
 	char path_folder[] = "./src";
 	cout << YELLOW << "\tTesting ft_read:" << RESET << endl;
