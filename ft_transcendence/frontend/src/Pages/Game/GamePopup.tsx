@@ -77,8 +77,8 @@ function PopupNewGame({
     // Define game skins
     const gameSkins = [
         { id: 'retro', name: 'Retro Arcade' },
-        { id: 'neon', name: 'Neon Nights' },
-        { id: 'abstract', name: 'Abstract Art' },
+        // { id: 'neon', name: 'Neon Nights' },
+        // { id: 'abstract', name: 'Abstract Art' },
     ];
 
     // Define wins options

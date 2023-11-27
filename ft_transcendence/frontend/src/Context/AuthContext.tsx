@@ -143,7 +143,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, [user]);
 
-  const foo = 42;
   const value = useMemo(() => ({
     accessToken,
     setAccessToken,

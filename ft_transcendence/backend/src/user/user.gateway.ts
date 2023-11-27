@@ -162,6 +162,13 @@ export class UserGateway {
       confirmPassword,
     }: { userId: string; password: string; confirmPassword: string },
   ): Promise<boolean | User> {
+    const passwordPattern = /((?=.\d)|(?=.\W+))(?![.\n])(?=.[A-Z])(?=.[a-z]).*$/;
+    if (!passwordPattern.test(password)){
+      return socket.emit('notification', {
+        type: NotificationType.Error,
+        message: 'Passwords must have at least one lowercase letter, one uppercase letter, one digit, and one special character',
+      });
+    }
     if (password !== confirmPassword)
       return socket.emit('notification', {
         type: NotificationType.Error,
