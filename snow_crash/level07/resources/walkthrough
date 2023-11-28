@@ -1,0 +1,5 @@
+copy files into /tmp (don't forget rights)
+
+binary print $LOGNAME env var so we replace it
+
+execute /tmp/level07.sh

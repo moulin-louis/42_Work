@@ -1,0 +1,2 @@
+copy files into /tmp (don't forget rights)
+execute /tmp/level04.sh

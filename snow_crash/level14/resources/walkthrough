@@ -1,0 +1,6 @@
+ghidra getflag if needed
+gdb /bin/getflag
+break ptrace
+break getuid
+set $eax to 0 after ptrace
+set $eax to desired uid (here it is 3014) to get corresponding flag

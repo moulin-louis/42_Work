@@ -1,0 +1,3 @@
+copy files into /tmp on vm (don't forget rights on both)
+execute /tmp/level12.sh
+cat /tmp/level12 for flag

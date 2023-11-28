@@ -1,0 +1,4 @@
+find / -user flag05 2>/dev/null: script
+find / -name level05 2>/dev/null: cronjob that executes script
+copy script into /opt/openarenaserver/ (don't forget rights)
+cat level05 for flag

@@ -1,0 +1,10 @@
+scp -P 4243 level02@localhost:/home/user/level02/level02.pcap ~/snow_crash
+
+wireshark
+
+there is a login and password transmitted
+
+hex login: 6c 65 76 65 6c 58 0d => levelX
+hex pw: 66 74 5f 77 61 6e 64 72 7f 7f 7f 4e 44 52 65 6c 7f 4c 30 4c 0d => ft_wandrNDRelL0L
+
+7f is del so result is ft_waNDReL0L

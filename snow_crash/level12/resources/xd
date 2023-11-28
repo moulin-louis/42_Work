@@ -1,0 +1,3 @@
+#!/bin/bash
+
+getflag > /tmp/level12

@@ -1,0 +1,7 @@
+if needed ghidra level13
+
+gdb ./level13
+break getuid
+step
+check eax and set it to 4242
+continue
