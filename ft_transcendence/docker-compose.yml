@@ -21,16 +21,5 @@ services:
    - ft_transcendence
   restart: always
 
- database_gui:
-  container_name: database_gui
-  depends_on:
-   - database
-  image: adminer
-  networks:
-   - ft_transcendence
-  ports:
-   - 8080:8080
-  restart: always
-
 networks:
   ft_transcendence:
